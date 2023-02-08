@@ -40,7 +40,7 @@ namespace SqyMathLibrary {
 		}
 	}
 
-	MathOperator* MathOperatorMap::GetMathOperator(std::string key) {
+	MathOperator* MathOperatorMap::GetMathOperator(std::string key){
 		//销毁对应的运算符类对象
 		if (this->m_Map.find(key) != this->m_Map.end()) {
 			return m_Map[key];
