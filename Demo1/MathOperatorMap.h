@@ -31,7 +31,7 @@ namespace SqyMathLibrary {
 
     public: //类默认方法
         static MathOperatorMap* GetInstance(); //获取类对象实例
-        ~MathOperatorMap();
+        
 
     public:  //基本接口
         bool Register(std::string key, MathOperator* val);  //注册运算符，实现key-value的映射，运算符已存在-返回false
@@ -47,19 +47,27 @@ namespace SqyMathLibrary {
         MathOperatorMap();
         MathOperatorMap(const MathOperatorMap&) {};
         MathOperatorMap& operator=(const MathOperatorMap&) {};
+        ~MathOperatorMap();  //析构函数私有，外部不能直接delete该对象
+        
         
     private:
-        static MathOperatorMap* m_Instance;  //对象实例
+        static MathOperatorMap* m_Instance;  //对象实例指针
         std::unordered_map< std::string, MathOperator* > m_Map; //运算符类对象与运算符字符串的映射
+        
 
-    };
-
-    //仅作销毁运算符映射类，无其他功能
-    class DestroyMathOperatorMap {
-    public:
-        ~DestroyMathOperatorMap() {
-            delete MathOperatorMap::GetInstance();  //该对象析构时会释放运算符映射类对象
-        }
+    //该单例对象在堆中创建，必须显式delete才能调用析构函数并释放内存
+    private: //保证单例对象在程序结束时可以从堆中释放,声明为私有，保证不会被外部释放
+        //该类仅作释放单例对象的辅助作用
+        class ExitInstance {
+        public:
+            ~ExitInstance() {
+                if (MathOperatorMap::m_Instance != NULL) {
+                    delete MathOperatorMap::m_Instance;  //析构函数中析构单例对象
+                }
+            }
+        };
+        static ExitInstance m_exit;  //类静态变量，程序结束自动析构
+        
     };
 }
 

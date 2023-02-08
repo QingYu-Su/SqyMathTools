@@ -2,8 +2,9 @@
 
 namespace SqyMathLibrary {
 
+	//初始化类静态对象
 	MathOperatorMap* MathOperatorMap::m_Instance = new MathOperatorMap();
-	DestroyMathOperatorMap destroyMathOperatorMap;
+	MathOperatorMap::ExitInstance MathOperatorMap::m_exit = MathOperatorMap::ExitInstance();
 
 	MathOperatorMap* MathOperatorMap::GetInstance() {
 		return m_Instance;
