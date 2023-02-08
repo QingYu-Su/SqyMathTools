@@ -32,6 +32,7 @@ namespace SqyMathLibrary {
 	}
 
 	MathOperatorMap::~MathOperatorMap() {
+		//销毁对应的运算符类对象
 		std::unordered_map< std::string, MathOperator* >::iterator it;
 		for ( it = this->m_Map.begin(); it != this->m_Map.end(); it++) {
 			delete it->second;
@@ -39,6 +40,7 @@ namespace SqyMathLibrary {
 	}
 
 	MathOperator* MathOperatorMap::GetMathOperator(std::string key) {
+		//销毁对应的运算符类对象
 		if (this->m_Map.find(key) != this->m_Map.end()) {
 			return m_Map[key];
 		}
@@ -46,6 +48,7 @@ namespace SqyMathLibrary {
 	}
 
 	bool MathOperatorMap::Register(std::string key, MathOperator* val) {
+		//销毁对应的运算符类对象
 		if (this->m_Map.find(key) != this->m_Map.end()) {
 			return false;
 		}
@@ -54,6 +57,7 @@ namespace SqyMathLibrary {
 	}
 
 	void MathOperatorMap::Destroy(std::string key) {
+		//销毁对应的运算符类对象
 		if (this->m_Map.find(key) == this->m_Map.end()) {
 			return;
 		}
