@@ -35,11 +35,11 @@ namespace SqyMathLibrary {
 
         //获取类数据成员
         std::string GetSymbol() const;
-        int GetOperand() const;
+        int GetCount() const;
         int GetPriority() const;
 
     protected:
-        void SetResult( bool res, std::string reason = "" );  //设置运算结果
+        void SetResult( bool res, std::string reason = "" );  //设置运算成功与否
 
     private:  //类数据成员
         const std::string m_Symbol;  //运算符符号

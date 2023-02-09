@@ -20,6 +20,16 @@ namespace SqyMathLibrary {
 		return this->m_Error;
 	}
 
+	std::string MathOperator::GetSymbol() const {
+		return this->m_Symbol;
+	}
+	int MathOperator::GetCount() const {
+		return this->m_OptCount;
+	}
+	int MathOperator::GetPriority() const {
+		return this->m_Priority;
+	}
+
 	void MathOperator::SetResult(bool res, std::string reason) {
 		this->m_Success = res;
 		this->m_Error = reason;

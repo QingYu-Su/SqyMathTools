@@ -133,6 +133,7 @@
     <ClInclude Include="MathOperatorMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathOperator.cpp" />
     <ClCompile Include="MathOperatorMap.cpp" />

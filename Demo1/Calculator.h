@@ -27,24 +27,30 @@ namespace SqyMathLibrary {
         //Calculator(const Calculator&) {};
         //Calculator& operator=(const Calculator&) {};
 
-    public:
-        OPERAND Calculate(const std::vector<std::string> &expression);
+    public:  //基本接口
+        //计算综合表达式，参数为运算符与运算数分离的字符串数组，返回运算结果
+        OPERAND Calculate(const std::vector<std::string> &expression);  
         bool IsSuccess() const;  //运算是否成功
         std::string GetError() const;  //获取运算失败原因
 
-    private:
-        bool IsNum( const std::string &s) const;
-        bool IsOperator(const std::string &s) const;
-        OPERAND GetNum(const std::string &s) const;
-        MathOperator* GetMathOperator(const std::string &s) const;
-        bool Operate();
-        void SetResult(bool res, std::string reason = "");  //设置运算结果
-        OPERAND Reset(); //清空计算器
+    private:  //私有接口
+        bool IsNum( const std::string &s) const;  //是否为数字
+        bool IsOperator(const std::string &s) const;  //是否为运算符
+
+        OPERAND GetNum(const std::string &s) const;  //将字符串转化为数字
+        MathOperator* GetMathOperator(const std::string &s) const;  //获取运算符类对象
+
+        void SetResult(bool res, std::string reason = "");  //设置表达式运算成功与否
+        void Reset(); //清空计算器栈中内容
+        
+        void Operate();  //进行单次运算符运算，结果会存放在栈中
+        void OptTackle( MathOperator* opt); //识别运算符并做相应处理
+        
 
         
     private:
-        std::stack<OPERAND> m_Nums;
-        std::stack<MathOperator*> m_MathOpts;
+        std::stack<OPERAND> m_Nums;  //数字栈
+        std::stack<MathOperator*> m_MathOpts;  //运算符栈
         bool m_Success;  //上一次运算的结果
         std::string m_Error;  //若上一次运算失败，会保存上一次运算失败的原因
     
