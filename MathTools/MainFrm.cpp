@@ -5,6 +5,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "MathTools.h"
+#include "CCalculatorDialog.h"
 
 #include "MainFrm.h"
 
@@ -18,6 +19,7 @@ IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
+	ON_COMMAND(ID_MENU_CALCULATOR, &CMainFrame::OnMenuCalculator)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -81,3 +83,10 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 // CMainFrame 消息处理程序
 
+
+
+void CMainFrame::OnMenuCalculator()
+{
+	CCalculatorDialog dlg;
+	dlg.DoModal();
+}

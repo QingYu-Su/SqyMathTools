@@ -183,9 +183,13 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Calculator.h" />
     <ClInclude Include="CCalculatorDialog.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MathDef.h" />
+    <ClInclude Include="MathOperator.h" />
+    <ClInclude Include="MathOperatorMap.h" />
     <ClInclude Include="MathTools.h" />
     <ClInclude Include="MathToolsDoc.h" />
     <ClInclude Include="MathToolsView.h" />
@@ -194,7 +198,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCalculatorDialog.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MathTools.cpp" />
     <ClCompile Include="MathToolsDoc.cpp" />

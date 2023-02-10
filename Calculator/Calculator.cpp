@@ -1,27 +1,27 @@
 ﻿
-// Demo2.cpp: 定义应用程序的类行为。
+// Calculator.cpp: 定义应用程序的类行为。
 //
 
 #include "pch.h"
 #include "framework.h"
-#include "Demo2.h"
-#include "CCalculatorDlg.h"
+#include "Calculator.h"
+#include "CalculatorDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 
-// CDemo2App
+// CCalculatorApp
 
-BEGIN_MESSAGE_MAP(CDemo2App, CWinApp)
+BEGIN_MESSAGE_MAP(CCalculatorApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 
-// CDemo2App 构造
+// CCalculatorApp 构造
 
-CDemo2App::CDemo2App()
+CCalculatorApp::CCalculatorApp()
 {
 	// 支持重新启动管理器
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
@@ -31,14 +31,14 @@ CDemo2App::CDemo2App()
 }
 
 
-// 唯一的 CDemo2App 对象
+// 唯一的 CCalculatorApp 对象
 
-CDemo2App theApp;
+CCalculatorApp theApp;
 
 
-// CDemo2App 初始化
+// CCalculatorApp 初始化
 
-BOOL CDemo2App::InitInstance()
+BOOL CCalculatorApp::InitInstance()
 {
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
 	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，

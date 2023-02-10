@@ -18,19 +18,13 @@
     <ClInclude Include="Demo2.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CCalculatorDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MainFrm.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Demo2Doc.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Demo2View.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -39,18 +33,24 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Calculator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MathDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MathOperator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MathOperatorMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Demo2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MainFrm.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Demo2Doc.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Demo2View.cpp">
+    <ClCompile Include="CCalculatorDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -68,9 +68,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\Demo2Doc.ico">
-      <Filter>资源文件</Filter>
-    </Image>
     <Image Include="res\Demo2.ico">
       <Filter>资源文件</Filter>
     </Image>

@@ -1,5 +1,5 @@
 ﻿
-// Demo2.h: PROJECT_NAME 应用程序的主头文件
+// Calculator.h: PROJECT_NAME 应用程序的主头文件
 //
 
 #pragma once
@@ -11,14 +11,14 @@
 #include "resource.h"		// 主符号
 
 
-// CDemo2App:
-// 有关此类的实现，请参阅 Demo2.cpp
+// CCalculatorApp:
+// 有关此类的实现，请参阅 Calculator.cpp
 //
 
-class CDemo2App : public CWinApp
+class CCalculatorApp : public CWinApp
 {
 public:
-	CDemo2App();
+	CCalculatorApp();
 
 // 重写
 public:
@@ -29,4 +29,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CDemo2App theApp;
+extern CCalculatorApp theApp;

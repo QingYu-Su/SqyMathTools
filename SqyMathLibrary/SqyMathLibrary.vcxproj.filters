@@ -15,22 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Calculator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathOperator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathDef.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathOperatorMap.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Calculator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MathOperator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MathOperatorMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Calculator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MathDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MathOperator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MathOperatorMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

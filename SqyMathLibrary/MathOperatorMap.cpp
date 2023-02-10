@@ -1,4 +1,4 @@
-#include "MathOperatorMap.h"
+#include "./include/MathOperatorMap.h"
 
 namespace SqyMathLibrary {
 
@@ -12,7 +12,7 @@ namespace SqyMathLibrary {
 
 	MathOperatorMap::MathOperatorMap() {
 		//Ä¬ÈÏÔËËã·û×¢²á
-		this->Register("+", new Plus);
+		/*this->Register("+", new Plus);
 		this->Register("-", new Minus);
 		this->Register("*", new Multiply);
 		this->Register("/", new Divide);
@@ -26,10 +26,28 @@ namespace SqyMathLibrary {
 		this->Register("sqrt", new Sqrt);
 		this->Register("log", new Log);
 		this->Register("ln", new Ln);
-		this->Register("1/x", new Reciprocal);
-		this->Register("!", new Factorial);
-		this->Register("+/-", new Negative);
-		this->Register("abs", new Abs);
+		this->Register("rec", new Reciprocal);
+		this->Register("fact", new Factorial);
+		this->Register("neg", new Negative);
+		this->Register("abs", new Abs);*/
+		this->Register(new Plus);
+		this->Register(new Minus);
+		this->Register(new Multiply);
+		this->Register(new Divide);
+		this->Register(new Left);
+		this->Register(new Right);
+		this->Register(new Pow);
+		this->Register(new Mod);
+		this->Register(new Sin);
+		this->Register(new Cos);
+		this->Register(new Tan);
+		this->Register(new Sqrt);
+		this->Register(new Log);
+		this->Register(new Ln);
+		this->Register(new Reciprocal);
+		this->Register(new Factorial);
+		this->Register(new Negative);
+		this->Register(new Abs);
 	}
 
 	MathOperatorMap::~MathOperatorMap() {

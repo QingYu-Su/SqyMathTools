@@ -1,6 +1,6 @@
-#include "MathOperator.h"
 #include <iostream>
 #include "Calculator.h"
+#pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 using namespace SqyMathLibrary;
 using namespace std;
 

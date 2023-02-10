@@ -1,4 +1,4 @@
-#include "Calculator.h"
+#include "./include/Calculator.h"
 
 namespace SqyMathLibrary {
 
@@ -16,6 +16,8 @@ namespace SqyMathLibrary {
 	}
 
 	bool Calculator::IsNum(const std::string& s) const{
+		if (s == "e" || s == "pi") return true;
+
 		int dot = 0;
 		for (int i = 0; i < s.size(); i++) {
 			if (s[i] == '.') {
@@ -36,6 +38,8 @@ namespace SqyMathLibrary {
 	}
 
 	OPERAND Calculator::GetNum(const std::string& s) const{
+		if (s == "e") return E;
+		if (s == "pi") return PI;
 		return stod(s);  //调用标准库函数
 	}
 
@@ -54,6 +58,7 @@ namespace SqyMathLibrary {
 	}
 
 	void Calculator::Operate() {
+		this->SetResult(true);  //初始化运算结果
 		if (this->m_MathOpts.empty() == true) {
 			this->SetResult(false, "缺少运算符");
 			return;
@@ -61,6 +66,12 @@ namespace SqyMathLibrary {
 
 		MathOperator* opt = this->m_MathOpts.top();
 		this->m_MathOpts.pop();
+
+		//此时运算符号栈中不应该有左括号
+		if (opt->GetSymbol() == "(") { 
+			this->SetResult(false, "括号数不匹配");
+			return;
+		}
 
 		//运算数不符合运算符目数
 		if (this->m_Nums.size() < opt->GetCount()) {
@@ -83,7 +94,7 @@ namespace SqyMathLibrary {
 	}
 
 	void Calculator::OptTackle(MathOperator* opt) {
-
+		this->SetResult(true);  //初始化运算结果
 		if (opt->GetSymbol() == "(") { //左括号直接压栈
 			this->m_MathOpts.push(opt);
 			return;
@@ -123,8 +134,15 @@ namespace SqyMathLibrary {
 
 
 	OPERAND Calculator::Calculate(const std::vector<std::string>& expression) {
+		this->SetResult(true);  //初始化运算结果
 		//遍历
 		for (int i = 0; i < expression.size(); i++) {
+
+			if (i > 0 && expression[i - 1] == "(" && expression[i] == ")") {
+				this->SetResult(false, "括号里不允许为空");
+				this->Reset();
+				return 0;
+			}
 
 			if (this->IsNum(expression[i]) == true) {  //数字
 				this->m_Nums.push(this->GetNum(expression[i])); //直接压栈

@@ -1,13 +1,14 @@
 ﻿//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ 生成的包含文件。
-// 供 Demo2.rc 使用
+// 供 Calculator.rc 使用
 //
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
 #define IDR_MAINFRAME                   128
+#define IDD_CALCULATOR_DLG              311
 #define IDD_CALCULATOR_DIALOG           311
-#define IDC_EDIT_HISTROY                1005
+#define IDC_EDIT_SECOND                 1005
 #define IDC_EQUAL                       1006
 #define IDC_CALC_DOT                    1012
 #define IDC_NEGATIVE                    1014
@@ -41,8 +42,7 @@
 #define IDC_FACTORIAL                   1071
 #define IDC_RECIPROAL                   1072
 #define IDC_ALLCLEAR                    1073
-#define IDC_EDIT_CURRENT                1074
-#define IDC_ABS                         1076
+#define IDC_EDIT_FIRST                  1074
 
 // Next default values for new objects
 // 
