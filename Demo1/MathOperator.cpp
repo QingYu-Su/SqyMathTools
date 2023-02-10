@@ -2,7 +2,6 @@
 
 namespace SqyMathLibrary {
 
-	/*************************************MathOperator****************************************/
 
 	//¹¹Ôì
 	MathOperator::MathOperator(const std::string symbol, const int optCount, const int priority) 
@@ -35,7 +34,6 @@ namespace SqyMathLibrary {
 		this->m_Error = reason;
 	}
 
-	/*************************************************************************************/
 
 	//ÔËËã·û¡°+¡±
 	Plus::Plus() 

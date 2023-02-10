@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo1", "Demo1\Demo1.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MFCApplication1", "MFCApplication1\MFCApplication1.vcxproj", "{1767B99D-47F9-4047-A224-E0D9B8E81883}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathTools", "MathTools\MathTools.vcxproj", "{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{1767B99D-47F9-4047-A224-E0D9B8E81883}.Release|x64.Build.0 = Release|x64
 		{1767B99D-47F9-4047-A224-E0D9B8E81883}.Release|x86.ActiveCfg = Release|Win32
 		{1767B99D-47F9-4047-A224-E0D9B8E81883}.Release|x86.Build.0 = Release|Win32
+		{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}.Debug|x64.ActiveCfg = Debug|x64
+		{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}.Debug|x64.Build.0 = Debug|x64
+		{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}.Debug|x86.ActiveCfg = Debug|Win32
+		{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}.Debug|x86.Build.0 = Debug|Win32
+		{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}.Release|x64.ActiveCfg = Release|x64
+		{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}.Release|x64.Build.0 = Release|x64
+		{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}.Release|x86.ActiveCfg = Release|Win32
+		{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
