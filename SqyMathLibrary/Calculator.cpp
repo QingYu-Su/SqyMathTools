@@ -17,6 +17,7 @@ namespace SqyMathLibrary {
 
 	bool Calculator::IsNum(const std::string& s) const{
 		if (s == "e" || s == "pi") return true;
+		if (s == ".") return false;
 
 		int dot = 0;
 		for (int i = 0; i < s.size(); i++) {
