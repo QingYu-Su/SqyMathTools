@@ -192,19 +192,19 @@ HCURSOR CCalculatorDlg::OnQueryDragIcon()
 }
 
 bool CCalculatorDlg::IsNewNum() {
-	if (this->m_Expression.empty()) return true;
-	if (SML::GET_MATH_OPERATOR(this->m_Expression.back()) != NULL) return true;
+	if (this->m_Expression.empty()) return true;  //空表达式
+	if (SML::GET_MATH_OPERATOR(this->m_Expression.back()) != NULL) return true; //前一个占位符为运算符
 	return false;
 }
 
 void CCalculatorDlg::OnBnClickedNum0()
 {
 	UpdateData();
-	this->m_Current += "0";
-	if (IsNewNum() == true) {
+	this->m_Current += "0";  //当前编辑框添加字符
+	if (IsNewNum() == true) {  //新数字-在表达式数组添加新元素
 		this->m_Expression.push_back("0");
 	}
-	else {
+	else {  //非新数字-在表达式数组最后一个元素添加数字
 		this->m_Expression[m_Expression.size() - 1] += "0";
 	}
 	UpdateData(false);
@@ -215,7 +215,7 @@ void CCalculatorDlg::OnBnClickedNum1()
 {
 	UpdateData();
 	this->m_Current += "1";
-	if (IsNewNum() == true) {
+	if (IsNewNum() == true) { 
 		this->m_Expression.push_back("1");
 	}
 	else {
@@ -339,7 +339,7 @@ void CCalculatorDlg::OnBnClickedNum9()
 
 void CCalculatorDlg::OnBnClickedCalcDot()
 {
-	UpdateData();
+	UpdateData();  //小数点也按照数字模式添加
 	this->m_Current += ".";
 	if (IsNewNum() == true) {
 		this->m_Expression.push_back(".");
@@ -351,6 +351,7 @@ void CCalculatorDlg::OnBnClickedCalcDot()
 }
 
 
+//运算符“+”
 void CCalculatorDlg::OnBnClickedPlus()
 {
 	UpdateData();
@@ -359,16 +360,20 @@ void CCalculatorDlg::OnBnClickedPlus()
 	UpdateData(false);
 }
 
-
+//运算符“-”
 void CCalculatorDlg::OnBnClickedMinus()
 {
 	UpdateData();
+	//若减号前无元素或为括号，则需要在减号前加不可见0“zero”，方便如-3+（-7）之类的计算
+	if (this->m_Expression.empty() || this->m_Expression.back() == "(") {
+		this->m_Expression.push_back("zero");   //不可见0不会显示在编辑框中
+	}
 	this->m_Current += "-";
 	this->m_Expression.push_back("-");
 	UpdateData(false);
 }
 
-
+//运算符“*”
 void CCalculatorDlg::OnBnClickedMultiply()
 {
 	UpdateData();
@@ -377,7 +382,7 @@ void CCalculatorDlg::OnBnClickedMultiply()
 	UpdateData(false);
 }
 
-
+//运算符“/”
 void CCalculatorDlg::OnBnClickedDivide()
 {
 	UpdateData();
@@ -386,7 +391,7 @@ void CCalculatorDlg::OnBnClickedDivide()
 	UpdateData(false);
 }
 
-
+//运算符“^”
 void CCalculatorDlg::OnBnClickedPow()
 {
 	UpdateData();
@@ -395,7 +400,7 @@ void CCalculatorDlg::OnBnClickedPow()
 	UpdateData(false);
 }
 
-
+//运算符“mod”
 void CCalculatorDlg::OnBnClickedMod()
 {
 	UpdateData();
@@ -404,7 +409,7 @@ void CCalculatorDlg::OnBnClickedMod()
 	UpdateData(false);
 }
 
-
+//运算符“sin”
 void CCalculatorDlg::OnBnClickedSin()
 {
 	UpdateData();
@@ -414,7 +419,7 @@ void CCalculatorDlg::OnBnClickedSin()
 	UpdateData(false);
 }
 
-
+//运算符“cos”
 void CCalculatorDlg::OnBnClickedCos()
 {
 	UpdateData();
@@ -424,7 +429,7 @@ void CCalculatorDlg::OnBnClickedCos()
 	UpdateData(false);
 }
 
-
+//运算符“tan”
 void CCalculatorDlg::OnBnClickedTan()
 {
 	UpdateData();
@@ -434,7 +439,7 @@ void CCalculatorDlg::OnBnClickedTan()
 	UpdateData(false);
 }
 
-
+//运算符“sqrt”
 void CCalculatorDlg::OnBnClickedSqrt()
 {
 	UpdateData();
@@ -444,7 +449,7 @@ void CCalculatorDlg::OnBnClickedSqrt()
 	UpdateData(false);
 }
 
-
+//运算符“log”
 void CCalculatorDlg::OnBnClickedLog()
 {
 	UpdateData();
@@ -454,7 +459,7 @@ void CCalculatorDlg::OnBnClickedLog()
 	UpdateData(false);
 }
 
-
+//运算符“ln”
 void CCalculatorDlg::OnBnClickedLn()
 {
 	UpdateData();
@@ -464,7 +469,7 @@ void CCalculatorDlg::OnBnClickedLn()
 	UpdateData(false);
 }
 
-
+//运算符“rec”
 void CCalculatorDlg::OnBnClickedReciproal()
 {
 	UpdateData();
@@ -474,7 +479,7 @@ void CCalculatorDlg::OnBnClickedReciproal()
 	UpdateData(false);
 }
 
-
+//运算符“fact”
 void CCalculatorDlg::OnBnClickedFactorial()
 {
 	UpdateData();
@@ -484,7 +489,7 @@ void CCalculatorDlg::OnBnClickedFactorial()
 	UpdateData(false);
 }
 
-
+//运算符“neg”
 void CCalculatorDlg::OnBnClickedNegative()
 {
 	UpdateData();
@@ -494,7 +499,7 @@ void CCalculatorDlg::OnBnClickedNegative()
 	UpdateData(false);
 }
 
-
+//数字“e”
 void CCalculatorDlg::OnBnClickedE()
 {
 	UpdateData();
@@ -503,7 +508,7 @@ void CCalculatorDlg::OnBnClickedE()
 	UpdateData(false);
 }
 
-
+//数字“pi”
 void CCalculatorDlg::OnBnClickedPi()
 {
 	UpdateData();
@@ -512,9 +517,7 @@ void CCalculatorDlg::OnBnClickedPi()
 	UpdateData(false);
 }
 
-
-
-
+//运算符“(”
 void CCalculatorDlg::OnBnClickedLeft()
 {
 	UpdateData();
@@ -523,7 +526,7 @@ void CCalculatorDlg::OnBnClickedLeft()
 	UpdateData(false);
 }
 
-
+//运算符“)”
 void CCalculatorDlg::OnBnClickedRight()
 {
 	UpdateData();
@@ -532,7 +535,7 @@ void CCalculatorDlg::OnBnClickedRight()
 	UpdateData(false);
 }
 
-
+//运算符“abs”
 void CCalculatorDlg::OnBnClickedAbs()
 {
 	UpdateData();
@@ -542,29 +545,29 @@ void CCalculatorDlg::OnBnClickedAbs()
 	UpdateData(false);
 }
 
-
+//按下=开始计算表达式
 void CCalculatorDlg::OnBnClickedEqual()
 {
 	UpdateData();
 	
-	double res = m_Calculator.Calculate(this->m_Expression);
-	if (m_Calculator.IsSuccess() == false) {
+	double res = m_Calculator.Calculate(this->m_Expression);  //计算
+	if (m_Calculator.IsSuccess() == false) { //计算失败弹窗
 		AfxMessageBox(m_Calculator.GetError().c_str());
 		return;
 	}
 
 	this->m_Current += "=";
-	this->m_Histroy = this->m_Current;
+	this->m_Histroy = this->m_Current;  //历史编辑框赋值
 	std::string str_res = std::to_string(res);
-	this->m_Current = str_res.c_str();
+	this->m_Current = str_res.c_str(); //将计算结果赋给当前编辑框
 
-	this->m_Expression.clear();
+	this->m_Expression.clear();  //表达式清空并加上结果值
 	this->m_Expression.push_back(str_res);
 
 	UpdateData(false);
 }
 
-
+//清空所有编辑框
 void CCalculatorDlg::OnBnClickedAllclear()
 {
 	UpdateData();
@@ -574,23 +577,32 @@ void CCalculatorDlg::OnBnClickedAllclear()
 	UpdateData(false);
 }
 
-
+//编辑框后退
 void CCalculatorDlg::OnBnClickedDelete()
 {
 	UpdateData();
-	if (this->m_Current.IsEmpty() == true) return;
+	if (this->m_Current.IsEmpty() == true) return; //当前编辑框为空，直接返回
 
-	size_t length = 0;
+	size_t length = 0;  //当前编辑框新长度
 	if (SML::GET_MATH_OPERATOR(this->m_Expression.back()) != NULL || m_Expression.back() == "pi"  ) {
+		//表达式最后一个元素为运算符或者“pi”，删除该元素，当前编辑框长度更新
 		length = m_Current.GetLength() - this->m_Expression.back().size();
 		this->m_Expression.pop_back();
 	}
 	else {
+		//表达式最后一个元素为数字，删除该数字的最后一位，当前编辑框长度更新
 		length = m_Current.GetLength() - 1;
 		this->m_Expression[m_Expression.size() - 1].pop_back();
+		//表达式最后一个元素内容被清空，表达式需要删除该元素
 		if (m_Expression[m_Expression.size() - 1].empty()) this->m_Expression.pop_back();;
 	}
-	this->m_Current = this->m_Current.Left(length);
+
+	//进行删除操作后，若剩下不可见0“zero”，则必须删除，保持表达式和编辑框的同步
+	if ( !this->m_Expression.empty() && this->m_Expression.back() == "zero") {
+		this->m_Expression.pop_back();
+	}
+
+	this->m_Current = this->m_Current.Left(length);  //当前编辑框截取相应长度，从左边算起
 
 	UpdateData(false);
 }

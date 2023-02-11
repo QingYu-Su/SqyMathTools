@@ -1,11 +1,15 @@
-﻿
-// CCalculatorDlg.h: 头文件
-//
-
+﻿/***************************************
+	 文件名：CCalculatorDlg.h
+	 作者：苏青羽
+	 功能描述：计算器对话框
+	 创建日期：2023-02-11
+	 版本：v1.0
+	 最后修改日期：2022-02-11
+***************************************/
 #pragma once
 #include "Calculator.h"
 #pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
-namespace SML = SqyMathLibrary;
+namespace SML = SqyMathLibrary;  //命名空间重命名
 
 // CCalculatorDlg 对话框
 class CCalculatorDlg : public CDialogEx
@@ -34,14 +38,16 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 
-private:
-	bool IsNewNum();
+//以下为计算器具体实现
+
+private: 
+	bool IsNewNum();  //是否为新数字，该函数仅被数字button使用
 
 private:
-	SML::Calculator m_Calculator;
-	std::vector<std::string> m_Expression;
-	CString m_Current;
-	CString m_Histroy;
+	SML::Calculator m_Calculator;  //计算器
+	std::vector<std::string> m_Expression;  //表达式
+	CString m_Current;  //当前编辑框
+	CString m_Histroy;  //历史编辑框
 	
 public:
 	afx_msg void OnBnClickedNum0();

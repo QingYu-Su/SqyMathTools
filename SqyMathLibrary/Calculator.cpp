@@ -16,7 +16,7 @@ namespace SqyMathLibrary {
 	}
 
 	bool Calculator::IsNum(const std::string& s) const{
-		if (s == "e" || s == "pi") return true;
+		if (s == "e" || s == "pi" || s == "zero" ) return true;
 		if (s == ".") return false;
 
 		int dot = 0;
@@ -41,6 +41,7 @@ namespace SqyMathLibrary {
 	OPERAND Calculator::GetNum(const std::string& s) const{
 		if (s == "e") return E;
 		if (s == "pi") return PI;
+		if (s == "zero") return 0; //zero为不可见0，是方便计算类似于-3+（-5）这样的表达式设计的
 		return stod(s);  //调用标准库函数
 	}
 
