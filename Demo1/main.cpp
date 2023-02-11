@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Windows.h>
 #include "Calculator.h"
 #pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 using namespace SqyMathLibrary;

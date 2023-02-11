@@ -2,8 +2,7 @@
 
 namespace SqyMathLibrary {
 
-
-	//构造
+	
 	MathOperator::MathOperator(const std::string symbol, const int optCount, const int priority) 
 		:m_Symbol(symbol), m_OptCount(optCount), m_Priority(priority)
 	{
@@ -136,7 +135,7 @@ namespace SqyMathLibrary {
 	OPERAND Tan::Operate(const OPERAND a, const OPERAND b){
 		if (fmod(b, PI / 2) == 0 && (int)( b / (PI / 2) ) % 2 == 1 ) {
 			this->SetResult(false, "tan取值为无穷");
-			return b;
+			return POS_INF;
 		}
 		this->SetResult(true);
 		return tan(b);  //单目运算符，只对单数值运算
