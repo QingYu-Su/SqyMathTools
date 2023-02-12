@@ -45,7 +45,7 @@ private:
 
 private:
 	SML::Calculator m_Calculator;  //计算器
-	std::vector<std::string> m_Expression;  //表达式
+	SML::MathExpression m_Expression;  //表达式
 	CString m_Current;  //当前编辑框
 	CString m_Histroy;  //历史编辑框
 	

@@ -4,7 +4,7 @@
      功能描述：数学运算符映射类
      创建日期：2023-02-08
      版本：v1.0
-     最后修改日期：2022-02-08
+     最后修改日期：2022-02-10
 ***************************************/
 
 #ifndef _MATHOPERATORMAP_H_
@@ -14,8 +14,8 @@
 #include<unordered_map>
 #include <string>
 
-//注册数学运算符
-#define REGISTER_MATH_OPERATOR(key, T) MathOperatorMap::GetInstance() -> Register<T>(key)
+//注册数学运算符，key值默认为运算符的Symbol，若想使用非默认Symbol，请不要使用宏
+#define REGISTER_MATH_OPERATOR(T) MathOperatorMap::GetInstance() -> Register<T>()
 
 //获取数学运算符类对象
 #define GET_MATH_OPERATOR(key) MathOperatorMap::GetInstance() -> GetMathOperator(key)
@@ -35,13 +35,18 @@ namespace SqyMathLibrary {
 
     public:  //基本接口
         bool Register(std::string key, MathOperator* val);  //注册运算符，实现key-value的映射，运算符已存在-返回false
+
+        //以下的注册运算符函数，key值默认为运算符类对象的Symbol,因此不用传入string
+        bool Register(MathOperator* val) { //注册运算符，实现key-value的映射，运算符已存在-返回false
+            return this->Register(val->GetSymbol(), val);
+        }
+        template<typename T>  //注册运算符的函数模板，方便外部调用
+        bool Register() {
+            return this->Register(new T);
+        }
+
         void Destroy(std::string key); //销毁运算符
         MathOperator* GetMathOperator(std::string key);  //获取运算符
-
-        template<typename T>  //注册运算符的函数模板，方便外部调用
-        bool Register(std::string key) {
-            return Register(key, new T);
-        }
         
     private:  //单例模式下不可显式构造
         MathOperatorMap();

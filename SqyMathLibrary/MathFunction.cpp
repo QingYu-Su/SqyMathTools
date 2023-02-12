@@ -2,6 +2,11 @@
 
 namespace SqyMathLibrary {
 
+	FunctionExpression::FunctionExpression(MathExpression expression, char iv, char dv, OPERAND maxDV = INF, OPERAND minDV = -INF)
+		:m_Expression(expression), m_IV(iv), m_DV(dv), m_MaxDV(maxDV), m_MinDV(minDV)
+	{}
+
+
 	MathFunction::MathFunction(FunctionType type, Function& function, size_t accuracy)
 		:m_Type(type), m_Function(function), m_Accuracy(accuracy)
 	{}

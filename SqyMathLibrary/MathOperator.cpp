@@ -68,7 +68,7 @@ namespace SqyMathLibrary {
 	OPERAND Divide::Operate(const OPERAND a, const OPERAND b){
 		if (b == 0) { 
 			this->SetResult(false, "不能除以0");
-			return a;
+			return INF;
 		}
 		this->SetResult(true);
 		return a / b;
@@ -135,7 +135,7 @@ namespace SqyMathLibrary {
 	OPERAND Tan::Operate(const OPERAND a, const OPERAND b){
 		if (fmod(b, PI / 2) == 0 && (int)( b / (PI / 2) ) % 2 == 1 ) {
 			this->SetResult(false, "tan取值为无穷");
-			return POS_INF;
+			return INF;
 		}
 		this->SetResult(true);
 		return tan(b);  //单目运算符，只对单数值运算

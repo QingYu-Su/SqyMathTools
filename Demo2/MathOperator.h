@@ -128,7 +128,7 @@ namespace SqyMathLibrary {
         OPERAND Operate(const OPERAND a, const OPERAND b);
     };
 
-    //运算符“Sqrt”
+    //运算符“sqrt”
     class Sqrt :public MathOperator {
     public:
         Sqrt();
@@ -149,21 +149,21 @@ namespace SqyMathLibrary {
         OPERAND Operate(const OPERAND a, const OPERAND b);
     };
 
-    //运算符“1/x”
+    //运算符“rec”
     class Reciprocal :public MathOperator {
     public:
         Reciprocal();
         OPERAND Operate(const OPERAND a, const OPERAND b);
     };
 
-    //运算符“!”
+    //运算符“fact”
     class Factorial :public MathOperator {
     public:
         Factorial();
         OPERAND Operate(const OPERAND a, const OPERAND b);
     };
 
-    //运算符“+/-”
+    //运算符“neg”
     class Negative :public MathOperator {
     public:
         Negative();

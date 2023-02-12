@@ -135,7 +135,7 @@ namespace SqyMathLibrary {
 	}
 
 
-	OPERAND Calculator::Calculate(const std::vector<std::string>& expression) {
+	OPERAND Calculator::Calculate(const MathExpression& expression) {
 		this->SetResult(true);  //初始化运算结果
 		//遍历
 		for (int i = 0; i < expression.size(); i++) {
@@ -187,4 +187,17 @@ namespace SqyMathLibrary {
 		return res;
 	}
 
+	OPERAND Calculator::Calculate(const std::string expression) {
+		MathExpression splitExprssion;
+		int i = 0, j = 0;
+		while (j < expression.size()) {
+			if (expression[j] == '#') {
+				splitExprssion.push_back(expression.substr(i, j - i));
+				i = j + 1;
+			}
+			j++;
+		}
+		splitExprssion.push_back(expression.substr(i, j - i));
+		return this->Calculate(splitExprssion);
+	}
 }

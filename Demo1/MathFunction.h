@@ -17,12 +17,12 @@
 namespace SqyMathLibrary {
 
     struct FunctionExpression {
-        MathExpression m_Expression;
+        std::vector<std::string> m_Expression;
         char m_IV;  //因变量 
         char m_DV;  //自变量
         OPERAND m_MaxDV, m_MinDV;
 
-        FunctionExpression(MathExpression expression, char iv, char dv, OPERAND maxDV = INF, OPERAND minDV = -INF);
+        FunctionExpression(std::vector<std::string> expression, char iv, char dv, OPERAND maxDV = INF, OPERAND minDV = -INF);
         OPERAND Calculate(OPERAND value);
     };
 
