@@ -20,6 +20,7 @@ namespace SqyMathLibrary {
 		if (s == ".") return false;
 
 		int dot = 0;
+		int digital = 0;
 		for (int i = 0; i < s.size(); i++) {
 			if (s[i] == '.') {
 				if (++dot > 1) return false;  //小数点超过1返回false
@@ -28,7 +29,11 @@ namespace SqyMathLibrary {
 			if (s[i] < '0' || s[i] > '9') {  //非数字返回false
 				return false;
 			}
+			
+			if (dot == 0) digital++;
 		}
+
+		if (digital > MAX_DIGITAL) return false;
 		
 		return true;
 	}
@@ -42,7 +47,7 @@ namespace SqyMathLibrary {
 		if (s == "e") return E;
 		if (s == "pi") return PI;
 		if (s == "zero") return 0; //zero为不可见0，是方便计算类似于-3+（-5）这样的表达式设计的
-		return stod(s);  //调用标准库函数
+		OPERAND res =  stod(s);  //调用标准库函数
 	}
 
 	MathOperator* Calculator::GetMathOperator(const std::string& s) const{
@@ -89,7 +94,10 @@ namespace SqyMathLibrary {
 		}
 
 		//运算，结果保存到数字栈中
-		this->m_Nums.push(opt->Operate(temp[1], temp[0]));
+		OPERAND res = opt->Operate(temp[1], temp[0]);
+		if (res > INF) res = INF;
+		else if (res < -INF) res = -INF;
+		this->m_Nums.push(res);
 
 		//设置运算结果
 		this->SetResult(opt->IsSuccess(), opt->GetError());

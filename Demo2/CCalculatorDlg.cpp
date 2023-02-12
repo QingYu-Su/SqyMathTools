@@ -583,7 +583,7 @@ void CCalculatorDlg::OnBnClickedDelete()
 	UpdateData();
 	if (this->m_Current.IsEmpty() == true) return; //当前编辑框为空，直接返回
 
-	size_t length = 0;  //当前编辑框新长度
+	int length = 0;  //当前编辑框新长度
 	if (SML::GET_MATH_OPERATOR(this->m_Expression.back()) != NULL || m_Expression.back() == "pi"  ) {
 		//表达式最后一个元素为运算符或者“pi”，删除该元素，当前编辑框长度更新
 		length = m_Current.GetLength() - this->m_Expression.back().size();

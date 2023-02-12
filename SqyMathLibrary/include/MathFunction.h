@@ -16,13 +16,14 @@
 
 namespace SqyMathLibrary {
 
+    //函数表达式
     struct FunctionExpression {
         MathExpression m_Expression;
         char m_IV;  //因变量 
         char m_DV;  //自变量
-        OPERAND m_MaxDV, m_MinDV;
+        OPERAND m_MaxDV, m_MinDV;  //函数表达式定义域区间
 
-        FunctionExpression(MathExpression expression, char iv, char dv, OPERAND maxDV = INF, OPERAND minDV = -INF);
+        FunctionExpression(MathExpression &expression, char iv, char dv, OPERAND maxDV = INF, OPERAND minDV = -INF);
         OPERAND Calculate(OPERAND value);
     };
 
@@ -49,7 +50,7 @@ namespace SqyMathLibrary {
         size_t GetAccuracy();
         void SetFunction(Function &function);
         void SetAccuracy(size_t accuracy);
-    private:
+    protected:
         FunctionType m_Type;
         Function m_Function;
         size_t m_Accuracy;
@@ -57,7 +58,19 @@ namespace SqyMathLibrary {
         virtual FPSet Calculate(OPERAND xLeft, OPERAND xRight) = 0;
     };
 
+    class NormalFunction :public MathFunction {
+    public: //类默认方法
+        NormalFunction(Function& function, size_t accuracy);
+        virtual ~NormalFunction() {};
+        //以下函数由编译器自动生成即可
+        //NormalFunction(const NormalFunction&);
+        //NormalFunction& operator=(const NormalFunction&);
+    public:
+        FPSet Calculate(OPERAND xLeft, OPERAND xRight);
+    private:
+        OPERAND GetY(OPERAND value);
 
+    };
 
 }
 
