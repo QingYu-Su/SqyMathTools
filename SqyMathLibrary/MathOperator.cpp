@@ -67,7 +67,7 @@ namespace SqyMathLibrary {
 	{}
 	OPERAND Divide::Operate(const OPERAND a, const OPERAND b){
 		if (b == 0) { 
-			this->SetResult(false, "不能除以0");
+			this->SetResult(false, CALC_ERROR_DIV0);
 			return INF;
 		}
 		this->SetResult(true);
@@ -134,7 +134,7 @@ namespace SqyMathLibrary {
 	{}
 	OPERAND Tan::Operate(const OPERAND a, const OPERAND b){
 		if (fmod(b, PI / 2) == 0 && (int)( b / (PI / 2) ) % 2 == 1 ) {
-			this->SetResult(false, "tan取值为无穷");
+			this->SetResult(false, CALC_ERROR_TAN);
 			return INF;
 		}
 		this->SetResult(true);

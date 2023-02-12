@@ -67,7 +67,7 @@ namespace SqyMathLibrary {
 	void Calculator::Operate() {
 		this->SetResult(true);  //初始化运算结果
 		if (this->m_MathOpts.empty() == true) {
-			this->SetResult(false, "缺少运算符");
+			this->SetResult(false, CALC_ERROR_LACK_OPT);
 			return;
 		}
 
@@ -76,13 +76,13 @@ namespace SqyMathLibrary {
 
 		//此时运算符号栈中不应该有左括号
 		if (opt->GetSymbol() == "(") { 
-			this->SetResult(false, "括号数不匹配");
+			this->SetResult(false, CALC_ERROR_LACK_BRA);
 			return;
 		}
 
 		//运算数不符合运算符目数
 		if (this->m_Nums.size() < opt->GetCount()) {
-			this->SetResult(false, "缺少运算数");
+			this->SetResult(false, CALC_ERROR_LACK_NUM);
 			return;
 		}
 
@@ -119,7 +119,7 @@ namespace SqyMathLibrary {
 			}
 
 			if (this->m_MathOpts.empty()) {  //栈空，没有对应左括号
-				this->SetResult(false, "括号数不匹配");
+				this->SetResult(false, CALC_ERROR_LACK_BRA);
 				return;
 			}
 
@@ -149,7 +149,7 @@ namespace SqyMathLibrary {
 		for (int i = 0; i < expression.size(); i++) {
 
 			if (i > 0 && expression[i - 1] == "(" && expression[i] == ")") {
-				this->SetResult(false, "括号里不允许为空");
+				this->SetResult(false, CALC_ERROR_EMPTY_BRA);
 				this->Reset();
 				return 0;
 			}
@@ -166,7 +166,7 @@ namespace SqyMathLibrary {
 				}
 			}
 			else {  //非数字非运算符
-				this->SetResult(false, "表达式违法");  
+				this->SetResult(false, CALC_ERROR_EXPRESSION);
 				this->Reset();
 				return 0;
 			}
@@ -184,7 +184,7 @@ namespace SqyMathLibrary {
 
 		//数字栈空间最终应只剩一个数字
 		if (this->m_Nums.size() != 1) {
-			this->SetResult(false, "存在多余运算数");
+			this->SetResult(false, CALC_ERROR_EXCE_NUM);
 			this->Reset();
 			return 0;
 		}
