@@ -12,206 +12,128 @@ namespace SqyMathLibrary {
 	}
 
 
-	MathFunction::MathFunction(FunctionType type, Function& function)
-		:m_Type(type), m_Function(function)
-	{
-		this->m_MaxX = -INF;
-		this->m_MaxY = -INF;
-		this->m_MinX = INF;
-		this->m_MinY = INF;
-		this->m_Error = "";
-	}
+	bool MathFunction::Calculate(OPERAND left, OPERAND right, size_t precision) {
+		if (this->IsValid() == false) return false;
+		
+		this->PreProcess();
 
-	FunctionType MathFunction::GetType() {
-		return this->m_Type;
-	}
+		this->m_Map.clear();
 
-	Function MathFunction::GetFunction() {
-		return this->m_Function;
-	}
+		OPERAND unit = (right - left) / precision;
+		
+		for (OPERAND parameter = left; parameter <= right; parameter += unit) {
+			
+			OPERAND x = this->GetX(parameter);
+			if (x == INV) return false;
 
-	void MathFunction::SetFunction(Function &function) {
-		this->m_Function = function;
-	}
+			OPERAND y = this->GetY(parameter);
+			if (y == INV) return false;
 
-	std::string MathFunction::GetError() {
-		return this->m_Error;
-	}
+			this->m_MaxX = std::max(this->m_MaxX, x);
+			this->m_MinX = std::min(this->m_MinX, x);
+			this->m_MaxY = std::max(this->m_MaxY, y);
+			this->m_MinY = std::min(this->m_MinY, y);
 
-	void MathFunction::TranslateExpression(MathExpression& me, char c, OPERAND value) {
-		for (int i = 0; i < me.size(); i++) {
-			if (me[i].size() == 1 && me[i][0] == c) {
-				me[i] = std::to_string(value);
-			}
+			FunctionPoint fp;
+			fp.first = x;
+			fp.second = y;
+
+			m_Map.push_back(fp);
 		}
+
+		this->PostProcess();
+
+		return true;
 	}
 
-	OPERAND MathFunction::GetValue(OPERAND parameter, int index) {
-		MathExpression me = this->m_Function[index].m_Expression;
-		char dv = this->m_Function[index].m_DV;
+	bool NormalFunction::IsValid() {
+		if (this->m_Expression.m_DV != 'x') {
+			this->SetError(FUNC_ERROR_DV);
+			return false;
+		}
 
-		TranslateExpression(me, dv, parameter);
+		if (this->m_Expression.m_IV != 'y') {
+			this->SetError(FUNC_ERROR_IV);
+			return false;
+		}
 
-		OPERAND res = this->m_Calc.Calculate(me);
+	}
 
-		if (this->m_Calc.IsSuccess() == false) {
-			std::string error = this->m_Calc.GetError();
-			if (error == CALC_ERROR_TAN || error == CALC_ERROR_DIV0) return INF;
-			this->m_Error = error;
+	OPERAND NormalFunction::GetX(OPERAND parameter) {
+		return parameter;
+	}
+
+	OPERAND NormalFunction::GetY(OPERAND parameter) {
+		OPERAND res = this->m_Tool.GetValue(this->m_Expression, parameter);
+		if (this->m_Tool.IsSuccess() == false) {
+			this->SetError(this->m_Tool.GetError());
 			return INV;
 		}
 		return res;
 	}
 
-	void MathFunction::Pretreat() {
-		
-	}
-
-	NormalFunction::NormalFunction(Function& function)
-		:MathFunction(Normal, function)
-	{}
-
-	bool NormalFunction::IsValid() {
-		for (int i = 0; i < m_Function.size(); i++) {
-			FunctionExpression& fe = this->m_Function[i];
-
-			if (fe.m_DV != 'x') {
-				this->m_Error = FUNC_ERROR_DV; return false;
-			}
-
-			if (fe.m_IV != 'y') {
-				this->m_Error = FUNC_ERROR_IV; return false;
-			}
-		}
-		return true;
-	}
-
-	bool NormalFunction::Calculate(OPERAND minDV, OPERAND maxDV, size_t precision) {
-		m_FPMap.clear();
-		
-		if (this->IsValid() == false) return false;
-
-		OPERAND unit = (maxDV - minDV) / precision;
-		int index = 0;
-		OPERAND x = minDV;
-
-		while (x <= maxDV && index < m_Function.size() ) {
-
-			if (x < this->m_Function[index].m_Left || x > this->m_Function[index].m_Right) {
-				index++;
-				continue;
-			}
-
-			OPERAND y = this->GetValue(x, index);
-			if (y == INV) return false;
-
-			FunctionPoint fp;
-			fp.first = x;
-			fp.second = y;
-			this->m_FPMap.push_back(fp);
-
-			x += unit;
-		}
-
-		return true;
-	}
-
-	PolarFunction::PolarFunction(Function& function)
-		:MathFunction(Polar, function)
-	{}
-
 	bool PolarFunction::IsValid() {
-		for (int i = 0; i < m_Function.size(); i++) {
-			FunctionExpression& fe = this->m_Function[i];
-
-			if (fe.m_DV != 'a') {
-				this->m_Error = FUNC_ERROR_DV; return false;
-			}
-
-			if (fe.m_IV != 'r') {
-				this->m_Error = FUNC_ERROR_IV; return false;
-			}
-		}
-		return true;
-	}
-
-	bool PolarFunction::Calculate(OPERAND minDV, OPERAND maxDV, size_t precision) {
-		m_FPMap.clear();
-
-		
-		if (this->IsValid() == false) return false;
-		OPERAND unit = (maxDV - minDV) / precision;
-		int index = 0;
-		OPERAND a = minDV;
-
-		while (a <= maxDV && index < m_Function.size()) {
-
-			if (a < this->m_Function[index].m_Left || a > this->m_Function[index].m_Right) {
-				index++;
-				continue;
-			}
-
-			OPERAND r = this->GetValue(a, index);
-			if (r == INV) return false;
-
-			OPERAND x = r * cos(a);
-			OPERAND y = r * sin(a);
-
-			FunctionPoint fp;
-			fp.first = x;
-			fp.second = y;
-			this->m_FPMap.push_back(fp);
-
-			x += unit;
+		if (this->m_Expression.m_DV != 'a') {
+			this->SetError(FUNC_ERROR_DV);
+			return false;
 		}
 
-		return true;
-	}
-
-	ParaFunction::ParaFunction(Function& function)
-		:MathFunction(Parametric, function)
-	{}
-
-	bool ParaFunction::IsValid() {
-		for (int i = 0; i < m_Function.size(); i++) {
-			FunctionExpression& fe = this->m_Function[i];
-
-			if (fe.m_DV != 't') {
-				this->m_Error = FUNC_ERROR_DV; return false;
-			}
-
-			if (fe.m_IV != 'x' || fe.m_IV != 'y') {
-				this->m_Error = FUNC_ERROR_IV; return false;
-			}
-		}
-		return true;
-	}
-
-	void ParaFunction::Pretreat() {
-		
-	}
-
-
-	bool ParaFunction::Calculate(OPERAND minDV, OPERAND maxDV, size_t precision) {
-		m_FPMap.clear();
-
-		if (this->IsValid() == false) return false;
-		OPERAND unit = (maxDV - minDV) / precision;
-		int index = 0;
-		OPERAND t = minDV;
-
-		while (t <= maxDV && index < m_Function.size()) {
-
-			if (t < this->m_Function[index].m_Left || t > this->m_Function[index].m_Right) {
-				index++;
-				continue;
-			}
-
-			
-
-			x += unit;
+		if (this->m_Expression.m_IV != 'r') {
+			this->SetError(FUNC_ERROR_IV);
+			return false;
 		}
 
-		return true;
+	}
+
+	OPERAND PolarFunction::GetR(OPERAND parameter) {
+		OPERAND res = this->m_Tool.GetValue(this->m_Expression, parameter);
+		if (this->m_Tool.IsSuccess() == false) {
+			this->SetError(this->m_Tool.GetError());
+			return INV;
+		}
+		return res;
+	}
+
+	OPERAND PolarFunction::GetX(OPERAND parameter) {
+		OPERAND r = this->GetR(parameter);
+		if (r == INV) return false;
+		return r * cos(parameter);
+	}
+
+	OPERAND PolarFunction::GetY(OPERAND parameter) {
+		OPERAND r = this->GetR(parameter);
+		if (r == INV) return false;
+		return r * sin(parameter);
+	}
+
+	bool TwoFunction::IsValid() {
+		if (this->m_ExpressionX.m_DV != 't' || this->m_ExpressionY.m_DV != 't' ) {
+			this->SetError(FUNC_ERROR_DV);
+			return false;
+		}
+
+		if (this->m_ExpressionX.m_IV != 'x' || this->m_ExpressionY.m_IV != 'y' ) {
+			this->SetError(FUNC_ERROR_IV);
+			return false;
+		}
+
+	}
+
+	OPERAND TwoFunction::GetX(OPERAND parameter) {
+		OPERAND res = this->m_Tool.GetValue(this->m_ExpressionX, parameter);
+		if (this->m_Tool.IsSuccess() == false) {
+			this->SetError(this->m_Tool.GetError());
+			return INV;
+		}
+		return res;
+	}
+
+	OPERAND TwoFunction::GetY(OPERAND parameter) {
+		OPERAND res = this->m_Tool.GetValue(this->m_ExpressionY, parameter);
+		if (this->m_Tool.IsSuccess() == false) {
+			this->SetError(this->m_Tool.GetError());
+			return INV;
+		}
+		return res;
 	}
 }

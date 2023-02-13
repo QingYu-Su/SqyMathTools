@@ -17,6 +17,9 @@
 
 namespace SqyMathLibrary {
 
+    typedef std::pair<OPERAND, OPERAND> FunctionPoint;
+    typedef std::vector<FunctionPoint> FunctionMap;
+
     //函数表达式
     struct FunctionExpression {
         MathExpression m_Expression;
@@ -26,86 +29,68 @@ namespace SqyMathLibrary {
         FunctionExpression(MathExpression& expression, char iv, char dv, OPERAND left = -INF, OPERAND right = INF);
     };
 
-    typedef std::vector<FunctionExpression> Function;
-    typedef std::pair<OPERAND, OPERAND> FunctionPoint;
-    typedef std::vector<FunctionPoint> FPMap;
-
     enum FunctionType {
-        Normal,
-        Polar,
-        Parametric
+        Normal
+    };
+
+    class FunctionTool {
+    public:
+        void TranslateExpression(FunctionExpression& fe, char key, OPERAND value );
+        OPERAND GetValue(FunctionExpression fe, OPERAND parameter);
+        bool IsSuccess();
+        std::string GetError();
+    private:
+        std::string m_Error;
+        bool m_Success;
     };
 
     class MathFunction {
-
-    public: //类默认方法
-        MathFunction(FunctionType type, Function &function);
-        virtual ~MathFunction() {};
-        //以下函数由编译器自动生成即可
-        //MathFunction(const MathFunction&);
-        //MathFunction& operator=(const MathFunction&);
-
     public:
-        FunctionType GetType();
-        Function GetFunction();
-        void SetFunction(Function &function);
+        bool Calculate(OPERAND left, OPERAND right, size_t precision);
         std::string GetError();
     protected:
+        virtual bool IsValid() = 0;
+        virtual bool PreProcess() {};
+        virtual OPERAND GetX(OPERAND parameter) = 0;
+        virtual OPERAND GetY(OPERAND parameter) = 0;
+        virtual bool PostProcess() {};
+        void SetError(std::string error);
+        FunctionTool m_Tool;
+    private:
         FunctionType m_Type;
-        Function m_Function;
-        FPMap m_FPMap;  //当前函数的图像点,会实时更新
-        OPERAND m_MinX, m_MaxX;  //函数在x轴上的极值，会实时更新
-        OPERAND m_MinY, m_MaxY;  //函数在y轴上的极值，会实时更新
+        OPERAND m_MinX, m_MaxX;
+        OPERAND m_MinY, m_MaxY;
+        FunctionMap m_Map;
         std::string m_Error;
-        Calculator m_Calc;
-    protected:
-        void TranslateExpression(MathExpression& me, char c, OPERAND value);
-        OPERAND GetValue(OPERAND parameter, int index);
-        virtual bool IsValid() {};
-        virtual void Pretreat();
-    public:
-        virtual bool Calculate( OPERAND minDV, OPERAND maxDV, size_t precision) = 0;
     };
 
     class NormalFunction :public MathFunction {
-    public: //类默认方法
-        NormalFunction(Function& function);
-        virtual ~NormalFunction() {};
-        //以下函数由编译器自动生成即可
-        //NormalFunction(const NormalFunction&);
-        //NormalFunction& operator=(const NormalFunction&);
     protected:
         bool IsValid();
-    public:
-        bool Calculate(OPERAND minDV, OPERAND maxDV, size_t precision);
+        OPERAND GetX(OPERAND parameter);
+        OPERAND GetY(OPERAND parameter);
+    private:
+        FunctionExpression m_Expression;
     };
 
     class PolarFunction :public MathFunction {
-    public: //类默认方法
-        PolarFunction(Function& function);
-        virtual ~PolarFunction() {};
-        //以下函数由编译器自动生成即可
-        //PolarFunction(const PolarFunction&);
-        //PolarFunction& operator=(const PolarFunction&);
+    protected:
         bool IsValid();
-    public:
-        bool Calculate(OPERAND minDV, OPERAND maxDV, size_t precision);
+        OPERAND GetX(OPERAND parameter);
+        OPERAND GetY(OPERAND parameter);
+    private:
+        OPERAND GetR(OPERAND parameter);
+        FunctionExpression m_Expression;
     };
 
-    class ParaFunction :public MathFunction {
-    public: //类默认方法
-        ParaFunction(Function& function);
-        virtual ~ParaFunction() {};
-        //以下函数由编译器自动生成即可
-        //ParaFunction(const ParaFunction&);
-        //ParaFunction& operator=(const ParaFunction&);
-    public:
-        bool Calculate(OPERAND minDV, OPERAND maxDV, size_t precision);
+    class TwoFunction :public MathFunction {
+    protected:
         bool IsValid();
-        void Pretreat();
+        OPERAND GetX(OPERAND parameter);
+        OPERAND GetY(OPERAND parameter);
     private:
-        Function m_XFunction;
-        Function m_YFunction;
+        FunctionExpression m_ExpressionX;
+        FunctionExpression m_ExpressionY;
     };
 }
 
