@@ -1,7 +1,7 @@
 /***************************************
      文件名：MathFunction.h
      作者：苏青羽
-     功能描述：数学函数类
+     功能描述：数学函数
      创建日期：2023-02-11
      版本：v1.0
      最后修改日期：2022-02-13
@@ -10,87 +10,107 @@
 #ifndef _MATHFUNCTION_H_
 #define _MATHFUNCTION_H_
 
-#include <string>
-#include "Calculator.h"
-#include <vector>
-#include <map>
+#include "UniFunction.h"
 
 namespace SqyMathLibrary {
 
-    typedef std::pair<OPERAND, OPERAND> FunctionPoint;
-    typedef std::vector<FunctionPoint> FunctionMap;
+    typedef std::pair<OPERAND, OPERAND> FunctionPoint;  //函数点
 
-    //函数表达式
-    struct FunctionExpression {
-        MathExpression m_Expression;
-        char m_IV;  //因变量 
-        char m_DV;  //自变量
-        OPERAND m_Left, m_Right;  //函数表达式定义域区间
-        FunctionExpression(MathExpression& expression, char iv, char dv, OPERAND left = -INF, OPERAND right = INF);
+    typedef std::vector<FunctionPoint> FunctionMap;  //函数图像
+
+    enum FunctionType {  //函数类型
+        Normal,  //普通函数
+        Polar,  //极坐标函数
+        Two  //参数方程函数
     };
 
-    enum FunctionType {
-        Normal
-    };
-
-    class FunctionTool {
-    public:
-        void TranslateExpression(FunctionExpression& fe, char key, OPERAND value );
-        OPERAND GetValue(FunctionExpression fe, OPERAND parameter);
-        bool IsSuccess();
-        std::string GetError();
-    private:
-        std::string m_Error;
-        bool m_Success;
-    };
-
+    //数学函数类，它表示了一个可以在XY平面上显示对应图像的函数
     class MathFunction {
+    public: //类默认方法
+        MathFunction(FunctionType type);
+        virtual ~MathFunction() {};
+
+        //以下函数由编译器自动生成即可
+        //MathFunction(const MathFunction&) {};
+        //MathFunction& operator=(const MathFunction&) {};
     public:
-        bool Calculate(OPERAND left, OPERAND right, size_t precision);
-        std::string GetError();
+        //计算特定区间上的所有X-Y平面上的函数点。第三个参数为函数点数量，它反应了函数点的精细度
+        //注意，这里区间的定义并不固定，它视自变量的定义而改变，如普通函数则是在x上的区间，参数方程函数则是在t上的区间，极坐标函数是在角度上的区间
+        //函数值有可能为INF，它是一个有效值，它表示该点在y轴上无定义
+        //若计算失败，则返回空FunctionMap
+        FunctionMap Calculate(OPERAND left, OPERAND right, size_t precision);
+
+        bool IsSuccess();  //操作是否成功 
+        std::string GetError();   //操作运算失败原因
+    
+    protected://本类使用了策略模式，以下方法由子类实现，但无需由子类使用
+        virtual bool IsValid() = 0;  //函数是否有效，必须由子类实现
+        virtual bool PreProcess() {};  //计算之前的预处理，没有则不必实现
+        virtual OPERAND GetX(OPERAND parameter) = 0;  //获取函数自变量的某个值在x轴上的对应值，必须由子类实现，返回INV表示计算失败
+        virtual OPERAND GetY(OPERAND parameter) = 0;  //获取函数自变量的某个值在y轴上的对应值，必须由子类实现，返回INV表示计算失败
+        virtual bool PostProcess() {}; //计算之后的后处理，没有则不必实现
+
     protected:
-        virtual bool IsValid() = 0;
-        virtual bool PreProcess() {};
-        virtual OPERAND GetX(OPERAND parameter) = 0;
-        virtual OPERAND GetY(OPERAND parameter) = 0;
-        virtual bool PostProcess() {};
-        void SetError(std::string error);
-        FunctionTool m_Tool;
+        void SetResult(bool res, std::string reason = "");  //设置操作成功与否
     private:
-        FunctionType m_Type;
-        OPERAND m_MinX, m_MaxX;
-        OPERAND m_MinY, m_MaxY;
-        FunctionMap m_Map;
-        std::string m_Error;
+        FunctionType m_Type;  //函数类型
+        OPERAND m_MinX, m_MaxX;  //函数在X轴上的极值，会随着Calculate的使用而更新
+        OPERAND m_MinY, m_MaxY;  //函数在Y轴上的极值，会随着CalCulate的使用而更新
+        bool m_Success;  //上一次操作的结果
+        std::string m_Error; //若上一次操作失败，会保存上一次操作失败的原因
     };
 
+    //普通函数
     class NormalFunction :public MathFunction {
-    protected:
+    public://类默认方法
+        NormalFunction(FunctionExpression &expression);
+        virtual ~NormalFunction() {};
+
+        //以下函数由编译器自动生成即可
+        //MathFunction(const MathFunction&) {};
+        //MathFunction& operator=(const MathFunction&) {};
+    protected:  //基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);
         OPERAND GetY(OPERAND parameter);
     private:
-        FunctionExpression m_Expression;
+        FunctionExpression m_Expression;  //具体函数表达式，表示F(x) = y;
+        FunctionTool m_Tool;  //处理函数表达式的工具
     };
 
+    //极坐标函数
     class PolarFunction :public MathFunction {
-    protected:
+    public://类默认方法
+        PolarFunction(FunctionExpression& expression);
+        virtual ~PolarFunction() {};
+        //以下函数由编译器自动生成即可
+        //PolarFunction(const PolarFunction&) {};
+        //PolarFunction& operator=(const PolarFunction&) {};
+    protected: //基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);
         OPERAND GetY(OPERAND parameter);
     private:
-        OPERAND GetR(OPERAND parameter);
-        FunctionExpression m_Expression;
+        OPERAND GetR(OPERAND parameter);  //获取某个特定角度对应的r值
+        FunctionExpression m_Expression;  //具体函数表达式，表示F(a) = r;
+        FunctionTool m_Tool;  //处理函数表达式的工具
     };
 
     class TwoFunction :public MathFunction {
-    protected:
+    public://类默认方法
+        TwoFunction(FunctionExpression& expressionX, FunctionExpression& expressionY);
+        virtual ~TwoFunction() {};
+        //以下函数由编译器自动生成即可
+        //TwoFunction(const TwoFunction&) {};
+        //TwoFunction& operator=(const TwoFunction&) {};
+    protected://基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);
         OPERAND GetY(OPERAND parameter);
     private:
-        FunctionExpression m_ExpressionX;
-        FunctionExpression m_ExpressionY;
+        FunctionExpression m_ExpressionX;  //具体函数表达式,表示F(t) = x;
+        FunctionExpression m_ExpressionY;  //具体函数表达式,表示F(t) = y;
+        FunctionTool m_Tool;  //处理函数表达式的工具
     };
 }
 

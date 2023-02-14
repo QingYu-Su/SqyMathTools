@@ -133,11 +133,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Calculator.cpp" />
+    <ClCompile Include="UniFunction.cpp" />
     <ClCompile Include="MathOperator.cpp" />
     <ClCompile Include="MathOperatorMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Calculator.h" />
+    <ClInclude Include="include\UniFunction.h" />
     <ClInclude Include="include\MathDef.h" />
     <ClInclude Include="include\MathFunction.h" />
     <ClInclude Include="include\MathOperator.h" />
