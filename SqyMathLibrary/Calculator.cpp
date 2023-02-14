@@ -30,10 +30,10 @@ namespace SqyMathLibrary {
 				return false;
 			}
 			
-			if (dot == 0) digital++;
+			if (dot == 0) digital++;  //计算小数点前数位
 		}
 
-		if (digital > MAX_DIGITAL) return false;
+		if (digital > MAX_DIGITAL) return false;  //超过最大数位限制，返回false
 		
 		return true;
 	}

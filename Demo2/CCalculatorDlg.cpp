@@ -558,7 +558,14 @@ void CCalculatorDlg::OnBnClickedEqual()
 
 	this->m_Current += "=";
 	this->m_Histroy = this->m_Current;  //历史编辑框赋值
-	std::string str_res = std::to_string(res);
+
+	std::string str_res;
+	if (res == INF) {  //计算结果过大，显示INF
+		str_res = "INF";
+	}
+	else {
+		str_res = std::to_string(res);
+	}
 	this->m_Current = str_res.c_str(); //将计算结果赋给当前编辑框
 
 	this->m_Expression.clear();  //表达式清空并加上结果值
