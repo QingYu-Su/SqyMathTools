@@ -39,6 +39,27 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CFunctionData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Calculator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MathDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MathFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MathOperator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MathOperatorMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UniFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FunctionIndicator.cpp">
@@ -54,6 +75,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CFunctionData.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
