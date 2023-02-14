@@ -1,5 +1,5 @@
 ﻿
-// MathToolsDoc.cpp: CMathToolsDoc 类的实现
+// FunctionIndicatorDoc.cpp: CFunctionIndicatorDoc 类的实现
 //
 
 #include "pch.h"
@@ -7,10 +7,10 @@
 // SHARED_HANDLERS 可以在实现预览、缩略图和搜索筛选器句柄的
 // ATL 项目中进行定义，并允许与该项目共享文档代码。
 #ifndef SHARED_HANDLERS
-#include "MathTools.h"
+#include "FunctionIndicator.h"
 #endif
 
-#include "MathToolsDoc.h"
+#include "FunctionIndicatorDoc.h"
 
 #include <propkey.h>
 
@@ -18,27 +18,27 @@
 #define new DEBUG_NEW
 #endif
 
-// CMathToolsDoc
+// CFunctionIndicatorDoc
 
-IMPLEMENT_DYNCREATE(CMathToolsDoc, CDocument)
+IMPLEMENT_DYNCREATE(CFunctionIndicatorDoc, CDocument)
 
-BEGIN_MESSAGE_MAP(CMathToolsDoc, CDocument)
+BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 END_MESSAGE_MAP()
 
 
-// CMathToolsDoc 构造/析构
+// CFunctionIndicatorDoc 构造/析构
 
-CMathToolsDoc::CMathToolsDoc() noexcept
+CFunctionIndicatorDoc::CFunctionIndicatorDoc() noexcept
 {
 	// TODO: 在此添加一次性构造代码
 
 }
 
-CMathToolsDoc::~CMathToolsDoc()
+CFunctionIndicatorDoc::~CFunctionIndicatorDoc()
 {
 }
 
-BOOL CMathToolsDoc::OnNewDocument()
+BOOL CFunctionIndicatorDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
@@ -52,9 +52,9 @@ BOOL CMathToolsDoc::OnNewDocument()
 
 
 
-// CMathToolsDoc 序列化
+// CFunctionIndicatorDoc 序列化
 
-void CMathToolsDoc::Serialize(CArchive& ar)
+void CFunctionIndicatorDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
@@ -69,7 +69,7 @@ void CMathToolsDoc::Serialize(CArchive& ar)
 #ifdef SHARED_HANDLERS
 
 // 缩略图的支持
-void CMathToolsDoc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
+void CFunctionIndicatorDoc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 {
 	// 修改此代码以绘制文档数据
 	dc.FillSolidRect(lprcBounds, RGB(255, 255, 255));
@@ -90,7 +90,7 @@ void CMathToolsDoc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 }
 
 // 搜索处理程序的支持
-void CMathToolsDoc::InitializeSearchContent()
+void CFunctionIndicatorDoc::InitializeSearchContent()
 {
 	CString strSearchContent;
 	// 从文档数据设置搜索内容。
@@ -100,7 +100,7 @@ void CMathToolsDoc::InitializeSearchContent()
 	SetSearchContent(strSearchContent);
 }
 
-void CMathToolsDoc::SetSearchContent(const CString& value)
+void CFunctionIndicatorDoc::SetSearchContent(const CString& value)
 {
 	if (value.IsEmpty())
 	{
@@ -120,19 +120,19 @@ void CMathToolsDoc::SetSearchContent(const CString& value)
 
 #endif // SHARED_HANDLERS
 
-// CMathToolsDoc 诊断
+// CFunctionIndicatorDoc 诊断
 
 #ifdef _DEBUG
-void CMathToolsDoc::AssertValid() const
+void CFunctionIndicatorDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
 
-void CMathToolsDoc::Dump(CDumpContext& dc) const
+void CFunctionIndicatorDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }
 #endif //_DEBUG
 
 
-// CMathToolsDoc 命令
+// CFunctionIndicatorDoc 命令

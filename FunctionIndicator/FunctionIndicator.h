@@ -1,5 +1,5 @@
 ﻿
-// MathTools.h: MathTools 应用程序的主头文件
+// FunctionIndicator.h: FunctionIndicator 应用程序的主头文件
 //
 #pragma once
 
@@ -10,14 +10,14 @@
 #include "resource.h"       // 主符号
 
 
-// CMathToolsApp:
-// 有关此类的实现，请参阅 MathTools.cpp
+// CFunctionIndicatorApp:
+// 有关此类的实现，请参阅 FunctionIndicator.cpp
 //
 
-class CMathToolsApp : public CWinApp
+class CFunctionIndicatorApp : public CWinApp
 {
 public:
-	CMathToolsApp() noexcept;
+	CFunctionIndicatorApp() noexcept;
 
 
 // 重写
@@ -30,4 +30,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CMathToolsApp theApp;
+extern CFunctionIndicatorApp theApp;

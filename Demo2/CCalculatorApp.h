@@ -15,10 +15,10 @@
 // 有关此类的实现，请参阅 Demo2.cpp
 //
 
-class CDemo2App : public CWinApp
+class CCalculatorApp : public CWinApp
 {
 public:
-	CDemo2App();
+	CCalculatorApp();
 
 // 重写
 public:
@@ -29,4 +29,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CDemo2App theApp;
+extern CCalculatorApp theApp;

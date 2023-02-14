@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Demo2.h">
+    <ClInclude Include="CCalculatorApp.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CCalculatorDlg.h">
@@ -47,7 +47,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Demo2.cpp">
+    <ClCompile Include="CCacluatorApp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CCalculatorDlg.cpp">

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MathTools.h">
+    <ClInclude Include="FunctionIndicator.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
@@ -27,10 +27,10 @@
     <ClInclude Include="MainFrm.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MathToolsDoc.h">
+    <ClInclude Include="FunctionIndicatorDoc.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MathToolsView.h">
+    <ClInclude Include="FunctionIndicatorView.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -39,33 +39,18 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CCalculatorDialog.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Calculator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathDef.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathOperator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathOperatorMap.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MathTools.cpp">
+    <ClCompile Include="FunctionIndicator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MainFrm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MathToolsDoc.cpp">
+    <ClCompile Include="FunctionIndicatorDoc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MathToolsView.cpp">
+    <ClCompile Include="FunctionIndicatorView.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -73,20 +58,23 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MathTools.rc">
+    <ResourceCompile Include="FunctionIndicator.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\MathTools.rc2">
+    <None Include="res\FunctionIndicator.rc2">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MathToolsDoc.ico">
+    <Image Include="res\FunctionIndicatorDoc.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="res\MathTools.ico">
+    <Image Include="res\FunctionIndicator.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

@@ -16,12 +16,13 @@ namespace SqyMathLibrary {
 	}
 
 	bool Calculator::IsNum(const std::string& s) const{
-		if (s == "e" || s == "pi" || s == "zero" ) return true;
+		if (s == "e" || s == "pi" || s == "zero" || s == "INF") return true;
 		if (s == ".") return false;
 
 		int dot = 0;
 		int digital = 0;
 		for (int i = 0; i < s.size(); i++) {
+
 			if (s[i] == '.') {
 				if (++dot > 1) return false;  //小数点超过1返回false
 				continue;
@@ -47,6 +48,7 @@ namespace SqyMathLibrary {
 		if (s == "e") return E;
 		if (s == "pi") return PI;
 		if (s == "zero") return 0; //zero为不可见0，是方便计算类似于-3+（-5）这样的表达式设计的
+		if (s == "INF") return INF;
 		OPERAND res =  stod(s);  //调用标准库函数
 	}
 

@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{0091EC70-3D30-491F-9DA8-2A97D0A3AD37}</ProjectGuid>
+    <ProjectGuid>{9A99448F-EE34-41A6-AC1F-642FE87B00DB}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
-    <RootNamespace>MathTools</RootNamespace>
+    <RootNamespace>FunctionIndicator</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -31,7 +31,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -39,14 +39,14 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -54,7 +54,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -183,25 +183,20 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Calculator.h" />
-    <ClInclude Include="CCalculatorDialog.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="FunctionIndicator.h" />
+    <ClInclude Include="FunctionIndicatorDoc.h" />
+    <ClInclude Include="FunctionIndicatorView.h" />
     <ClInclude Include="MainFrm.h" />
-    <ClInclude Include="MathDef.h" />
-    <ClInclude Include="MathOperator.h" />
-    <ClInclude Include="MathOperatorMap.h" />
-    <ClInclude Include="MathTools.h" />
-    <ClInclude Include="MathToolsDoc.h" />
-    <ClInclude Include="MathToolsView.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FunctionIndicator.cpp" />
+    <ClCompile Include="FunctionIndicatorDoc.cpp" />
+    <ClCompile Include="FunctionIndicatorView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
-    <ClCompile Include="MathTools.cpp" />
-    <ClCompile Include="MathToolsDoc.cpp" />
-    <ClCompile Include="MathToolsView.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -210,14 +205,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MathTools.rc" />
+    <ResourceCompile Include="FunctionIndicator.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\MathTools.rc2" />
+    <None Include="res\FunctionIndicator.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MathTools.ico" />
-    <Image Include="res\MathToolsDoc.ico" />
+    <Image Include="res\FunctionIndicator.ico" />
+    <Image Include="res\FunctionIndicatorDoc.ico" />
+    <Image Include="res\Toolbar.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

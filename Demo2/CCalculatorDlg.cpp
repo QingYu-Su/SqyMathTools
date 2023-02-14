@@ -4,7 +4,7 @@
 
 #include "pch.h"
 #include "framework.h"
-#include "Demo2.h"
+#include "CCalculatorApp.h"
 #include "CCalculatorDlg.h"
 #include "afxdialogex.h"
 
@@ -193,6 +193,7 @@ HCURSOR CCalculatorDlg::OnQueryDragIcon()
 
 bool CCalculatorDlg::IsNewNum() {
 	if (this->m_Expression.empty()) return true;  //空表达式
+	if (this->m_Expression.back() == "INF") return true;  //前一个为INF，无法为其添加新数位
 	if (SML::GET_MATH_OPERATOR(this->m_Expression.back()) != NULL) return true; //前一个占位符为运算符
 	return false;
 }
@@ -559,17 +560,29 @@ void CCalculatorDlg::OnBnClickedEqual()
 	this->m_Current += "=";
 	this->m_Histroy = this->m_Current;  //历史编辑框赋值
 
-	std::string str_res;
-	if (res == INF) {  //计算结果过大，显示INF
-		str_res = "INF";
+	this->m_Expression.clear();  //表达式清空
+	this->m_Current.Empty(); //当前编辑框清空
+
+	//为当前编辑框赋值
+	if (res == INF) {
+		this->m_Current = "INF";
+	}
+	else if (res == -INF) {
+		this->m_Current = "-INF";
 	}
 	else {
-		str_res = std::to_string(res);
+		this->m_Current = std::to_string(res).c_str();
 	}
-	this->m_Current = str_res.c_str(); //将计算结果赋给当前编辑框
 
-	this->m_Expression.clear();  //表达式清空并加上结果值
-	this->m_Expression.push_back(str_res);
+	//为表达式赋值
+	if (res < 0) {  //结果为负数需要添加zero
+		this->m_Expression.push_back("zero");
+		this->m_Expression.push_back("-");
+		res = -res;
+	}
+
+	if (res == INF) this->m_Expression.push_back("INF");
+	else this->m_Expression.push_back(std::to_string(res));
 
 	UpdateData(false);
 }
@@ -591,7 +604,7 @@ void CCalculatorDlg::OnBnClickedDelete()
 	if (this->m_Current.IsEmpty() == true) return; //当前编辑框为空，直接返回
 
 	int length = 0;  //当前编辑框新长度
-	if (SML::GET_MATH_OPERATOR(this->m_Expression.back()) != NULL || m_Expression.back() == "pi"  ) {
+	if (SML::GET_MATH_OPERATOR(this->m_Expression.back()) != NULL || m_Expression.back() == "pi" || m_Expression.back() == "INF") {
 		//表达式最后一个元素为运算符或者“pi”，删除该元素，当前编辑框长度更新
 		length = m_Current.GetLength() - this->m_Expression.back().size();
 		this->m_Expression.pop_back();

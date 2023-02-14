@@ -1,16 +1,16 @@
 ﻿
-// MathToolsDoc.h: CMathToolsDoc 类的接口
+// FunctionIndicatorDoc.h: CFunctionIndicatorDoc 类的接口
 //
 
 
 #pragma once
 
 
-class CMathToolsDoc : public CDocument
+class CFunctionIndicatorDoc : public CDocument
 {
 protected: // 仅从序列化创建
-	CMathToolsDoc() noexcept;
-	DECLARE_DYNCREATE(CMathToolsDoc)
+	CFunctionIndicatorDoc() noexcept;
+	DECLARE_DYNCREATE(CFunctionIndicatorDoc)
 
 // 特性
 public:
@@ -29,7 +29,7 @@ public:
 
 // 实现
 public:
-	virtual ~CMathToolsDoc();
+	virtual ~CFunctionIndicatorDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
