@@ -24,7 +24,7 @@
 IMPLEMENT_DYNCREATE(CFunctionIndicatorDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
-	ON_COMMAND(ID_ADD_FUNCTION, &CFunctionIndicatorDoc::OnAddFunction)
+	ON_COMMAND(ID_ADD_NORMAL_FUNC, &CFunctionIndicatorDoc::OnAddNormalFunc)
 END_MESSAGE_MAP()
 
 
@@ -32,7 +32,16 @@ END_MESSAGE_MAP()
 
 CFunctionIndicatorDoc::CFunctionIndicatorDoc() noexcept
 {
-	// TODO: 在此添加一次性构造代码
+	this->m_ShowGrid = true;
+	this->m_ShowAxis = true;
+	this->m_ShowEdge = true;
+	this->m_SingelMode = true;
+	this->m_FixedXRange = false;
+	this->m_ShowPoint = false;
+	this->m_MinX = -10;
+	this->m_MaxX = 10;
+	this->m_MinY = -1;
+	this->m_MaxY = 1;
 
 }
 
@@ -140,12 +149,8 @@ void CFunctionIndicatorDoc::Dump(CDumpContext& dc) const
 // CFunctionIndicatorDoc 命令
 
 
-void CFunctionIndicatorDoc::OnAddFunction()
+void CFunctionIndicatorDoc::OnAddNormalFunc()
 {
-	/*CFunctionDlg dlg('t');
-	if (dlg.DoModal() == IDOK) {
-		AfxMessageBox("成功退出");
-	}*/
 	CAddNormalFuncDlg dlg;
 	if (dlg.DoModal() == IDOK) {
 		AfxMessageBox("成功退出");

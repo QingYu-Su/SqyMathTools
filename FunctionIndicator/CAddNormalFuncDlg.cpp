@@ -20,7 +20,6 @@ CAddNormalFuncDlg::CAddNormalFuncDlg(CWnd* pParent /*=nullptr*/)
 	, m_LineType(PS_SOLID)
 	, m_LineColor(RGB(0, 0, 0))
 {
-
 }
 
 CAddNormalFuncDlg::~CAddNormalFuncDlg()
@@ -41,7 +40,7 @@ void CAddNormalFuncDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAddNormalFuncDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_EDITFUNC, &CAddNormalFuncDlg::OnBnClickedButtonEditfunc)
-	ON_BN_CLICKED(IDC_BUTTON_PEN_COLOR, &CAddNormalFuncDlg::OnBnClickedButtonPenColor)
+	ON_BN_CLICKED(IDC_BUTTON_LINE_COLOR, &CAddNormalFuncDlg::OnBnClickedButtonPenColor)
 END_MESSAGE_MAP()
 
 

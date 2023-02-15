@@ -45,6 +45,16 @@ protected:
 	// 用于为搜索处理程序设置搜索内容的 Helper 函数
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+
+private:
+	bool m_ShowGrid; //是否显示网格
+	bool m_ShowAxis; //是否显示坐标轴
+	bool m_ShowEdge; //是否显示边框
+	bool m_SingelMode;   //单函数模式
+	bool m_FixedXRange;	 //普通函数x范围是否固定，不固定的话随显示范围变化
+	bool m_ShowPoint;//鼠标接近函数线时是否显示其坐标
+	double m_MinX, m_MaxX; //x轴显示范围 
+	double m_MinY, m_MaxY;//y轴显示范围
 public:
-	afx_msg void OnAddFunction();
+	afx_msg void OnAddNormalFunc();
 };

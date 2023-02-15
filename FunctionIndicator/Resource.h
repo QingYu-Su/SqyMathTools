@@ -18,7 +18,6 @@
 #define IDC_NEGATIVE                    1014
 #define IDC_COMBO_LINE_TYPE             1014
 #define IDC_NUM_0                       1015
-#define IDC_BUTTON_PEN_COLOR            1015
 #define IDC_BUTTON_LINE_COLOR           1015
 #define IDC_EDIT_MAX                    1016
 #define IDC_NUM_3                       1044
@@ -54,13 +53,14 @@
 #define IDC_ABS                         1076
 #define ID_32771                        32771
 #define ID_ADD_FUNCTION                 32772
+#define ID_ADD_NORMAL_FUNC              32773
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
-#define _APS_NEXT_COMMAND_VALUE         32773
+#define _APS_NEXT_COMMAND_VALUE         32774
 #define _APS_NEXT_CONTROL_VALUE         1016
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
