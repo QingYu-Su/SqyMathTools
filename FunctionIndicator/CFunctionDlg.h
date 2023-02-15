@@ -42,6 +42,7 @@ protected:
 
 public:
 	SML::MathExpression GetExpression();  //获得输入后的表达式
+	CString GetEditStr();  //获得输入后的编辑框文本
 
 private: 
 	bool IsNewNum();  //是否为新数字，该函数仅被数字button使用

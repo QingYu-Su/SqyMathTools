@@ -134,6 +134,10 @@ SML::MathExpression CFunctionDlg::GetExpression() {
 	return this->m_Expression;
 }
 
+CString CFunctionDlg::GetEditStr() {
+	return this->m_Edit;
+}
+
 bool CFunctionDlg::IsNewNum() {
 	if (this->m_Expression.empty()) return true;  //空表达式
 

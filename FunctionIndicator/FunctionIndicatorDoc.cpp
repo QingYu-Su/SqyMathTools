@@ -11,7 +11,7 @@
 #endif
 
 #include "FunctionIndicatorDoc.h"
-#include "CFunctionDlg.h"
+#include "CAddNormalFuncDlg.h"
 
 #include <propkey.h>
 
@@ -142,7 +142,11 @@ void CFunctionIndicatorDoc::Dump(CDumpContext& dc) const
 
 void CFunctionIndicatorDoc::OnAddFunction()
 {
-	CFunctionDlg dlg('t');
+	/*CFunctionDlg dlg('t');
+	if (dlg.DoModal() == IDOK) {
+		AfxMessageBox("成功退出");
+	}*/
+	CAddNormalFuncDlg dlg;
 	if (dlg.DoModal() == IDOK) {
 		AfxMessageBox("成功退出");
 	}

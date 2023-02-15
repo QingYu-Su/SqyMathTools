@@ -6,12 +6,21 @@
 #define IDP_OLE_INIT_FAILED             100
 #define IDR_MAINFRAME                   128
 #define IDR_FunctionIndicatorTYPE       130
+#define IDD_ADD_NORMALFUNC_DIALOG       310
 #define IDD_FUNCTION_DIALOG             311
+#define IDC_BUTTON_EDITFUNC             1003
 #define IDC_EDIT                        1005
 #define IDC_EDIT_FUNCTION               1005
+#define IDC_EDIT_MIN                    1008
+#define IDC_EDIT_PRECISION              1011
 #define IDC_CALC_DOT                    1012
+#define IDC_EDIT_LINE_WIDTH             1013
 #define IDC_NEGATIVE                    1014
+#define IDC_COMBO_LINE_TYPE             1014
 #define IDC_NUM_0                       1015
+#define IDC_BUTTON_PEN_COLOR            1015
+#define IDC_BUTTON_LINE_COLOR           1015
+#define IDC_EDIT_MAX                    1016
 #define IDC_NUM_3                       1044
 #define IDC_DIVIDE                      1045
 #define IDC_NUM_1                       1046
@@ -50,9 +59,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        310
+#define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1001
+#define _APS_NEXT_CONTROL_VALUE         1016
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

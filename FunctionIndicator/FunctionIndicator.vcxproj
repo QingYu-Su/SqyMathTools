@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAddNormalFuncDlg.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="CFunctionDlg.h" />
     <ClInclude Include="framework.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="UniFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAddNormalFuncDlg.cpp" />
     <ClCompile Include="CFunctionDlg.cpp" />
     <ClCompile Include="FunctionIndicator.cpp" />
     <ClCompile Include="FunctionIndicatorDoc.cpp" />
