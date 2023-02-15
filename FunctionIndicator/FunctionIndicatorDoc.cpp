@@ -11,6 +11,7 @@
 #endif
 
 #include "FunctionIndicatorDoc.h"
+#include "CFunctionDlg.h"
 
 #include <propkey.h>
 
@@ -23,6 +24,7 @@
 IMPLEMENT_DYNCREATE(CFunctionIndicatorDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
+	ON_COMMAND(ID_ADD_FUNCTION, &CFunctionIndicatorDoc::OnAddFunction)
 END_MESSAGE_MAP()
 
 
@@ -136,3 +138,12 @@ void CFunctionIndicatorDoc::Dump(CDumpContext& dc) const
 
 
 // CFunctionIndicatorDoc 命令
+
+
+void CFunctionIndicatorDoc::OnAddFunction()
+{
+	CFunctionDlg dlg('t');
+	if (dlg.DoModal() == IDOK) {
+		AfxMessageBox("成功退出");
+	}
+}

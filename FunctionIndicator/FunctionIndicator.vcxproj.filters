@@ -57,6 +57,9 @@
     <ClInclude Include="UniFunction.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CFunctionDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FunctionIndicator.cpp">
@@ -72,6 +75,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CFunctionDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

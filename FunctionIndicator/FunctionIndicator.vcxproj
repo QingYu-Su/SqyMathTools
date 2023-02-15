@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Calculator.h" />
+    <ClInclude Include="CFunctionDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FunctionIndicator.h" />
     <ClInclude Include="FunctionIndicatorDoc.h" />
@@ -199,6 +200,7 @@
     <ClInclude Include="UniFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CFunctionDlg.cpp" />
     <ClCompile Include="FunctionIndicator.cpp" />
     <ClCompile Include="FunctionIndicatorDoc.cpp" />
     <ClCompile Include="FunctionIndicatorView.cpp" />
