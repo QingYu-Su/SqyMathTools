@@ -129,9 +129,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Calculator.h" />
+    <ClInclude Include="MathFunction.h" />
     <ClInclude Include="MathOperator.h" />
     <ClInclude Include="MathDef.h" />
     <ClInclude Include="MathOperatorMap.h" />
+    <ClInclude Include="UniFunction.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

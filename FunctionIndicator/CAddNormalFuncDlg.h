@@ -20,13 +20,18 @@ public:
 	enum { IDD = IDD_ADD_NORMALFUNC_DIALOG };
 #endif
 
-private:
-	SML::MathExpression m_Expression;
+public:
+	SML::MathFunction* GetMathFunction();  //获得函数
+	size_t GetPrecision();  //获得函数精度
+	int GetLineWidth();  //获得线宽
+	int GetLineType();  //获得线型
+	COLORREF GetLineColor();  //获得线颜色
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 private:
+	SML::MathExpression m_Expression;
 	CString m_ExpressionStr;
 	OPERAND m_Left;
 	OPERAND m_Right;

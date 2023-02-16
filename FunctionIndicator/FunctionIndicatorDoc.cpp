@@ -47,6 +47,21 @@ CFunctionIndicatorDoc::CFunctionIndicatorDoc() noexcept
 
 CFunctionIndicatorDoc::~CFunctionIndicatorDoc()
 {
+	//释放函数链表空间
+	if (!this->m_FunctionList.empty()) {
+		std::list<SML::MathFunction*>::iterator it;
+		for (it = this->m_FunctionList.begin(); it != this->m_FunctionList.end(); it++) {
+			delete *it;
+		}
+	}
+
+	//释放绘制函数链表空间
+	if (!this->m_DrawFuncList.empty()) {
+		std::list<DrawFuncData*>::iterator it;
+		for (it = this->m_DrawFuncList.begin(); it != this->m_DrawFuncList.end(); it++) {
+			delete* it;
+		}
+	}
 }
 
 BOOL CFunctionIndicatorDoc::OnNewDocument()
@@ -169,6 +184,14 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 {
 	CAddNormalFuncDlg dlg;
 	if (dlg.DoModal() == IDOK) {
-		AfxMessageBox("成功退出");
+		/*SML::MathFunction* pFunction = dlg.GetMathFunction();
+		size_t precision = dlg.GetPrecision();
+		pFunction->Calculate(this->m_MinX, this->m_MaxX, precision);
+		if (pFunction->IsSuccess() == false) {
+			AfxMessageBox(pFunction->GetError().c_str());
+			delete pFunction;
+			return;
+		}*/
 	}
+	UpdateAllViews(NULL);
 }

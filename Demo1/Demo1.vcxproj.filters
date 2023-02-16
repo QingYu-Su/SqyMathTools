@@ -27,6 +27,12 @@
     <ClInclude Include="MathOperatorMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MathFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UniFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

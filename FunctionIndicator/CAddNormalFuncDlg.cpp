@@ -37,6 +37,31 @@ void CAddNormalFuncDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_CBIndex(pDX, IDC_COMBO_LINE_TYPE, m_LineType);
 }
 
+SML::MathFunction* CAddNormalFuncDlg::GetMathFunction() {
+	//创建函数表达式
+	SML::FunctionExpression funcExpression(this->m_Expression, 'y', 'x', this->m_Left, this->m_Right);
+	
+	return new SML::NormalFunction(funcExpression); //返回普通函数
+
+}
+
+size_t CAddNormalFuncDlg::GetPrecision() {
+	return this->m_Precision;
+}
+
+int CAddNormalFuncDlg::GetLineWidth() {
+	return this->m_LineWidth;
+}
+
+int CAddNormalFuncDlg::GetLineType() {
+	return this->m_LineType;
+}
+
+COLORREF CAddNormalFuncDlg::GetLineColor() {
+	return this->m_LineColor;
+}
+
+
 
 BEGIN_MESSAGE_MAP(CAddNormalFuncDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_EDITFUNC, &CAddNormalFuncDlg::OnBnClickedButtonEditfunc)

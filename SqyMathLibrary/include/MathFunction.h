@@ -28,7 +28,7 @@ namespace SqyMathLibrary {
     class MathFunction {
     public: //类默认方法
         MathFunction(FunctionType type);
-        virtual ~MathFunction() {};
+        virtual ~MathFunction() {}
 
         //以下函数由编译器自动生成即可
         //MathFunction(const MathFunction&) {};
@@ -45,10 +45,10 @@ namespace SqyMathLibrary {
     
     protected://本类使用了策略模式，以下方法由子类实现，但无需由子类使用
         virtual bool IsValid() = 0;  //函数是否有效，必须由子类实现
-        virtual bool PreProcess() {};  //计算之前的预处理，没有则不必实现
+        virtual void PreProcess() {}  //计算之前的预处理，没有则不必实现
         virtual OPERAND GetX(OPERAND parameter) = 0;  //获取函数自变量的某个值在x轴上的对应值，必须由子类实现，返回INV表示计算失败
         virtual OPERAND GetY(OPERAND parameter) = 0;  //获取函数自变量的某个值在y轴上的对应值，必须由子类实现，返回INV表示计算失败
-        virtual bool PostProcess() {}; //计算之后的后处理，没有则不必实现
+        virtual void PostProcess() {} //计算之后的后处理，没有则不必实现
 
     protected:
         void SetResult(bool res, std::string reason = "");  //设置操作成功与否
@@ -64,9 +64,9 @@ namespace SqyMathLibrary {
     class NormalFunction :public MathFunction {
     public://类默认方法
         NormalFunction(FunctionExpression &expression);
-        virtual ~NormalFunction() {};
-
+       
         //以下函数由编译器自动生成即可
+        // ~NormalFunction() {};
         //MathFunction(const MathFunction&) {};
         //MathFunction& operator=(const MathFunction&) {};
     protected:  //基类方法的子类实现
@@ -82,8 +82,9 @@ namespace SqyMathLibrary {
     class PolarFunction :public MathFunction {
     public://类默认方法
         PolarFunction(FunctionExpression& expression);
-        virtual ~PolarFunction() {};
+        
         //以下函数由编译器自动生成即可
+        // ~PolarFunction() {};
         //PolarFunction(const PolarFunction&) {};
         //PolarFunction& operator=(const PolarFunction&) {};
     protected: //基类方法的子类实现
@@ -99,8 +100,8 @@ namespace SqyMathLibrary {
     class TwoFunction :public MathFunction {
     public://类默认方法
         TwoFunction(FunctionExpression& expressionX, FunctionExpression& expressionY);
-        virtual ~TwoFunction() {};
         //以下函数由编译器自动生成即可
+        // ~TwoFunction() {};
         //TwoFunction(const TwoFunction&) {};
         //TwoFunction& operator=(const TwoFunction&) {};
     protected://基类方法的子类实现

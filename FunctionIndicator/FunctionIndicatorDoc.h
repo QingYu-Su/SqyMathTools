@@ -4,8 +4,22 @@
 
 
 #pragma once
+#include <list>
+#include <string>
+#include <vector>
+#include "MathFunction.h"
+#pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
+namespace SML = SqyMathLibrary;  //命名空间重命名
 
-
+//绘制函数数据，仅包含绘图所需要的必要数据
+struct DrawFuncData { 
+	std::vector<std::string> expressionStr;
+	SML::FunctionMap drawPoint;
+	size_t precision;
+	int lineWidth;
+	int lineType;
+	COLORREF lineColor;
+};
 
 
 class CFunctionIndicatorDoc : public CDocument
@@ -63,6 +77,12 @@ private:
 	bool m_ShowPoint;//鼠标接近函数线时是否显示其坐标
 	double m_MinX, m_MaxX; //x轴显示范围 
 	double m_MinY, m_MaxY;//y轴显示范围
+
+	//函数链表，保存了所有添加的函数以及一系列可供调用的方法
+	std::list<SML::MathFunction*> m_FunctionList; 
+
+	//绘制函数数据链表，仅保存绘制图像所需要的必要数据，用来提供View绘图，与函数链表一一对应
+	std::list<DrawFuncData*> m_DrawFuncList;  
 public:
 	afx_msg void OnAddNormalFunc();
 };

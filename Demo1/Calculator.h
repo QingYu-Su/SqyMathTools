@@ -31,7 +31,7 @@ namespace SqyMathLibrary {
 
     public:  //基本接口
         //计算综合表达式，参数为运算符与运算数分离的字符串数组，返回运算结果
-        OPERAND Calculate(const std::vector<std::string> &expression);
+        OPERAND Calculate(const MathExpression &expression);
 
         //计算综合表达式，参数为表达式字符串，且各元素之间以“#”号隔开，返回运算结果
         //如3+(5*4)，其表达式字符串应该为3#+#(#5#*#4#)
