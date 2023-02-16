@@ -145,6 +145,22 @@ void CFunctionIndicatorDoc::Dump(CDumpContext& dc) const
 }
 #endif //_DEBUG
 
+double CFunctionIndicatorDoc::GetMinX() {
+	return this->m_MinX;
+}
+
+double CFunctionIndicatorDoc::GetMaxX() {
+	return this->m_MaxX;
+}
+
+double CFunctionIndicatorDoc::GetMinY() {
+	return this->m_MinY;
+}
+
+double CFunctionIndicatorDoc::GetMaxY() {
+	return this->m_MaxY;
+}
+
 
 // CFunctionIndicatorDoc 命令
 
