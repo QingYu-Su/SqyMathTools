@@ -128,15 +128,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Calculator.h" />
-    <ClInclude Include="MathFunction.h" />
-    <ClInclude Include="MathOperator.h" />
-    <ClInclude Include="MathDef.h" />
-    <ClInclude Include="MathOperatorMap.h" />
-    <ClInclude Include="UniFunction.h" />
+    <ClCompile Include="Calculator.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MathFunction.cpp" />
+    <ClCompile Include="MathOperator.cpp" />
+    <ClCompile Include="MathOperatorMap.cpp" />
+    <ClCompile Include="UniFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="include\Calculator.h" />
+    <ClInclude Include="include\MathDef.h" />
+    <ClInclude Include="include\MathFunction.h" />
+    <ClInclude Include="include\MathOperator.h" />
+    <ClInclude Include="include\MathOperatorMap.h" />
+    <ClInclude Include="include\UniFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
