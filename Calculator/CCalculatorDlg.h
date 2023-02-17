@@ -7,7 +7,7 @@
 	 最后修改日期：2022-02-11
 ***************************************/
 #pragma once
-#include "Calculator.h"
+#include "../SqyMathLibrary/include/Calculator.h"
 #pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 namespace SML = SqyMathLibrary;  //命名空间重命名
 

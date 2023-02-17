@@ -183,22 +183,22 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\SqyMathLibrary\include\Calculator.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathDef.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathFunction.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathOperator.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathOperatorMap.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\UniFunction.h" />
     <ClInclude Include="CAddNormalFuncDlg.h" />
-    <ClInclude Include="Calculator.h" />
     <ClInclude Include="CFunctionDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FunctionIndicator.h" />
     <ClInclude Include="FunctionIndicatorDoc.h" />
     <ClInclude Include="FunctionIndicatorView.h" />
     <ClInclude Include="MainFrm.h" />
-    <ClInclude Include="MathDef.h" />
-    <ClInclude Include="MathFunction.h" />
-    <ClInclude Include="MathOperator.h" />
-    <ClInclude Include="MathOperatorMap.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="UniFunction.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAddNormalFuncDlg.cpp" />

@@ -7,7 +7,7 @@
 #include <list>
 #include <string>
 #include <vector>
-#include "MathFunction.h"
+#include "../SqyMathLibrary/include/MathFunction.h"
 #pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 namespace SML = SqyMathLibrary;  //命名空间重命名
 

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\SqyMathLibrary">
+      <UniqueIdentifier>{8840f857-ced4-4e00-addc-cddcbc68f6e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FunctionIndicator.h">
@@ -39,29 +42,29 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Calculator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathDef.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathFunction.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathOperator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MathOperatorMap.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="UniFunction.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="CFunctionDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CAddNormalFuncDlg.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SqyMathLibrary\include\Calculator.h">
+      <Filter>头文件\SqyMathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SqyMathLibrary\include\MathDef.h">
+      <Filter>头文件\SqyMathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SqyMathLibrary\include\MathFunction.h">
+      <Filter>头文件\SqyMathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SqyMathLibrary\include\MathOperator.h">
+      <Filter>头文件\SqyMathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SqyMathLibrary\include\MathOperatorMap.h">
+      <Filter>头文件\SqyMathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SqyMathLibrary\include\UniFunction.h">
+      <Filter>头文件\SqyMathLibrary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

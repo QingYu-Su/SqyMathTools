@@ -185,13 +185,13 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Calculator.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\Calculator.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathDef.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathOperator.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathOperatorMap.h" />
     <ClInclude Include="CCalculatorDlg.h" />
     <ClInclude Include="CCalculatorApp.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="MathDef.h" />
-    <ClInclude Include="MathOperator.h" />
-    <ClInclude Include="MathOperatorMap.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />

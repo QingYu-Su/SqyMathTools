@@ -184,14 +184,14 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 {
 	CAddNormalFuncDlg dlg;
 	if (dlg.DoModal() == IDOK) {
-		/*SML::MathFunction* pFunction = dlg.GetMathFunction();
+		SML::MathFunction* pFunction = dlg.GetMathFunction();
 		size_t precision = dlg.GetPrecision();
 		pFunction->Calculate(this->m_MinX, this->m_MaxX, precision);
 		if (pFunction->IsSuccess() == false) {
 			AfxMessageBox(pFunction->GetError().c_str());
 			delete pFunction;
 			return;
-		}*/
+		}
 	}
 	UpdateAllViews(NULL);
 }
