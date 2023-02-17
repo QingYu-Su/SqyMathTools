@@ -6,14 +6,12 @@
      版本：v1.0
      最后修改日期：2022-02-13
 ***************************************/
-
 #ifndef _MATHFUNCTION_H_
 #define _MATHFUNCTION_H_
 
 #include "UniFunction.h"
 
 namespace SqyMathLibrary {
-
     typedef std::pair<OPERAND, OPERAND> FunctionPoint;  //函数点
 
     typedef std::vector<FunctionPoint> FunctionMap;  //函数图像
@@ -42,7 +40,7 @@ namespace SqyMathLibrary {
 
         bool IsSuccess();  //操作是否成功 
         std::string GetError();   //操作运算失败原因
-    
+
     protected://本类使用了策略模式，以下方法由子类实现，但无需由子类使用
         virtual bool IsValid() = 0;  //函数是否有效，必须由子类实现
         virtual void PreProcess() {}  //计算之前的预处理，没有则不必实现
@@ -63,8 +61,8 @@ namespace SqyMathLibrary {
     //普通函数
     class NormalFunction :public MathFunction {
     public://类默认方法
-        NormalFunction(FunctionExpression &expression);
-       
+        NormalFunction(FunctionExpression& expression);
+
         //以下函数由编译器自动生成即可
         // ~NormalFunction() {};
         //MathFunction(const MathFunction&) {};
@@ -82,7 +80,7 @@ namespace SqyMathLibrary {
     class PolarFunction :public MathFunction {
     public://类默认方法
         PolarFunction(FunctionExpression& expression);
-        
+
         //以下函数由编译器自动生成即可
         // ~PolarFunction() {};
         //PolarFunction(const PolarFunction&) {};
@@ -114,9 +112,6 @@ namespace SqyMathLibrary {
         FunctionTool m_Tool;  //处理函数表达式的工具
     };
 }
-
-
-
 
 
 #endif

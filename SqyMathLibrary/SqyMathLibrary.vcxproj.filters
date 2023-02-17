@@ -27,6 +27,9 @@
     <ClCompile Include="UniFunction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MathFunction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Calculator.h">
@@ -41,16 +44,11 @@
     <ClInclude Include="include\MathOperatorMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\MathFunction.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\UniFunction.h">
       <Filter>头文件</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MathFunction.cpp">
-      <Filter>源文件</Filter>
-    </None>
+    <ClInclude Include="include\MathFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

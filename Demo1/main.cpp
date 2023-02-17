@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Windows.h>
-#include "./include/MathFunction.h"
+#include "../SqyMathLibrary/include/MathFunction.h"
+#pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 using namespace SqyMathLibrary;
 using namespace std;
 

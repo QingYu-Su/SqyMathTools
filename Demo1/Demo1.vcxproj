@@ -128,20 +128,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MathFunction.cpp" />
-    <ClCompile Include="MathOperator.cpp" />
-    <ClCompile Include="MathOperatorMap.cpp" />
-    <ClCompile Include="UniFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Calculator.h" />
-    <ClInclude Include="include\MathDef.h" />
-    <ClInclude Include="include\MathFunction.h" />
-    <ClInclude Include="include\MathOperator.h" />
-    <ClInclude Include="include\MathOperatorMap.h" />
-    <ClInclude Include="include\UniFunction.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\Calculator.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathDef.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathFunction.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathOperator.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\MathOperatorMap.h" />
+    <ClInclude Include="..\SqyMathLibrary\include\UniFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

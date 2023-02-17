@@ -15,19 +15,25 @@ namespace SqyMathLibrary {
 		FunctionMap res;
 
 		if (this->IsValid() == false) return res;  //函数无效，直接返回
-		
+
 		this->PreProcess();  //预处理
 
 		OPERAND unit = (right - left) / precision;  //函数计算单元
-		
+
 		for (OPERAND parameter = left; parameter <= right; parameter += unit) {
-			
+
 			OPERAND x = this->GetX(parameter);  //获取x值
-			if (x == INV) res.clear();  return res;  //x值无效，直接返回
+			if (x == INV) {
+				res.clear();  
+				return res;  //x值无效，直接返回
+			}
 
 			OPERAND y = this->GetY(parameter);  //获取y值
-			if (y == INV) res.clear();  return res; //y值无效，直接返回
-			 
+			if (y == INV) {
+				res.clear();  
+				return res; //y值无效，直接返回
+			}
+
 			//更新X和Y的极值
 			this->m_MaxX = std::max(this->m_MaxX, x);
 			this->m_MinX = std::min(this->m_MinX, x);
@@ -59,7 +65,7 @@ namespace SqyMathLibrary {
 		this->m_Error = reason;
 	}
 
-	NormalFunction::NormalFunction(FunctionExpression &expression)
+	NormalFunction::NormalFunction(FunctionExpression& expression)
 		:MathFunction(Normal), m_Expression(expression)
 	{}
 
@@ -73,7 +79,7 @@ namespace SqyMathLibrary {
 			this->SetResult(false, FUNC_ERROR_DV);
 			return false;
 		}
-
+		return true;
 	}
 
 	OPERAND NormalFunction::GetX(OPERAND parameter) {
@@ -132,7 +138,7 @@ namespace SqyMathLibrary {
 	OPERAND PolarFunction::GetX(OPERAND parameter) {
 		OPERAND r = this->GetR(parameter);  //获取角度对应的r值
 		if (r == INV) return INV;  //r值无效则返回INV
-		return r * cos(parameter); 
+		return r * cos(parameter);
 	}
 
 	OPERAND PolarFunction::GetY(OPERAND parameter) {
@@ -146,12 +152,12 @@ namespace SqyMathLibrary {
 	{}
 
 	bool TwoFunction::IsValid() {
-		if (this->m_ExpressionX.m_DV != 't' || this->m_ExpressionY.m_DV != 't' ) {
+		if (this->m_ExpressionX.m_DV != 't' || this->m_ExpressionY.m_DV != 't') {
 			this->SetResult(false, FUNC_ERROR_DV);  //自变量必须为't'
 			return false;
 		}
 
-		if (this->m_ExpressionX.m_IV != 'x' || this->m_ExpressionY.m_IV != 'y' ) {
+		if (this->m_ExpressionX.m_IV != 'x' || this->m_ExpressionY.m_IV != 'y') {
 			this->SetResult(false, FUNC_ERROR_IV);  //因变量必须为'x'与'y'
 			return false;
 		}
