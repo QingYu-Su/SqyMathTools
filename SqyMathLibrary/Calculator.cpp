@@ -19,9 +19,14 @@ namespace SqyMathLibrary {
 		if (s == "e" || s == "pi" || s == "zero" || s == "INF") return true;
 		if (s == ".") return false;
 
+		int i = 0;
 		int dot = 0;
 		int digital = 0;
-		for (int i = 0; i < s.size(); i++) {
+
+		//判断是否为负数
+		if (s.size() > 1 && s[0] == '-') i++;
+
+		for (; i < s.size(); i++) {
 
 			if (s[i] == '.') {
 				if (++dot > 1) return false;  //小数点超过1返回false

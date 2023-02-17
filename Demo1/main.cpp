@@ -10,11 +10,11 @@ int main() {
 	MathExpression a{ "3", "+", "10" };
 	cout << clac -> Calculate(a);*/
 	MathExpression a{ "3", "+", "x"};
-	FunctionExpression b(a, 'y', 'x', 5, 20);
+	FunctionExpression b(a, 'y', 'x', -10, 10);
 	/*FunctionTool k;
 	cout << k.GetValue(b, 11) << endl;*/
 	MathFunction *c = new NormalFunction(b);
-	FunctionMap d = c->Calculate(10, 15, 10);
+	FunctionMap d = c->Calculate(-10, 10, 10);
 	if (c->IsSuccess() == false) {
 		cout << c->GetError();
 	}
