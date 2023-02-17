@@ -11,14 +11,14 @@
 #pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 namespace SML = SqyMathLibrary;  //命名空间重命名
 
-//绘制函数数据，仅包含绘图所需要的必要数据
+//绘制所需的必要函数数据，简化Doc与View的数据传输，保证View只绘画而不计算
 struct DrawFuncData { 
-	std::vector<std::string> expressionStr;
-	SML::FunctionMap drawPoint;
-	size_t precision;
-	int lineWidth;
-	int lineType;
-	COLORREF lineColor;
+	std::vector<CString> expressionStr;  //函数表达式字符串，由于可能表达式不止一个，故用一个数组存放
+	SML::FunctionMap drawPoint;  //函数绘制点
+	size_t precision; //函数精细度
+	int lineWidth;  //线宽
+	int lineType;  //线型
+	COLORREF lineColor;  //线颜色
 };
 
 
@@ -63,10 +63,11 @@ protected:
 #endif // SHARED_HANDLERS
 
 public:
-	double GetMinX();
-	double GetMaxX();
-	double GetMinY();
-	double GetMaxY();
+	double GetMinX();  //获得x范围最小值
+	double GetMaxX();  //获得x范围最大值
+	double GetMinY();  //获得y范围最小值
+	double GetMaxY();  //获得y范围最大值
+	std::list<DrawFuncData*> GetDrawDataList();  //获得绘制函数所需的所有数据
 
 private:
 	bool m_ShowGrid; //是否显示网格
@@ -79,10 +80,10 @@ private:
 	double m_MinY, m_MaxY;//y轴显示范围
 
 	//函数链表，保存了所有添加的函数以及一系列可供调用的方法
-	std::list<SML::MathFunction*> m_FunctionList; 
+	std::list<SML::MathFunction*> m_FunctionList;
 
 	//绘制函数数据链表，仅保存绘制图像所需要的必要数据，用来提供View绘图，与函数链表一一对应
-	std::list<DrawFuncData*> m_DrawFuncList;  
+	std::list<DrawFuncData*> m_DrawDataList;  
 public:
 	afx_msg void OnAddNormalFunc();
 };

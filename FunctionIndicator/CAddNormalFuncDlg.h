@@ -12,7 +12,7 @@ class CAddNormalFuncDlg : public CDialogEx
 	DECLARE_DYNAMIC(CAddNormalFuncDlg)
 
 public:
-	CAddNormalFuncDlg(CWnd* pParent = nullptr);   // 标准构造函数
+	CAddNormalFuncDlg(double left, double right, CWnd* pParent = nullptr);   // 标准构造函数
 	virtual ~CAddNormalFuncDlg();
 
 // 对话框数据
@@ -21,7 +21,8 @@ public:
 #endif
 
 public:
-	SML::MathFunction* GetMathFunction();  //获得函数
+	SML::MathFunction* GetMathFunction();  //获得函数类对象
+	CString GetExpressionStr();  //返回函数表达式字符串
 	size_t GetPrecision();  //获得函数精度
 	int GetLineWidth();  //获得线宽
 	int GetLineType();  //获得线型
@@ -33,8 +34,8 @@ protected:
 private:
 	SML::MathExpression m_Expression;
 	CString m_ExpressionStr;
-	OPERAND m_Left;
-	OPERAND m_Right;
+	double m_Left;
+	double m_Right;
 	size_t m_Precision;
 	int m_LineWidth;
 	int m_LineType;

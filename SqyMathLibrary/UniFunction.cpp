@@ -31,16 +31,12 @@ namespace SqyMathLibrary {
 	}
 
 	OPERAND FunctionTool::GetValue(FunctionExpression& fe, OPERAND parameter) {
-		//超过定义域，直接返回INV
-		if (parameter < fe.m_Left || parameter > fe.m_Right) {
-			this->SetResult(false, FUNC_ERROR_RANGE);
-			return INV;
-		}
 
 		//翻译函数表达式并计算
 		MathExpression me = this->TranslateExpression(fe, parameter);
 		OPERAND res = m_Calc.Calculate(me);
 		
+		//检查计算器是否报错
 		if (m_Calc.IsSuccess() == false) {
 			std::string error = m_Calc.GetError();
 
@@ -54,6 +50,13 @@ namespace SqyMathLibrary {
 			}
 
 		}
+
+		//计算器无误，但超过定义域，直接返回INV
+		if (parameter < fe.m_Left || parameter > fe.m_Right) {
+			this->SetResult(false, FUNC_ERROR_RANGE);
+			return INV;
+		}
+
 		return res;
 	}
 

@@ -8,6 +8,7 @@ namespace SqyMathLibrary {
 		this->m_MaxX = -INF;
 		this->m_MinY = INF;
 		this->m_MaxY = -INF;
+		this->m_Success = true;
 		this->m_Error = "";
 	}
 
@@ -15,6 +16,11 @@ namespace SqyMathLibrary {
 		FunctionMap res;
 
 		if (this->IsValid() == false) return res;  //函数无效，直接返回
+
+		if (left >= right) {
+			this->SetResult(false, FUNC_ERROR_RANGE);  //计算范围错误
+			return res;
+		}
 
 		this->PreProcess();  //预处理
 

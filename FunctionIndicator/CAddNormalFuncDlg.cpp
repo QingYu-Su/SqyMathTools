@@ -12,13 +12,15 @@
 
 IMPLEMENT_DYNAMIC(CAddNormalFuncDlg, CDialogEx)
 
-CAddNormalFuncDlg::CAddNormalFuncDlg(CWnd* pParent /*=nullptr*/)
+CAddNormalFuncDlg::CAddNormalFuncDlg(double left, double right, CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_ADD_NORMALFUNC_DIALOG, pParent)
 	, m_ExpressionStr(_T(""))
 	, m_Precision(1000)
 	, m_LineWidth(1)
 	, m_LineType(PS_SOLID)
 	, m_LineColor(RGB(0, 0, 0))
+	, m_Left(left)
+	, m_Right(right)
 {
 }
 
@@ -38,11 +40,15 @@ void CAddNormalFuncDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 SML::MathFunction* CAddNormalFuncDlg::GetMathFunction() {
-	//创建函数表达式
+	//创建普通X-Y函数表达式
 	SML::FunctionExpression funcExpression(this->m_Expression, 'y', 'x', this->m_Left, this->m_Right);
 	
-	return new SML::NormalFunction(funcExpression); //返回普通函数
+	return new SML::NormalFunction(funcExpression); //返回普通函数对象
 
+}
+
+CString CAddNormalFuncDlg::GetExpressionStr() {
+	return this->m_ExpressionStr;
 }
 
 size_t CAddNormalFuncDlg::GetPrecision() {
@@ -77,8 +83,8 @@ void CAddNormalFuncDlg::OnBnClickedButtonEditfunc()
 	UpdateData();
 	CFunctionDlg dlg('x');
 	if (dlg.DoModal() == IDOK) {
-		this->m_Expression = dlg.GetExpression();
-		this->m_ExpressionStr = dlg.GetEditStr();
+		this->m_Expression = dlg.GetExpression();  //同步函数表达式
+		this->m_ExpressionStr = dlg.GetEditStr();  //同步函数表达式字符串
 	}
 	UpdateData(false);
 }

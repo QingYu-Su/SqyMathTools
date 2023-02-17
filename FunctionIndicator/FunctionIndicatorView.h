@@ -54,6 +54,8 @@ private:
 	void MarkCoordinateValue(CDC* pDC); //标注坐标系的各个坐标值
 	void DrawGrid(CDC* pDC);  //画绘画区域内的网格
 	void DrawAxis(CDC* pDC); //画绘画区域内的X-Y坐标轴
+	void DrawFunction(CDC* pDC);  //绘制函数图像
+	void ShowFuncExpression(CDC* pDC);  //显示函数表达式
 
 // 生成的消息映射函数
 protected:

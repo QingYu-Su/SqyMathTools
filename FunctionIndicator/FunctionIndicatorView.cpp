@@ -53,8 +53,8 @@ void CFunctionIndicatorView::SetShowWindow() {
 	//本程序绘制的函数图像不占据整个视图区，在视图中间80%的区域绘制
 	this->m_Top = rect.bottom * 0.1;  
 	this->m_Bottom = rect.bottom * 0.9;
-	this->m_Left = rect.right * 0.1;
-	this->m_Right = rect.right * 0.9;
+	this->m_Left = rect.right * 0.05;
+	this->m_Right = rect.right * 0.8;
 }
 
 double CFunctionIndicatorView::TransformX(double x, bool mode) {
@@ -229,6 +229,95 @@ void CFunctionIndicatorView::DrawAxis(CDC* pDC) {
 	pDC->SelectObject(pOldPen);
 }
 
+void CFunctionIndicatorView::DrawFunction(CDC* pDC) {
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+
+	//获得绘制函数图像的必要数据
+	double maxX = pDoc->GetMaxX();
+	double minX = pDoc->GetMinX();
+	double maxY = pDoc->GetMaxY();
+	double minY = pDoc->GetMinY();
+	std::list<DrawFuncData*> drawDataList = pDoc->GetDrawDataList();
+	
+	std::list<DrawFuncData*>::iterator it;  //遍历图像绘制数据链表
+	for (it = drawDataList.begin(); it != drawDataList.end(); it++) {
+		
+		DrawFuncData* data = *it;  //获取图像数据
+		CPen pen(data->lineType, data->lineWidth, data->lineColor);  //根据设置创建笔
+		CPen* pOldPen = (CPen*)pDC->SelectObject(&pen);
+
+		bool move = true;  //移动布尔值，遇到连续点时需要绘制直线，不连续点时仅移动当前绘制点
+
+		//遍历函数点
+		for (int i = 0; i < data->drawPoint.size(); i++) {
+			SML::FunctionPoint point = data->drawPoint[i];
+
+			//函数点为无穷或超出当前坐标范围时不进行绘制
+			if (point.first == INF || point.second == INF
+				||point.first == -INF || point.second == -INF
+				|| point.first < minX || point.first > maxX 
+				|| point.second < minY || point.second > maxY) {
+				continue;
+				move = true;  //遇到下个可标记点时不绘制直线，只移动当前绘制点
+			}
+
+			//移动与绘制点间直线
+			if (move) {
+				//移动当前绘制点，坐标需要进行坐标系转换
+				pDC->MoveTo(this->TransformX(point.first,false), this->TransformY(point.second, false));
+				move = false;
+			}
+			else {
+				//绘制点间直线
+				pDC->LineTo(this->TransformX(point.first, false), this->TransformY(point.second, false));
+			}
+		}
+
+		pDC->SelectObject(pOldPen);
+	}
+
+	
+}
+
+void CFunctionIndicatorView::ShowFuncExpression(CDC* pDC) {
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+
+	//绘制边框和提醒文字
+	pDC->TextOutA(this->m_Right + 125, this->m_Top - 30, "函数表达式");
+	pDC->MoveTo(this->m_Right + 300, this->m_Top);
+	pDC->LineTo(this->m_Right + 50, this->m_Top);
+	pDC->LineTo(this->m_Right + 50, this->m_Bottom + 50);
+
+	//获得绘制数据
+	std::list<DrawFuncData*> drawDataList = pDoc->GetDrawDataList();
+
+	int top = this->m_Top + 5; //开始标注函数表达式的起始点
+	int order = 1;  //函数表达式的序号
+
+	std::list<DrawFuncData*>::iterator it;  //遍历函数图像数据
+	for (it = drawDataList.begin(); it != drawDataList.end(); it++, top += 5) {
+		DrawFuncData* data = *it;  //获取图像数据
+
+		pDC->SetTextColor(data->lineColor);  //设置文本颜色
+
+		//标注该函数的函数表达式
+		for (int j = 0; j < data->expressionStr.size(); j++, top += 20, order++) {
+			CString orderStr;
+			orderStr.Format("%d:    ", order); //序号
+
+			//标注函数表达式文本
+			pDC->TextOutA(this->m_Right + 75, top, orderStr + data->expressionStr[j]);
+		}
+
+		pDC->SetTextColor(RGB(0, 0, 0));  //还原文本颜色
+		
+		//标记分隔线
+		pDC->MoveTo(this->m_Right + 300, top);
+		pDC->LineTo(this->m_Right + 50, top);
+
+	}
+}
+
 
 // CFunctionIndicatorView 绘图
 
@@ -249,6 +338,8 @@ void CFunctionIndicatorView::OnDraw(CDC* pDC)
 	this->MarkCoordinateValue(pDC);
 	this->DrawGrid(pDC);
 	this->DrawAxis(pDC);
+	this->DrawFunction(pDC);
+	ShowFuncExpression(pDC);
 }
 
 

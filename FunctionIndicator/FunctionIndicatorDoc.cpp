@@ -56,9 +56,9 @@ CFunctionIndicatorDoc::~CFunctionIndicatorDoc()
 	}
 
 	//释放绘制函数链表空间
-	if (!this->m_DrawFuncList.empty()) {
+	if (!this->m_DrawDataList.empty()) {
 		std::list<DrawFuncData*>::iterator it;
-		for (it = this->m_DrawFuncList.begin(); it != this->m_DrawFuncList.end(); it++) {
+		for (it = this->m_DrawDataList.begin(); it != this->m_DrawDataList.end(); it++) {
 			delete* it;
 		}
 	}
@@ -176,22 +176,37 @@ double CFunctionIndicatorDoc::GetMaxY() {
 	return this->m_MaxY;
 }
 
+std::list<DrawFuncData*> CFunctionIndicatorDoc::GetDrawDataList() {
+	return this->m_DrawDataList;
+}
+
 
 // CFunctionIndicatorDoc 命令
 
 
 void CFunctionIndicatorDoc::OnAddNormalFunc()
 {
-	CAddNormalFuncDlg dlg;
+	CAddNormalFuncDlg dlg(this->m_MinX, this->m_MaxX);
 	if (dlg.DoModal() == IDOK) {
 		SML::MathFunction* pFunction = dlg.GetMathFunction();
-		size_t precision = dlg.GetPrecision();
-		pFunction->Calculate(this->m_MinX, this->m_MaxX, precision);
+		DrawFuncData* dfd = new DrawFuncData;
+
+		dfd->precision = dlg.GetPrecision();
+		dfd->drawPoint = pFunction->Calculate(this->m_MinX, this->m_MaxX, dfd->precision);
+		
 		if (pFunction->IsSuccess() == false) {
 			AfxMessageBox(pFunction->GetError().c_str());
 			delete pFunction;
+			delete dfd;
 			return;
 		}
+
+		this->m_FunctionList.push_back(pFunction);
+		dfd->expressionStr.push_back(CString("f(x)=") + dlg.GetExpressionStr());
+		dfd->lineWidth = dlg.GetLineWidth();
+		dfd->lineType = dlg.GetLineType();
+		dfd->lineColor = dlg.GetLineColor();
+		this->m_DrawDataList.push_back(dfd);
 	}
 	UpdateAllViews(NULL);
 }
