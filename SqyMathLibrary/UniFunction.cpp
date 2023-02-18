@@ -53,7 +53,7 @@ namespace SqyMathLibrary {
 
 		//计算器无误，但超过定义域，直接返回INV
 		if (parameter < fe.m_Left || parameter > fe.m_Right) {
-			this->SetResult(false, FUNC_ERROR_RANGE);
+			this->SetResult(false, FUNC_ERROR_DEF_RANGE);
 			return INV;
 		}
 

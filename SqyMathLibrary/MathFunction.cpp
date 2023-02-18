@@ -18,7 +18,7 @@ namespace SqyMathLibrary {
 		if (this->IsValid() == false) return res;  //函数无效，直接返回
 
 		if (left >= right) {
-			this->SetResult(false, FUNC_ERROR_RANGE);  //计算范围错误
+			this->SetResult(false, FUNC_ERROR_CALC_RANGE);  //计算范围错误
 			return res;
 		}
 
@@ -96,7 +96,7 @@ namespace SqyMathLibrary {
 		OPERAND y = this->m_Tool.GetValue(this->m_Expression, parameter); //计算y值
 
 		if (this->m_Tool.IsSuccess() == false) {  //计算是否出错
-			if (this->m_Tool.GetError() == FUNC_ERROR_RANGE) {
+			if (this->m_Tool.GetError() == FUNC_ERROR_DEF_RANGE) {
 				this->SetResult(true);  //超过定义域不返回错误，直接返回INF，表示该点在y轴上无定义
 				return INF;
 			}
@@ -122,14 +122,14 @@ namespace SqyMathLibrary {
 			this->SetResult(false, FUNC_ERROR_IV);
 			return false;
 		}
-
+		return true;
 	}
 
 	OPERAND PolarFunction::GetR(OPERAND parameter) {
 		OPERAND r = this->m_Tool.GetValue(this->m_Expression, parameter);  //计算r值
 
 		if (this->m_Tool.IsSuccess() == false) {  //计算是否出错
-			if (this->m_Tool.GetError() == FUNC_ERROR_RANGE) {
+			if (this->m_Tool.GetError() == FUNC_ERROR_DEF_RANGE) {
 				this->SetResult(true);  //超过定义域不返回错误，直接返回INF
 				return INF;
 			}
@@ -144,12 +144,14 @@ namespace SqyMathLibrary {
 	OPERAND PolarFunction::GetX(OPERAND parameter) {
 		OPERAND r = this->GetR(parameter);  //获取角度对应的r值
 		if (r == INV) return INV;  //r值无效则返回INV
+		if (r == INF) return INF;  //r值无定义点，直接返回INF
 		return r * cos(parameter);
 	}
 
 	OPERAND PolarFunction::GetY(OPERAND parameter) {
 		OPERAND r = this->GetR(parameter);  //获取角度对应的r值
 		if (r == INV) return INV;  //r值无效则返回INV
+		if (r == INF) return INF;  //r值无定义点，直接返回INF
 		return r * sin(parameter);
 	}
 
@@ -167,13 +169,13 @@ namespace SqyMathLibrary {
 			this->SetResult(false, FUNC_ERROR_IV);  //因变量必须为'x'与'y'
 			return false;
 		}
-
+		return true;
 	}
 
 	OPERAND TwoFunction::GetX(OPERAND parameter) {
 		OPERAND x = this->m_Tool.GetValue(this->m_ExpressionX, parameter);  //获取x值
 		if (this->m_Tool.IsSuccess() == false) {  //计算是否出错
-			if (this->m_Tool.GetError() == FUNC_ERROR_RANGE) {
+			if (this->m_Tool.GetError() == FUNC_ERROR_DEF_RANGE) {
 				this->SetResult(true);  //超过定义域不返回错误，直接返回INF
 				return INF;
 			}
@@ -188,7 +190,7 @@ namespace SqyMathLibrary {
 	OPERAND TwoFunction::GetY(OPERAND parameter) {
 		OPERAND y = this->m_Tool.GetValue(this->m_ExpressionY, parameter);  //获取x值
 		if (this->m_Tool.IsSuccess() == false) {  //计算是否出错
-			if (this->m_Tool.GetError() == FUNC_ERROR_RANGE) {
+			if (this->m_Tool.GetError() == FUNC_ERROR_DEF_RANGE) {
 				this->SetResult(true);  //超过定义域不返回错误，直接返回INF
 				return INF;
 			}
