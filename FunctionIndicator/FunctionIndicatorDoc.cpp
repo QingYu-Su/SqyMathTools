@@ -14,6 +14,7 @@
 #include "CAddNormalFuncDlg.h"
 #include "CAddPolarFuncDlg.h"
 #include "CAddTwoFuncDlg.h"
+#include "CDelFuncDlg.h"
 
 #include <propkey.h>
 
@@ -29,6 +30,8 @@ BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_COMMAND(ID_ADD_NORMAL_FUNC, &CFunctionIndicatorDoc::OnAddNormalFunc)
 	ON_COMMAND(ID_ADD_POLAR_FUNC, &CFunctionIndicatorDoc::OnAddPolarFunc)
 	ON_COMMAND(ID_ADD_TWO_FUNC, &CFunctionIndicatorDoc::OnAddTwoFunc)
+	ON_COMMAND(ID_DEL_FUNC, &CFunctionIndicatorDoc::OnDelFunc)
+	ON_COMMAND(ID_DEL_ALL_FUNC, &CFunctionIndicatorDoc::OnDelAllFunc)
 END_MESSAGE_MAP()
 
 
@@ -184,6 +187,45 @@ std::list<DrawFuncData*> CFunctionIndicatorDoc::GetDrawDataList() {
 	return this->m_DrawDataList;
 }
 
+void CFunctionIndicatorDoc::DelFunction(int num) {
+	//序号超过范围，直接返回
+	if (num <= 0 || num > this->m_FunctionList.size()) return;
+
+	//遍历链表，搜索对应位置函数
+	std::list<SML::MathFunction*>::iterator itFunc = this->m_FunctionList.begin();
+	std::list<DrawFuncData*>::iterator itDraw = this->m_DrawDataList.begin();
+	while ( num > 1 ) {
+		itFunc++;
+		itDraw++;
+		num--;
+	}
+
+	//释放资源
+	delete *itFunc;
+	delete *itDraw;
+
+	//删除链表结点
+	this->m_FunctionList.erase(itFunc);
+	this->m_DrawDataList.erase(itDraw);
+
+}
+
+void CFunctionIndicatorDoc::ClearFunction() {
+	std::list<SML::MathFunction*>::iterator itFunc = this->m_FunctionList.begin();
+	std::list<DrawFuncData*>::iterator itDraw = this->m_DrawDataList.begin();
+
+	//遍历所有链表结点，并释放资源
+	while (itFunc != this->m_FunctionList.end()) {
+		delete* itFunc;
+		delete* itDraw;
+		itFunc++;
+		itDraw++;
+	}
+
+	//链表清空
+	this->m_FunctionList.clear();
+	this->m_DrawDataList.clear();
+}
 
 // CFunctionIndicatorDoc 命令
 
@@ -301,4 +343,24 @@ void CFunctionIndicatorDoc::OnAddTwoFunc()
 		this->m_DrawDataList.push_back(dfd);
 	}
 	UpdateAllViews(NULL);
+}
+
+
+void CFunctionIndicatorDoc::OnDelFunc()
+{
+	CDelFuncDlg dlg;
+	if (dlg.DoModal() == IDOK) {
+		DelFunction(dlg.GetNum());  //删除函数
+	}
+
+	UpdateAllViews(NULL);
+}
+
+
+void CFunctionIndicatorDoc::OnDelAllFunc()
+{
+	this->ClearFunction(); //清空函数
+
+	UpdateAllViews(NULL);
+
 }

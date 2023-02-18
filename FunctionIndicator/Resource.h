@@ -10,10 +10,13 @@
 #define IDD_FUNCTION_DIALOG             311
 #define IDD_ADD_POLARFUNC_DIALOG        312
 #define IDD_ADD_TWOFUNC_DIALOG          313
+#define IDD_DEL_FUNC_DIALOG             314
 #define IDC_BUTTON_EDITFUNC             1003
 #define IDC_BUTTON_EDITFUNC_Y           1004
 #define IDC_EDIT                        1005
 #define IDC_EDIT_FUNCTION               1005
+#define IDC_EDIT_DEL_NUMS               1005
+#define IDC_EDIT_DEL_NUM                1005
 #define IDC_EDIT_FUNCTION_Y             1006
 #define IDC_EDIT_MIN                    1008
 #define IDC_EDIT_PRECISION              1011
@@ -71,14 +74,19 @@
 #define ID_32782                        32782
 #define ID_ADD_POLAR_FUNC               32783
 #define ID_ADD_TWO_FUNC                 32784
+#define ID_32785                        32785
+#define ID_32786                        32786
+#define ID                              32787
+#define ID_DEL_FUNC                     32788
+#define ID_DEL_ALL_FUNC                 32789
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        314
-#define _APS_NEXT_COMMAND_VALUE         32785
-#define _APS_NEXT_CONTROL_VALUE         1019
+#define _APS_NEXT_RESOURCE_VALUE        316
+#define _APS_NEXT_COMMAND_VALUE         32790
+#define _APS_NEXT_CONTROL_VALUE         1020
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

@@ -7,6 +7,7 @@
 #include <list>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "../SqyMathLibrary/include/MathFunction.h"
 #pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 namespace SML = SqyMathLibrary;  //命名空间重命名
@@ -68,6 +69,8 @@ public:
 	double GetMinY();  //获得y范围最小值
 	double GetMaxY();  //获得y范围最大值
 	std::list<DrawFuncData*> GetDrawDataList();  //获得绘制函数所需的所有数据
+	void DelFunction(int num); //删除特定序号函数，序号由1开始
+	void ClearFunction(); //清空所有函数
 
 private:
 	bool m_ShowGrid; //是否显示网格
@@ -84,8 +87,11 @@ private:
 
 	//绘制函数数据链表，仅保存绘制图像所需要的必要数据，用来提供View绘图，与函数链表一一对应
 	std::list<DrawFuncData*> m_DrawDataList;  
+
 public:
 	afx_msg void OnAddNormalFunc();
 	afx_msg void OnAddPolarFunc();
 	afx_msg void OnAddTwoFunc();
+	afx_msg void OnDelFunc();
+	afx_msg void OnDelAllFunc();
 };
