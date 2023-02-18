@@ -76,8 +76,8 @@ private:
 	bool m_SingelMode;   //单函数模式
 	bool m_FixedXRange;	 //普通函数x范围是否固定，不固定的话随显示范围变化
 	bool m_ShowPoint;//鼠标接近函数线时是否显示其坐标
-	double m_MinX, m_MaxX; //x轴显示范围 
-	double m_MinY, m_MaxY;//y轴显示范围
+	double m_MinX, m_MaxX; //当前x轴范围 
+	double m_MinY, m_MaxY;//当前y轴范围
 
 	//函数链表，保存了所有添加的函数以及一系列可供调用的方法
 	std::list<SML::MathFunction*> m_FunctionList;

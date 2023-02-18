@@ -186,14 +186,21 @@ std::list<DrawFuncData*> CFunctionIndicatorDoc::GetDrawDataList() {
 
 void CFunctionIndicatorDoc::OnAddNormalFunc()
 {
+	//弹出增加普通函数窗口，并将当前X范围设置为函数定义域初始值
 	CAddNormalFuncDlg dlg(this->m_MinX, this->m_MaxX);
 	if (dlg.DoModal() == IDOK) {
-		SML::MathFunction* pFunction = dlg.GetMathFunction();
-		DrawFuncData* dfd = new DrawFuncData;
 
+		//获得函数类对象
+		SML::MathFunction* pFunction = dlg.GetMathFunction();
+		
+		//新建绘画数据，传入必要参数
+		DrawFuncData* dfd = new DrawFuncData;
 		dfd->precision = dlg.GetPrecision();
+
+		//计算函数图像数据，范围为当前视图X轴范围，并将结果保存至绘画数据中
 		dfd->drawPoint = pFunction->Calculate(this->m_MinX, this->m_MaxX, dfd->precision);
 		
+		//计算失败，弹出提示弹窗，释放相应资源并返回
 		if (pFunction->IsSuccess() == false) {
 			AfxMessageBox(pFunction->GetError().c_str());
 			delete pFunction;
@@ -201,11 +208,14 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 			return;
 		}
 
-		this->m_FunctionList.push_back(pFunction);
+		//将其他数据添加至绘画数据中
 		dfd->expressionStr.push_back(CString("f(x)=") + dlg.GetExpressionStr());
 		dfd->lineWidth = dlg.GetLineWidth();
 		dfd->lineType = dlg.GetLineType();
 		dfd->lineColor = dlg.GetLineColor();
+
+		//将函数类对象和绘画数据添加至链表中保存
+		this->m_FunctionList.push_back(pFunction);
 		this->m_DrawDataList.push_back(dfd);
 	}
 	UpdateAllViews(NULL);

@@ -32,14 +32,13 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 private:
-	SML::MathExpression m_Expression;
-	CString m_ExpressionStr;
-	double m_Left;
-	double m_Right;
-	size_t m_Precision;
-	int m_LineWidth;
-	int m_LineType;
-	COLORREF m_LineColor;
+	SML::MathExpression m_Expression;  //函数表达式
+	CString m_ExpressionStr;  //函数表达式字符串
+	double m_Left, m_Right;  //函数定义域
+	size_t m_Precision;  //图像精细度
+	int m_LineWidth;  //线宽
+	int m_LineType;  //线型
+	COLORREF m_LineColor;  //线颜色
 
 	DECLARE_MESSAGE_MAP()
 public:

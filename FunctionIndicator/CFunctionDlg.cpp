@@ -541,9 +541,13 @@ void CFunctionDlg::OnBnClickedDelete()
 void CFunctionDlg::OnBnClickedDv()
 {
 	UpdateData();
+
+	//设置自变量，具体符号由外部调用者决定
 	std::string dv;
 	dv.push_back(this->m_DV);
 	this->m_Edit += dv.c_str();
 	this->m_Expression.push_back(dv);
+
+
 	UpdateData(false);
 }

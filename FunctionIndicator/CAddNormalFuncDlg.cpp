@@ -81,6 +81,8 @@ END_MESSAGE_MAP()
 void CAddNormalFuncDlg::OnBnClickedButtonEditfunc()
 {
 	UpdateData();
+	
+	//弹出函数表达式编辑对话框
 	CFunctionDlg dlg('x');
 	if (dlg.DoModal() == IDOK) {
 		this->m_Expression = dlg.GetExpression();  //同步函数表达式
@@ -92,6 +94,7 @@ void CAddNormalFuncDlg::OnBnClickedButtonEditfunc()
 
 void CAddNormalFuncDlg::OnBnClickedButtonPenColor()
 {
+	//弹出设置颜色对话框
 	CColorDialog dlg;
 	if (dlg.DoModal() == IDOK) {
 		m_LineColor = dlg.GetColor();
