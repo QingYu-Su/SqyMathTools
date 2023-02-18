@@ -12,6 +12,7 @@
 
 #include "FunctionIndicatorDoc.h"
 #include "CAddNormalFuncDlg.h"
+#include "CAddPolarFuncDlg.h"
 
 #include <propkey.h>
 
@@ -25,6 +26,7 @@ IMPLEMENT_DYNCREATE(CFunctionIndicatorDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_COMMAND(ID_ADD_NORMAL_FUNC, &CFunctionIndicatorDoc::OnAddNormalFunc)
+	ON_COMMAND(ID_ADD_POLAR_FUNC, &CFunctionIndicatorDoc::OnAddPolarFunc)
 END_MESSAGE_MAP()
 
 
@@ -210,6 +212,44 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 
 		//将其他数据添加至绘画数据中
 		dfd->expressionStr.push_back(CString("f(x)=") + dlg.GetExpressionStr());
+		dfd->lineWidth = dlg.GetLineWidth();
+		dfd->lineType = dlg.GetLineType();
+		dfd->lineColor = dlg.GetLineColor();
+
+		//将函数类对象和绘画数据添加至链表中保存
+		this->m_FunctionList.push_back(pFunction);
+		this->m_DrawDataList.push_back(dfd);
+	}
+	UpdateAllViews(NULL);
+}
+
+
+void CFunctionIndicatorDoc::OnAddPolarFunc()
+{
+	//弹出增加极坐标函数窗口，并将当前X范围设置为函数定义域初始值
+	CAddPolarFuncDlg dlg(-3.14, 3.14);
+	if (dlg.DoModal() == IDOK) {
+
+		//获得函数类对象
+		SML::MathFunction* pFunction = dlg.GetMathFunction();
+
+		//新建绘画数据，传入必要参数
+		DrawFuncData* dfd = new DrawFuncData;
+		dfd->precision = dlg.GetPrecision();
+
+		//计算函数图像数据，范围为当前视图X轴范围，并将结果保存至绘画数据中
+		dfd->drawPoint = pFunction->Calculate(-PI, PI, dfd->precision);
+
+		//计算失败，弹出提示弹窗，释放相应资源并返回
+		if (pFunction->IsSuccess() == false) {
+			AfxMessageBox(pFunction->GetError().c_str());
+			delete pFunction;
+			delete dfd;
+			return;
+		}
+
+		//将其他数据添加至绘画数据中
+		dfd->expressionStr.push_back(CString("r(a)=") + dlg.GetExpressionStr());
 		dfd->lineWidth = dlg.GetLineWidth();
 		dfd->lineType = dlg.GetLineType();
 		dfd->lineColor = dlg.GetLineColor();

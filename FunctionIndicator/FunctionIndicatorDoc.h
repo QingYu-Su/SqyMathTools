@@ -86,4 +86,5 @@ private:
 	std::list<DrawFuncData*> m_DrawDataList;  
 public:
 	afx_msg void OnAddNormalFunc();
+	afx_msg void OnAddPolarFunc();
 };

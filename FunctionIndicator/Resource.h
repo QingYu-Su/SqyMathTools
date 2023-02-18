@@ -8,6 +8,7 @@
 #define IDR_FunctionIndicatorTYPE       130
 #define IDD_ADD_NORMALFUNC_DIALOG       310
 #define IDD_FUNCTION_DIALOG             311
+#define IDD_ADD_POLARFUNC_DIALOG        312
 #define IDC_BUTTON_EDITFUNC             1003
 #define IDC_EDIT                        1005
 #define IDC_EDIT_FUNCTION               1005
@@ -61,13 +62,17 @@
 #define ID_MENU_ASIX                    32778
 #define ID_MENU_AXIS                    32779
 #define ID_MENU_GRID                    32780
+#define ID_32781                        32781
+#define ID_32782                        32782
+#define ID_ADD_POLAR_FUNC               32783
+#define ID_ADD_TWO_FUNC                 32784
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        314
-#define _APS_NEXT_COMMAND_VALUE         32781
+#define _APS_NEXT_COMMAND_VALUE         32785
 #define _APS_NEXT_CONTROL_VALUE         1016
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

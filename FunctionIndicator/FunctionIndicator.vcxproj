@@ -190,6 +190,7 @@
     <ClInclude Include="..\SqyMathLibrary\include\MathOperatorMap.h" />
     <ClInclude Include="..\SqyMathLibrary\include\UniFunction.h" />
     <ClInclude Include="CAddNormalFuncDlg.h" />
+    <ClInclude Include="CAddPolarFuncDlg.h" />
     <ClInclude Include="CFunctionDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FunctionIndicator.h" />
@@ -202,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAddNormalFuncDlg.cpp" />
+    <ClCompile Include="CAddPolarFuncDlg.cpp" />
     <ClCompile Include="CFunctionDlg.cpp" />
     <ClCompile Include="FunctionIndicator.cpp" />
     <ClCompile Include="FunctionIndicatorDoc.cpp" />
