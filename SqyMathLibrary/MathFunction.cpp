@@ -58,6 +58,10 @@ namespace SqyMathLibrary {
 		return res;
 	}
 
+	FunctionType MathFunction::GetType() {
+		return this->m_Type;
+	}
+
 	std::string MathFunction::GetError() {
 		return this->m_Error;
 	}

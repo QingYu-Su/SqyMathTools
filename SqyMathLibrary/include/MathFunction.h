@@ -37,6 +37,7 @@ namespace SqyMathLibrary {
         //函数值有可能为INF，它是一个有效值，它表示该点在y轴上无定义
         //若计算失败，则返回空FunctionMap
         FunctionMap Calculate(OPERAND left, OPERAND right, size_t precision);
+        FunctionType GetType();
 
         bool IsSuccess();  //操作是否成功 
         std::string GetError();   //操作运算失败原因

@@ -23,6 +23,10 @@
 IMPLEMENT_DYNCREATE(CFunctionIndicatorView, CView)
 
 BEGIN_MESSAGE_MAP(CFunctionIndicatorView, CView)
+	ON_WM_MOUSEWHEEL()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CFunctionIndicatorView 构造/析构
@@ -30,7 +34,6 @@ END_MESSAGE_MAP()
 CFunctionIndicatorView::CFunctionIndicatorView() noexcept
 {
 	// TODO: 在此处添加构造代码
-	
 
 }
 
@@ -257,8 +260,8 @@ void CFunctionIndicatorView::DrawFunction(CDC* pDC) {
 				||point.first == -INF || point.second == -INF
 				|| point.first < minX || point.first > maxX 
 				|| point.second < minY || point.second > maxY) {
-				continue;
 				move = true;  //遇到下个可标记点时不绘制直线，只移动当前绘制点
+				continue;
 			}
 
 			//移动与绘制点间直线
@@ -319,6 +322,39 @@ void CFunctionIndicatorView::ShowFuncExpression(CDC* pDC) {
 	}
 }
 
+void CFunctionIndicatorView::AmplifyImage() {
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+	double maxX = pDoc->GetMaxX();
+	double minX = pDoc->GetMinX();
+	double maxY = pDoc->GetMaxY();
+	double minY = pDoc->GetMinY();
+	
+	double valueX = (maxX - minX) * 0.1;
+	double valueY = (maxY - minY) * 0.1;
+
+	pDoc->SetRange(minX + valueX, maxX - valueX, minY + valueY, maxY - valueY);
+	pDoc->UpdateFunction();
+	this->Invalidate();
+	this->UpdateWindow();
+
+}
+
+void CFunctionIndicatorView::ShrinkImage() {
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+	double maxX = pDoc->GetMaxX();
+	double minX = pDoc->GetMinX();
+	double maxY = pDoc->GetMaxY();
+	double minY = pDoc->GetMinY();
+
+	double valueX = (maxX - minX) * 0.1;
+	double valueY = (maxY - minY) * 0.1;
+
+	pDoc->SetRange(minX - valueX, maxX + valueX, minY - valueY, maxY + valueY);
+	pDoc->UpdateFunction();
+	this->Invalidate();
+	this->UpdateWindow();
+}
+
 
 // CFunctionIndicatorView 绘图
 
@@ -328,11 +364,6 @@ void CFunctionIndicatorView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-
-	double maxX = pDoc->GetMaxX();
-	double minX = pDoc->GetMinX();
-	double maxY = pDoc->GetMaxY();
-	double minY = pDoc->GetMinY();
 
 	this->SetShowWindow(); //绘画前必须设置绘画区域
 	this->DrawEdge(pDC);
@@ -366,3 +397,103 @@ CFunctionIndicatorDoc* CFunctionIndicatorView::GetDocument() const // 非调试�
 
 
 // CFunctionIndicatorView 消息处理程序
+
+
+BOOL CFunctionIndicatorView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+	switch (zDelta)
+	{
+	case -120: //向后滚动滚轮
+		this->ShrinkImage();  //缩小图像
+		break;
+	case 120:  //向前滚动滚轮
+		this->AmplifyImage();  //放大图像
+		break;
+	default:
+		break;
+	}
+	return CView::OnMouseWheel(nFlags, zDelta, pt);
+}
+
+
+void CFunctionIndicatorView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+	SetCapture();
+	if (pDoc->GetMoveMode() == MOVE) {
+		pDoc->SetMoveMode(MOVING);
+		this->m_MoveStart.point = point;
+		this->m_MoveStart.maxX = pDoc->GetMaxX();
+		this->m_MoveStart.minX = pDoc->GetMinX();
+		this->m_MoveStart.maxY = pDoc->GetMaxY();
+		this->m_MoveStart.minY = pDoc->GetMinY();
+		::SetCursor(LoadCursor(NULL, IDC_SIZEALL));
+	}
+
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CFunctionIndicatorView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+	if (pDoc->GetMoveMode() == MOVING) {
+		pDoc->SetMoveMode(MOVE);
+		::SetCursor(LoadCursor(NULL, IDC_HAND));
+
+		double valueX = this->TransformX(point.x, true) - this->TransformX(this->m_MoveStart.point.x, true);
+		double valueY = this->TransformY(point.y, true) - this->TransformY(this->m_MoveStart.point.y, true);
+
+		pDoc->SetRange(this->m_MoveStart.minX - valueX, this->m_MoveStart.maxX - valueX,
+			this->m_MoveStart.minY - valueY, this->m_MoveStart.maxY - valueY);
+		pDoc->UpdateFunction();
+		this->Invalidate();
+		this->UpdateWindow();
+	}
+	ReleaseCapture();
+	CView::OnLButtonUp(nFlags, point);
+}
+
+
+void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+
+	if (pDoc->GetMoveMode() == MOVING) {
+		::SetCursor(LoadCursor(NULL, IDC_SIZEALL));
+
+		double valueX = this->TransformX(point.x, true) - this->TransformX(this->m_MoveStart.point.x, true);
+		double valueY = this->TransformY(point.y, true) - this->TransformY(this->m_MoveStart.point.y, true);
+
+		pDoc->SetRange(this->m_MoveStart.minX - valueX, this->m_MoveStart.maxX - valueX,
+			this->m_MoveStart.minY - valueY, this->m_MoveStart.maxY - valueY);
+
+		pDoc->UpdateFunction();
+
+		CDC* pDC = GetDC();
+		//创建一个内存中的显示设备
+		CDC MemDC;
+		MemDC.CreateCompatibleDC(NULL);
+		//创建一个内存中的图像
+		CBitmap MemBitmap;
+		CRect rect;
+		GetClientRect(&rect);
+		MemBitmap.CreateCompatibleBitmap(pDC, rect.right, rect.bottom);
+		//指定内存显示设备在内存中的图像上画图
+		MemDC.SelectObject(&MemBitmap);
+		//先用一种颜色作为内存显示设备的背景色
+		MemDC.FillSolidRect(rect.left, rect.top, rect.right, rect.bottom, RGB(144, 144, 144));
+		this->OnDraw(&MemDC);
+		//将内存中画好的图像直接拷贝到屏幕指定区域上
+		pDC->BitBlt(rect.left, rect.top, rect.right, rect.bottom, &MemDC, 0, 0, SRCCOPY);
+
+		//释放相关资源
+		ReleaseDC(pDC);
+	}
+	
+	if (pDoc->GetMoveMode() == MOVE) {
+		::SetCursor(LoadCursor(NULL, IDC_HAND));
+	}
+
+	CView::OnMouseMove(nFlags, point);
+}

@@ -49,7 +49,7 @@ CFunctionIndicatorDoc::CFunctionIndicatorDoc() noexcept
 	this->m_MaxX = 10;
 	this->m_MinY = -5;
 	this->m_MaxY = 5;
-
+	this->m_MoveMode = MOVE;
 }
 
 CFunctionIndicatorDoc::~CFunctionIndicatorDoc()
@@ -187,6 +187,30 @@ std::list<DrawFuncData*> CFunctionIndicatorDoc::GetDrawDataList() {
 	return this->m_DrawDataList;
 }
 
+void CFunctionIndicatorDoc::SetRange(double minX, double maxX, double minY, double maxY) {
+	this->m_MinX = minX;
+	this->m_MaxX = maxX;
+	this->m_MinY = minY;
+	this->m_MaxY = maxY;
+}
+
+void CFunctionIndicatorDoc::UpdateFunction() {
+	std::list<SML::MathFunction*>::iterator itFunc = this->m_FunctionList.begin();
+	std::list<DrawFuncData*>::iterator itDraw = this->m_DrawDataList.begin();
+
+	//遍历函数链表
+	while (itFunc != this->m_FunctionList.end()) {
+		
+		//如果该函数为普通函数，重新计算当前图像绘制点
+		if ((*itFunc)->GetType() == SML::Normal) {
+			(*itDraw)->drawPoint = (*itFunc)->Calculate(this->m_MinX, this->m_MaxX, (*itDraw)->precision);
+		}
+
+		itFunc++;
+		itDraw++;
+	}
+}
+
 void CFunctionIndicatorDoc::DelFunction(int num) {
 	//序号超过范围，直接返回
 	if (num <= 0 || num > this->m_FunctionList.size()) return;
@@ -225,6 +249,14 @@ void CFunctionIndicatorDoc::ClearFunction() {
 	//链表清空
 	this->m_FunctionList.clear();
 	this->m_DrawDataList.clear();
+}
+
+MoveMode CFunctionIndicatorDoc::GetMoveMode() {
+	return this->m_MoveMode;
+}
+
+void CFunctionIndicatorDoc::SetMoveMode(MoveMode mode) {
+	this->m_MoveMode = mode;
 }
 
 // CFunctionIndicatorDoc 命令

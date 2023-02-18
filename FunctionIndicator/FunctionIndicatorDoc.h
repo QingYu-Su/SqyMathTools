@@ -22,6 +22,13 @@ struct DrawFuncData {
 	COLORREF lineColor;  //线颜色
 };
 
+//移动模式
+enum MoveMode {
+	BAN, //禁止移动
+	MOVE,  //允许移动
+	MOVING  //正在移动
+};
+
 
 class CFunctionIndicatorDoc : public CDocument
 {
@@ -69,8 +76,12 @@ public:
 	double GetMinY();  //获得y范围最小值
 	double GetMaxY();  //获得y范围最大值
 	std::list<DrawFuncData*> GetDrawDataList();  //获得绘制函数所需的所有数据
+	void SetRange(double minX, double maxX, double minY, double maxY);  //设置当前X-Y轴范围
+	void UpdateFunction();  //更新函数，重新计算函数图像绘制点，仅对普通函数更新
 	void DelFunction(int num); //删除特定序号函数，序号由1开始
 	void ClearFunction(); //清空所有函数
+	MoveMode GetMoveMode();  //获得当前移动模式
+	void SetMoveMode(MoveMode mode);  //设置当前移动模式
 
 private:
 	bool m_ShowGrid; //是否显示网格
@@ -81,6 +92,7 @@ private:
 	bool m_ShowPoint;//鼠标接近函数线时是否显示其坐标
 	double m_MinX, m_MaxX; //当前x轴范围 
 	double m_MinY, m_MaxY;//当前y轴范围
+	MoveMode m_MoveMode;
 
 	//函数链表，保存了所有添加的函数以及一系列可供调用的方法
 	std::list<SML::MathFunction*> m_FunctionList;
