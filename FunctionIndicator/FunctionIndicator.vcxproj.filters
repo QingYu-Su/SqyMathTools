@@ -69,6 +69,9 @@
     <ClInclude Include="CAddPolarFuncDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CAddTwoFuncDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FunctionIndicator.cpp">
@@ -93,6 +96,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CAddPolarFuncDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CAddTwoFuncDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

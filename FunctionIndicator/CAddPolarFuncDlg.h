@@ -27,6 +27,8 @@ public:
 	SML::MathFunction* GetMathFunction();  //获得函数类对象
 	CString GetExpressionStr();  //返回函数表达式字符串
 	size_t GetPrecision();  //获得函数精度
+	double GetMin();  //获得函数定义域左端点
+	double GetMax();  //获得函数定义域右端点
 	int GetLineWidth();  //获得线宽
 	int GetLineType();  //获得线型
 	COLORREF GetLineColor();  //获得线颜色

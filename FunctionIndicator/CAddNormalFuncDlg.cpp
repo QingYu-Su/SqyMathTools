@@ -55,6 +55,14 @@ size_t CAddNormalFuncDlg::GetPrecision() {
 	return this->m_Precision;
 }
 
+double CAddNormalFuncDlg::GetMin() {
+	return this->m_Left;
+}
+
+double CAddNormalFuncDlg::GetMax() {
+	return this->m_Right;
+}
+
 int CAddNormalFuncDlg::GetLineWidth() {
 	return this->m_LineWidth;
 }

@@ -295,18 +295,19 @@ void CFunctionIndicatorView::ShowFuncExpression(CDC* pDC) {
 	int order = 1;  //函数表达式的序号
 
 	std::list<DrawFuncData*>::iterator it;  //遍历函数图像数据
-	for (it = drawDataList.begin(); it != drawDataList.end(); it++, top += 5) {
+	for (it = drawDataList.begin(); it != drawDataList.end(); it++, top += 5, order++) {
 		DrawFuncData* data = *it;  //获取图像数据
 
 		pDC->SetTextColor(data->lineColor);  //设置文本颜色
 
-		//标注该函数的函数表达式
-		for (int j = 0; j < data->expressionStr.size(); j++, top += 20, order++) {
-			CString orderStr;
-			orderStr.Format("%d:    ", order); //序号
+		CString orderStr;
+		orderStr.Format("%d:", order); //序号
+		pDC->TextOutA(this->m_Right + 60, top, orderStr);
 
+		//标注该函数的函数表达式
+		for (int j = 0; j < data->expressionStr.size(); j++, top += 20) {
 			//标注函数表达式文本
-			pDC->TextOutA(this->m_Right + 75, top, orderStr + data->expressionStr[j]);
+			pDC->TextOutA(this->m_Right + 80, top, data->expressionStr[j]);
 		}
 
 		pDC->SetTextColor(RGB(0, 0, 0));  //还原文本颜色

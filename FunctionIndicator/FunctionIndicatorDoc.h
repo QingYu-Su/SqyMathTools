@@ -87,4 +87,5 @@ private:
 public:
 	afx_msg void OnAddNormalFunc();
 	afx_msg void OnAddPolarFunc();
+	afx_msg void OnAddTwoFunc();
 };

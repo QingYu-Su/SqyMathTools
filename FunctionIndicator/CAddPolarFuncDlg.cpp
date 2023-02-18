@@ -56,6 +56,14 @@ size_t CAddPolarFuncDlg::GetPrecision() {
 	return this->m_Precision;
 }
 
+double CAddPolarFuncDlg::GetMin() {
+	return this->m_Left;
+}
+
+double CAddPolarFuncDlg::GetMax() {
+	return this->m_Right;
+}
+
 int CAddPolarFuncDlg::GetLineWidth() {
 	return this->m_LineWidth;
 }
