@@ -12,14 +12,16 @@ namespace SqyMathLibrary {
 		this->m_Error = "";
 	}
 
-	FunctionMap MathFunction::Calculate(OPERAND left, OPERAND right, size_t precision) {
-		FunctionMap res(precision+1);
 
-		if (this->IsValid() == false) return res;  //函数无效，直接返回
+	FunctionMap* MathFunction::Calculate(OPERAND left, OPERAND right, size_t precision) {
+		//FunctionMap res(precision+1);
+		this->m_FM.clear();
+
+		if (this->IsValid() == false) return NULL;  //函数无效，直接返回
 
 		if (left >= right) {
 			this->SetResult(false, FUNC_ERROR_CALC_RANGE);  //计算范围错误
-			return res;
+			return NULL;
 		}
 
 		this->PreProcess();  //预处理
@@ -32,13 +34,13 @@ namespace SqyMathLibrary {
 			OPERAND x = this->GetX(parameter);  //获取x值
 			if (x == INV) {
 				//res.clear();  
-				return res;  //x值无效，直接返回
+				return NULL;  //x值无效，直接返回
 			}
 
 			OPERAND y = this->GetY(parameter);  //获取y值
 			if (y == INV) {
 				//res.clear();  
-				return res; //y值无效，直接返回
+				return NULL; //y值无效，直接返回
 			}
 
 			////更新X和Y的极值
@@ -51,12 +53,12 @@ namespace SqyMathLibrary {
 			FunctionPoint fp;
 			fp.first = x;
 			fp.second = y;
-			res[i++] = fp;
+			this->m_FM.push_back(fp);
 		}
 
 		this->PostProcess();  //后处理
 
-		return res;
+		return &(this->m_FM);
 	}
 
 	FunctionType MathFunction::GetType() {

@@ -26,7 +26,7 @@ namespace SqyMathLibrary {
     class MathFunction {
     public: //类默认方法
         MathFunction(FunctionType type);
-        virtual ~MathFunction() {}
+        virtual ~MathFunction(){}
 
         //以下函数由编译器自动生成即可
         //MathFunction(const MathFunction&) {};
@@ -36,7 +36,7 @@ namespace SqyMathLibrary {
         //注意，这里区间的定义并不固定，它视自变量的定义而改变，如普通函数则是在x上的区间，参数方程函数则是在t上的区间，极坐标函数是在角度上的区间
         //函数值有可能为INF，它是一个有效值，它表示该点在y轴上无定义
         //若计算失败，则返回空FunctionMap
-        FunctionMap Calculate(OPERAND left, OPERAND right, size_t precision);
+        FunctionMap* Calculate(OPERAND left, OPERAND right, size_t precision);
         FunctionType GetType();
 
         bool IsSuccess();  //操作是否成功 
@@ -57,6 +57,7 @@ namespace SqyMathLibrary {
         OPERAND m_MinY, m_MaxY;  //函数在Y轴上的极值，会随着CalCulate的使用而更新
         bool m_Success;  //上一次操作的结果
         std::string m_Error; //若上一次操作失败，会保存上一次操作失败的原因
+        FunctionMap m_FM;
     };
 
     //普通函数

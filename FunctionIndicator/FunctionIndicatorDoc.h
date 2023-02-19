@@ -15,7 +15,7 @@ namespace SML = SqyMathLibrary;  //命名空间重命名
 //绘制所需的必要函数数据，简化Doc与View的数据传输，保证View只绘画而不计算
 struct DrawFuncData { 
 	std::vector<CString> expressionStr;  //函数表达式字符串，由于可能表达式不止一个，故用一个数组存放
-	SML::FunctionMap drawPoint;  //函数绘制点
+	SML::FunctionMap *drawPoint;  //函数绘制点
 	size_t precision; //函数精细度
 	int lineWidth;  //线宽
 	int lineType;  //线型

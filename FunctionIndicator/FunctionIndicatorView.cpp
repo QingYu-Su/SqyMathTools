@@ -252,8 +252,8 @@ void CFunctionIndicatorView::DrawFunction(CDC* pDC) {
 		bool move = true;  //移动布尔值，遇到连续点时需要绘制直线，不连续点时仅移动当前绘制点
 
 		//遍历函数点
-		for (int i = 0; i < data->drawPoint.size(); i++) {
-			SML::FunctionPoint point = data->drawPoint[i];
+		for (int i = 0; i < data->drawPoint->size(); i++) {
+			SML::FunctionPoint point = (*(data->drawPoint))[i];
 
 			//函数点为无穷或超出当前坐标范围时不进行绘制
 			if (point.first == INF || point.second == INF
