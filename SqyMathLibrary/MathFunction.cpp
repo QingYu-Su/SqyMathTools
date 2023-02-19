@@ -13,7 +13,7 @@ namespace SqyMathLibrary {
 	}
 
 	FunctionMap MathFunction::Calculate(OPERAND left, OPERAND right, size_t precision) {
-		FunctionMap res;
+		FunctionMap res(precision+1);
 
 		if (this->IsValid() == false) return res;  //函数无效，直接返回
 
@@ -26,31 +26,32 @@ namespace SqyMathLibrary {
 
 		OPERAND unit = (right - left) / precision;  //函数计算单元
 
+		int i = 0;
 		for (OPERAND parameter = left; parameter <= right; parameter += unit) {
 
 			OPERAND x = this->GetX(parameter);  //获取x值
 			if (x == INV) {
-				res.clear();  
+				//res.clear();  
 				return res;  //x值无效，直接返回
 			}
 
 			OPERAND y = this->GetY(parameter);  //获取y值
 			if (y == INV) {
-				res.clear();  
+				//res.clear();  
 				return res; //y值无效，直接返回
 			}
 
-			//更新X和Y的极值
-			this->m_MaxX = std::max(this->m_MaxX, x);
-			this->m_MinX = std::min(this->m_MinX, x);
-			this->m_MaxY = std::max(this->m_MaxY, y);
-			this->m_MinY = std::min(this->m_MinY, y);
+			////更新X和Y的极值
+			//this->m_MaxX = std::max(this->m_MaxX, x);
+			//this->m_MinX = std::min(this->m_MinX, x);
+			//this->m_MaxY = std::max(this->m_MaxY, y);
+			//this->m_MinY = std::min(this->m_MinY, y);
 
 			//添加函数点
 			FunctionPoint fp;
 			fp.first = x;
 			fp.second = y;
-			res.push_back(fp);
+			res[i++] = fp;
 		}
 
 		this->PostProcess();  //后处理
