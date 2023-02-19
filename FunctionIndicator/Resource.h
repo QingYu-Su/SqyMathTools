@@ -4,6 +4,7 @@
 //
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
+#define ID_INDICATOR_MOUSE_POS          101
 #define IDR_MAINFRAME                   128
 #define IDR_FunctionIndicatorTYPE       130
 #define IDD_ADD_NORMALFUNC_DIALOG       310
@@ -15,7 +16,6 @@
 #define IDC_BUTTON_EDITFUNC_Y           1004
 #define IDC_EDIT                        1005
 #define IDC_EDIT_FUNCTION               1005
-#define IDC_EDIT_DEL_NUMS               1005
 #define IDC_EDIT_DEL_NUM                1005
 #define IDC_EDIT_FUNCTION_Y             1006
 #define IDC_EDIT_MIN                    1008

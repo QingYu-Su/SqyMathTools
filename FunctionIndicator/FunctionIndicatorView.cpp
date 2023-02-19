@@ -324,16 +324,24 @@ void CFunctionIndicatorView::ShowFuncExpression(CDC* pDC) {
 
 void CFunctionIndicatorView::AmplifyImage() {
 	CFunctionIndicatorDoc* pDoc = GetDocument();
+
+	//获得当前xy显示范围
 	double maxX = pDoc->GetMaxX();
 	double minX = pDoc->GetMinX();
 	double maxY = pDoc->GetMaxY();
 	double minY = pDoc->GetMinY();
 	
+	//计算放大值，固定为0.1
 	double valueX = (maxX - minX) * 0.1;
 	double valueY = (maxY - minY) * 0.1;
 
+	//设置新xy范围
 	pDoc->SetRange(minX + valueX, maxX - valueX, minY + valueY, maxY - valueY);
+	
+	//更新函数
 	pDoc->UpdateFunction();
+	
+	//刷新绘画
 	this->Invalidate();
 	this->UpdateWindow();
 
@@ -341,16 +349,24 @@ void CFunctionIndicatorView::AmplifyImage() {
 
 void CFunctionIndicatorView::ShrinkImage() {
 	CFunctionIndicatorDoc* pDoc = GetDocument();
+
+	//获得当前xy显示范围
 	double maxX = pDoc->GetMaxX();
 	double minX = pDoc->GetMinX();
 	double maxY = pDoc->GetMaxY();
 	double minY = pDoc->GetMinY();
 
+	//计算缩小值，固定为0.1
 	double valueX = (maxX - minX) * 0.1;
 	double valueY = (maxY - minY) * 0.1;
 
+	//设置新xy范围
 	pDoc->SetRange(minX - valueX, maxX + valueX, minY - valueY, maxY + valueY);
+
+	//更新函数
 	pDoc->UpdateFunction();
+
+	//刷新绘画
 	this->Invalidate();
 	this->UpdateWindow();
 }
@@ -419,15 +435,20 @@ BOOL CFunctionIndicatorView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 void CFunctionIndicatorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CFunctionIndicatorDoc* pDoc = GetDocument();
-	SetCapture();
+	SetCapture();  //鼠标捕获,保证之后的以为即使离开当前窗口区域也能响应鼠标消息
+
+	//当前允许移动
 	if (pDoc->GetMoveMode() == MOVE) {
-		pDoc->SetMoveMode(MOVING);
+		pDoc->SetMoveMode(MOVING); //设置移动模式为正在移动
+
+		//保存移动初始状态
 		this->m_MoveStart.point = point;
 		this->m_MoveStart.maxX = pDoc->GetMaxX();
 		this->m_MoveStart.minX = pDoc->GetMinX();
 		this->m_MoveStart.maxY = pDoc->GetMaxY();
 		this->m_MoveStart.minY = pDoc->GetMinY();
-		::SetCursor(LoadCursor(NULL, IDC_SIZEALL));
+		
+		::SetCursor(LoadCursor(NULL, IDC_SIZEALL));  //设置光标
 	}
 
 	CView::OnLButtonDown(nFlags, point);
@@ -437,39 +458,71 @@ void CFunctionIndicatorView::OnLButtonDown(UINT nFlags, CPoint point)
 void CFunctionIndicatorView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	CFunctionIndicatorDoc* pDoc = GetDocument();
-	if (pDoc->GetMoveMode() == MOVING) {
-		pDoc->SetMoveMode(MOVE);
-		::SetCursor(LoadCursor(NULL, IDC_HAND));
 
+	//当前正在移动，且左键被放开
+	if (pDoc->GetMoveMode() == MOVING) {
+		pDoc->SetMoveMode(MOVE); //设置移动模式为正在移动
+
+		::SetCursor(LoadCursor(NULL, IDC_HAND));  //设置光标
+
+		//计算当前光标位置与初始状态光标位置的相对位移，需要将数值转换为函数坐标系
 		double valueX = this->TransformX(point.x, true) - this->TransformX(this->m_MoveStart.point.x, true);
 		double valueY = this->TransformY(point.y, true) - this->TransformY(this->m_MoveStart.point.y, true);
 
+		//设置新的x-y范围
 		pDoc->SetRange(this->m_MoveStart.minX - valueX, this->m_MoveStart.maxX - valueX,
 			this->m_MoveStart.minY - valueY, this->m_MoveStart.maxY - valueY);
+
+		//更新函数
 		pDoc->UpdateFunction();
+		
+		//刷新绘画
 		this->Invalidate();
 		this->UpdateWindow();
 	}
-	ReleaseCapture();
+
+	ReleaseCapture(); //释放鼠标捕获
 	CView::OnLButtonUp(nFlags, point);
 }
 
 
 void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 {
+
+	//显示当前鼠标位置
+	CStatusBar* pBar = (CStatusBar*)AfxGetApp()->m_pMainWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR);
+	if (pBar) {
+		CString msg;
+		if (point.x >= this->m_Left && point.x <= this->m_Right && point.y >= this->m_Top && point.y <= this->m_Bottom)
+			msg.Format(_T("(%.1f,%.1f)"), this->TransformX(point.x, true), this->TransformY(point.y, true));
+		else
+			msg = _T("(NaN,NaN)");
+		pBar->SetPaneText(1, msg);
+	}
+
 	CFunctionIndicatorDoc* pDoc = GetDocument();
 
-	if (pDoc->GetMoveMode() == MOVING) {
-		::SetCursor(LoadCursor(NULL, IDC_SIZEALL));
+	//当前为允许移动模式，仅设置光标
+	if (pDoc->GetMoveMode() == MOVE) {
+		::SetCursor(LoadCursor(NULL, IDC_HAND));
+	}
 
+	//当前移动模式为正在移动
+	if (pDoc->GetMoveMode() == MOVING) {
+		::SetCursor(LoadCursor(NULL, IDC_SIZEALL));  //设置光标
+
+		//计算当前光标位置与初始状态光标位置的相对位移，需要将数值转换为函数坐标系
 		double valueX = this->TransformX(point.x, true) - this->TransformX(this->m_MoveStart.point.x, true);
 		double valueY = this->TransformY(point.y, true) - this->TransformY(this->m_MoveStart.point.y, true);
 
+		////设置新的x-y范围
 		pDoc->SetRange(this->m_MoveStart.minX - valueX, this->m_MoveStart.maxX - valueX,
 			this->m_MoveStart.minY - valueY, this->m_MoveStart.maxY - valueY);
 
+		//更新函数
 		pDoc->UpdateFunction();
 
+		//下面采取了双缓冲机制进行动态绘图，防止图像闪烁
 		CDC* pDC = GetDC();
 		//创建一个内存中的显示设备
 		CDC MemDC;
@@ -491,9 +544,7 @@ void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 		ReleaseDC(pDC);
 	}
 	
-	if (pDoc->GetMoveMode() == MOVE) {
-		::SetCursor(LoadCursor(NULL, IDC_HAND));
-	}
+	
 
 	CView::OnMouseMove(nFlags, point);
 }
