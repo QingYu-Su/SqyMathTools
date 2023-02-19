@@ -371,6 +371,86 @@ void CFunctionIndicatorView::ShrinkImage() {
 	this->UpdateWindow();
 }
 
+double CFunctionIndicatorView::GetDistacne(SML::FunctionPoint& a, SML::FunctionPoint& b) {
+	OPERAND x = (a.first - b.first) * (a.first - b.first);
+	OPERAND y = (a.second - b.second) * (a.second - b.second);
+	return sqrt(x + y);
+}
+
+SML::FunctionPoint CFunctionIndicatorView::GetClosestPoint(CPoint point) {
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+
+	SML::FunctionPoint targetPoint = std::make_pair(this->TransformX(point.x, true), this->TransformY(point.y, true));
+	SML::FunctionPoint res = std::make_pair(INF, INF);
+	double minDistance = INF;
+
+	std::list<DrawFuncData*> drawDataList = pDoc->GetDrawDataList();
+
+	//遍历图像绘制数据链表
+	std::list<DrawFuncData*>::iterator it;
+	for (it = drawDataList.begin(); it != drawDataList.end(); it++) {
+
+		DrawFuncData* data = *it;  //获取图像数据
+
+		//遍历该函数的所有函数点
+		for (int i = 0; i < data->drawPoint->size(); i++) {
+			SML::FunctionPoint curPoint = (*(data->drawPoint))[i];
+			
+			if (abs(curPoint.first - targetPoint.first) > 0.1) continue;
+
+			double curDistance = this->GetDistacne(curPoint, targetPoint);
+			
+			if ( curDistance < minDistance) {
+				minDistance = curDistance;
+				res = curPoint;
+			}
+		}
+
+	}
+
+	return res;
+}
+
+void CFunctionIndicatorView::ShowFunctionPoint(CPoint point) {
+	static bool marked = false;
+	CFunctionIndicatorDoc* pDoc = GetDocument();
+	if (pDoc->GetMoveMode() != MOVING) {
+		CDC* pDC = GetDC();
+
+		if (marked == true) {
+			CDC MemDC;
+			MemDC.CreateCompatibleDC(NULL);
+			CBitmap MemBitmap;
+			CRect rect;
+			GetClientRect(&rect);
+			MemBitmap.CreateCompatibleBitmap(pDC, rect.right, rect.bottom);
+			MemDC.SelectObject(&MemBitmap);
+			MemDC.FillSolidRect(rect.left, rect.top, rect.right, rect.bottom, RGB(255, 255, 255));
+			this->OnDraw(&MemDC);
+			pDC->BitBlt(rect.left, rect.top, rect.right, rect.bottom, &MemDC, 0, 0, SRCCOPY);
+			marked = false;
+		}
+
+		SML::FunctionPoint closestPoint = this->GetClosestPoint(point);
+		
+		if (closestPoint.first != INF && closestPoint.second != INF) {
+
+			double outputX = this->TransformX(closestPoint.first, false);
+			double outputY = this->TransformY(closestPoint.second, false);
+
+			if (abs(outputX - point.x) < 5 && abs(outputY - point.y) < 5) {
+				CString msg;
+				msg.Format(_T("(%.2f,%.2f)"), closestPoint.first, closestPoint.second);
+				CRect textrect(outputX, outputY - 10, outputX + 100, outputY + 10);
+				pDC->DrawText(msg, &textrect, DT_SINGLELINE | DT_CENTER);
+				ReleaseDC(pDC);
+				marked = true;
+			}
+
+		}
+	}
+}
+
 
 // CFunctionIndicatorView 绘图
 
@@ -502,11 +582,6 @@ void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 
 	CFunctionIndicatorDoc* pDoc = GetDocument();
 
-	//当前为允许移动模式，仅设置光标
-	if (pDoc->GetMoveMode() == MOVE) {
-		::SetCursor(LoadCursor(NULL, IDC_HAND));
-	}
-
 	//当前移动模式为正在移动
 	if (pDoc->GetMoveMode() == MOVING) {
 		::SetCursor(LoadCursor(NULL, IDC_SIZEALL));  //设置光标
@@ -542,9 +617,17 @@ void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 
 		//释放相关资源
 		ReleaseDC(pDC);
+
+		CView::OnMouseMove(nFlags, point);
+		return;
 	}
 	
-	
+	//当前为允许移动模式，仅设置光标
+	if (pDoc->GetMoveMode() == MOVE) {
+		::SetCursor(LoadCursor(NULL, IDC_HAND));
+	}
+
+	this->ShowFunctionPoint(point);
 
 	CView::OnMouseMove(nFlags, point);
 }

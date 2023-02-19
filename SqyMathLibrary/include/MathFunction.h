@@ -35,12 +35,15 @@ namespace SqyMathLibrary {
         //计算特定区间上的所有X-Y平面上的函数点。第三个参数为函数点数量，它反应了函数点的精细度
         //注意，这里区间的定义并不固定，它视自变量的定义而改变，如普通函数则是在x上的区间，参数方程函数则是在t上的区间，极坐标函数是在角度上的区间
         //函数值有可能为INF，它是一个有效值，它表示该点在y轴上无定义
-        //若计算失败，则返回空FunctionMap
+        //为了提高效率，返回值为FunctionMap的指针，该指针不用外部释放，若计算失败，则返回NULL
         FunctionMap* Calculate(OPERAND left, OPERAND right, size_t precision);
-        FunctionType GetType();
+
+        FunctionType GetType();  //获得函数类型
 
         bool IsSuccess();  //操作是否成功 
         std::string GetError();   //操作运算失败原因
+
+        FunctionPoint GetClosestPoint(FunctionPoint& point);  //获得离某个图像点最近的函数点
 
     protected://本类使用了策略模式，以下方法由子类实现，但无需由子类使用
         virtual bool IsValid() = 0;  //函数是否有效，必须由子类实现
@@ -51,6 +54,7 @@ namespace SqyMathLibrary {
 
     protected:
         void SetResult(bool res, std::string reason = "");  //设置操作成功与否
+        
     private:
         FunctionType m_Type;  //函数类型
         OPERAND m_MinX, m_MaxX;  //函数在X轴上的极值，会随着Calculate的使用而更新

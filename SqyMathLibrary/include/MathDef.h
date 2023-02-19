@@ -12,8 +12,8 @@
 
 #define PI atan(1.0) * 4
 #define E 2.718281828459
-#define INF 1e+200  //无穷大
-#define INV 1e+250 //无效值
+#define INF 1e+15  //无穷大
+#define INV 1e+16 //无效值
 #define MAX_DIGITAL 10  //外部输入的最大数位
 typedef double OPERAND;  //定义运算数类型
 

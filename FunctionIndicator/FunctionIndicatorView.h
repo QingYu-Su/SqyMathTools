@@ -66,6 +66,9 @@ private:
 	void ShowFuncExpression(CDC* pDC);  //显示函数表达式 
 	void AmplifyImage();  //放大坐标轴图像
 	void ShrinkImage();  //缩小坐标轴图像
+	double GetDistacne(SML::FunctionPoint &a, SML::FunctionPoint &b);
+	SML::FunctionPoint GetClosestPoint(CPoint point);
+	void ShowFunctionPoint(CPoint point);
 
 // 生成的消息映射函数
 protected:

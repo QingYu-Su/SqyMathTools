@@ -26,6 +26,12 @@ namespace SqyMathLibrary {
 
 		this->PreProcess();  //预处理
 
+		//x-y极值初始化
+		this->m_MinX = INF;
+		this->m_MaxX = -INF;
+		this->m_MinY = INF;
+		this->m_MaxY = -INF;
+
 		OPERAND unit = (right - left) / precision;  //函数计算单元
 
 		int i = 0;
@@ -43,11 +49,11 @@ namespace SqyMathLibrary {
 				return NULL; //y值无效，直接返回
 			}
 
-			////更新X和Y的极值
-			//this->m_MaxX = std::max(this->m_MaxX, x);
-			//this->m_MinX = std::min(this->m_MinX, x);
-			//this->m_MaxY = std::max(this->m_MaxY, y);
-			//this->m_MinY = std::min(this->m_MinY, y);
+			//更新X和Y的极值
+			this->m_MaxX = std::max(this->m_MaxX, x);
+			this->m_MinX = std::min(this->m_MinX, x);
+			this->m_MaxY = std::max(this->m_MaxY, y);
+			this->m_MinY = std::min(this->m_MinY, y);
 
 			//添加函数点
 			FunctionPoint fp;
@@ -60,6 +66,7 @@ namespace SqyMathLibrary {
 
 		return &(this->m_FM);
 	}
+
 
 	FunctionType MathFunction::GetType() {
 		return this->m_Type;
