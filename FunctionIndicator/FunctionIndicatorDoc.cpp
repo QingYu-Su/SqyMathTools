@@ -194,21 +194,23 @@ void CFunctionIndicatorDoc::SetRange(double minX, double maxX, double minY, doub
 	this->m_MaxY = maxY;
 }
 
+//在图像移动时重新计算图像绘制点会使图像更为精准，但会导致一定程度的卡顿
+//故暂时废弃，普通函数直接以定义域范围绘制图像，不用重新计算
 void CFunctionIndicatorDoc::UpdateFunction() {
-	std::list<SML::MathFunction*>::iterator itFunc = this->m_FunctionList.begin();
-	std::list<DrawFuncData*>::iterator itDraw = this->m_DrawDataList.begin();
+	//std::list<SML::MathFunction*>::iterator itFunc = this->m_FunctionList.begin();
+	//std::list<DrawFuncData*>::iterator itDraw = this->m_DrawDataList.begin();
 
-	//遍历函数链表
-	while (itFunc != this->m_FunctionList.end()) {
-		
-		//如果该函数为普通函数，重新计算当前图像绘制点
-		if ((*itFunc)->GetType() == SML::Normal) {
-			(*itDraw)->drawPoint = (*itFunc)->Calculate(this->m_MinX, this->m_MaxX, (*itDraw)->precision);
-		}
+	////遍历函数链表
+	//while (itFunc != this->m_FunctionList.end()) {
+	//	
+	//	//如果该函数为普通函数，重新计算当前图像绘制点
+	//	if ((*itFunc)->GetType() == SML::Normal) {
+	//		(*itDraw)->drawPoint = (*itFunc)->Calculate(this->m_MinX, this->m_MaxX, (*itDraw)->precision);
+	//	}
 
-		itFunc++;
-		itDraw++;
-	}
+	//	itFunc++;
+	//	itDraw++;
+	//}
 }
 
 void CFunctionIndicatorDoc::DelFunction(int num) {
@@ -275,8 +277,14 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 		DrawFuncData* dfd = new DrawFuncData;
 		dfd->precision = dlg.GetPrecision();
 
-		//计算函数图像数据，范围为当前视图X轴范围，并将结果保存至绘画数据中
-		dfd->drawPoint = pFunction->Calculate(this->m_MinX, this->m_MaxX, dfd->precision);
+		//计算函数图像数据，范围为X-Y轴显示范围，并将结果保存至绘画数据中
+		//dfd->drawPoint = pFunction->Calculate(dlg.GetMin(), dlg.GetMax(), dfd->precision);
+		//该方式虽然更为精准，但会导致图像移动时的卡顿，故直接采用下方以定义域范围绘制图像
+		
+
+		//计算函数图像数据，范围为该函数定义域，并将结果保存至绘画数据中
+		//该方式与极坐标和参数方程的计算方式保持一致，图像移动会比较顺畅
+		dfd->drawPoint = pFunction->Calculate(dlg.GetMin(), dlg.GetMax(), dfd->precision);
 		
 		//计算失败，弹出提示弹窗，释放相应资源并返回
 		if (pFunction->IsSuccess() == false) {
