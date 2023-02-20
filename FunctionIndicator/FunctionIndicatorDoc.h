@@ -82,17 +82,20 @@ public:
 	void ClearFunction(); //清空所有函数
 	MoveMode GetMoveMode();  //获得当前移动模式
 	void SetMoveMode(MoveMode mode);  //设置当前移动模式
+	bool IsShowEdge(); //是否显示边框
+	bool IsShowAxis(); //是否显示坐标轴
+	bool IsShowGrid();  //是否显示网格
 
 private:
-	bool m_ShowGrid; //是否显示网格
-	bool m_ShowAxis; //是否显示坐标轴
-	bool m_ShowEdge; //是否显示边框
+	bool m_ShowEdge; //显示边框
+	bool m_ShowAxis; //显示坐标轴
+	bool m_ShowGrid; //显示网格
 	bool m_SingelMode;   //单函数模式
-	bool m_FixedXRange;	 //普通函数x范围是否固定，不固定的话随显示范围变化
 	bool m_ShowPoint;//鼠标接近函数线时是否显示其坐标
+
 	double m_MinX, m_MaxX; //当前x轴范围 
 	double m_MinY, m_MaxY;//当前y轴范围
-	MoveMode m_MoveMode;
+	MoveMode m_MoveMode;  //当前移动模式
 
 	//函数链表，保存了所有添加的函数以及一系列可供调用的方法
 	std::list<SML::MathFunction*> m_FunctionList;
@@ -107,4 +110,10 @@ public:
 	afx_msg void OnDelFunc();
 	afx_msg void OnDelAllFunc();
 	afx_msg void OnSetXyRange();
+	afx_msg void OnEdge();
+	afx_msg void OnAxis();
+	afx_msg void OnGrid();
+	afx_msg void OnUpdateEdge(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateAxis(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateGrid(CCmdUI* pCmdUI);
 };

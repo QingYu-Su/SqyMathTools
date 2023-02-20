@@ -535,10 +535,14 @@ void CFunctionIndicatorView::OnDraw(CDC* pDC)
 		return;
 
 	this->SetShowWindow(); //绘画前必须设置绘画区域
-	this->DrawEdge(pDC);
+
+	if ( pDoc->IsShowEdge() == true ) this->DrawEdge(pDC);
+	
 	this->MarkCoordinateValue(pDC);
-	this->DrawGrid(pDC);
-	this->DrawAxis(pDC);
+
+	if ( pDoc->IsShowGrid() == true ) this->DrawGrid(pDC);
+	
+	if ( pDoc->IsShowAxis() == true )this->DrawAxis(pDC);
 	this->DrawFunction(pDC);
 	ShowFuncExpression(pDC);
 }

@@ -34,6 +34,12 @@ BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_COMMAND(ID_DEL_FUNC, &CFunctionIndicatorDoc::OnDelFunc)
 	ON_COMMAND(ID_DEL_ALL_FUNC, &CFunctionIndicatorDoc::OnDelAllFunc)
 	ON_COMMAND(ID_SET_XY_RANGE, &CFunctionIndicatorDoc::OnSetXyRange)
+	ON_COMMAND(ID_EDGE, &CFunctionIndicatorDoc::OnEdge)
+	ON_COMMAND(ID_AXIS, &CFunctionIndicatorDoc::OnAxis)
+	ON_COMMAND(ID_GRID, &CFunctionIndicatorDoc::OnGrid)
+	ON_UPDATE_COMMAND_UI(ID_EDGE, &CFunctionIndicatorDoc::OnUpdateEdge)
+	ON_UPDATE_COMMAND_UI(ID_AXIS, &CFunctionIndicatorDoc::OnUpdateAxis)
+	ON_UPDATE_COMMAND_UI(ID_GRID, &CFunctionIndicatorDoc::OnUpdateGrid)
 END_MESSAGE_MAP()
 
 
@@ -45,7 +51,6 @@ CFunctionIndicatorDoc::CFunctionIndicatorDoc() noexcept
 	this->m_ShowAxis = true;
 	this->m_ShowEdge = true;
 	this->m_SingelMode = true;
-	this->m_FixedXRange = false;
 	this->m_ShowPoint = false;
 	this->m_MinX = -10;
 	this->m_MaxX = 10;
@@ -263,6 +268,18 @@ void CFunctionIndicatorDoc::SetMoveMode(MoveMode mode) {
 	this->m_MoveMode = mode;
 }
 
+bool CFunctionIndicatorDoc::IsShowEdge() {
+	return this->m_ShowEdge;
+}
+
+bool CFunctionIndicatorDoc::IsShowAxis() {
+	return this->m_ShowAxis;
+}
+
+bool CFunctionIndicatorDoc::IsShowGrid() {
+	return this->m_ShowGrid;
+}
+
 // CFunctionIndicatorDoc 命令
 
 
@@ -423,3 +440,42 @@ void CFunctionIndicatorDoc::OnSetXyRange()
 	}
 	UpdateAllViews(NULL);
 }
+
+
+void CFunctionIndicatorDoc::OnEdge()
+{
+	this->m_ShowEdge = !this->m_ShowEdge;
+	this->UpdateAllViews(NULL);
+}
+
+
+void CFunctionIndicatorDoc::OnAxis()
+{
+	this->m_ShowAxis = !this->m_ShowAxis;
+	this->UpdateAllViews(NULL);
+}
+
+
+void CFunctionIndicatorDoc::OnGrid()
+{
+	this->m_ShowGrid = !this->m_ShowGrid;
+	this->UpdateAllViews(NULL);
+}
+
+
+void CFunctionIndicatorDoc::OnUpdateEdge(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck(this->m_ShowEdge);
+}
+
+void CFunctionIndicatorDoc::OnUpdateAxis(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck(this->m_ShowAxis);
+}
+
+
+void CFunctionIndicatorDoc::OnUpdateGrid(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck(this->m_ShowGrid);
+}
+
