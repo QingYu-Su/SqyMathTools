@@ -85,13 +85,14 @@ public:
 	bool IsShowEdge(); //是否显示边框
 	bool IsShowAxis(); //是否显示坐标轴
 	bool IsShowGrid();  //是否显示网格
+	bool IsShowFuncInfo(); //是否显示函数坐标点
 
 private:
 	bool m_ShowEdge; //显示边框
 	bool m_ShowAxis; //显示坐标轴
 	bool m_ShowGrid; //显示网格
 	bool m_SingelMode;   //单函数模式
-	bool m_ShowPoint;//鼠标接近函数线时是否显示其坐标
+	bool m_ShowFuncInfo;//鼠标接近函数线时显示其函数信息，包括函数点坐标和函数序号
 
 	double m_MinX, m_MaxX; //当前x轴范围 
 	double m_MinY, m_MaxY;//当前y轴范围
@@ -118,4 +119,6 @@ public:
 	afx_msg void OnUpdateGrid(CCmdUI* pCmdUI);
 	afx_msg void OnMove();
 	afx_msg void OnUpdateMove(CCmdUI* pCmdUI);
+	afx_msg void OnFuncInfo();
+	afx_msg void OnUpdateFunctionInfo(CCmdUI* pCmdUI);
 };

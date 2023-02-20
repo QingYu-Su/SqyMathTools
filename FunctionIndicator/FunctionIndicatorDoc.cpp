@@ -42,6 +42,8 @@ BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(ID_GRID, &CFunctionIndicatorDoc::OnUpdateGrid)
 	ON_COMMAND(ID_MOVE, &CFunctionIndicatorDoc::OnMove)
 	ON_UPDATE_COMMAND_UI(ID_MOVE, &CFunctionIndicatorDoc::OnUpdateMove)
+	ON_COMMAND(ID_FUNC_INFO, &CFunctionIndicatorDoc::OnFuncInfo)
+	ON_UPDATE_COMMAND_UI(ID_FUNC_INFO, &CFunctionIndicatorDoc::OnUpdateFunctionInfo)
 END_MESSAGE_MAP()
 
 
@@ -53,12 +55,12 @@ CFunctionIndicatorDoc::CFunctionIndicatorDoc() noexcept
 	this->m_ShowAxis = true;
 	this->m_ShowEdge = true;
 	this->m_SingelMode = true;
-	this->m_ShowPoint = false;
+	this->m_ShowFuncInfo = true;
 	this->m_MinX = -10;
 	this->m_MaxX = 10;
 	this->m_MinY = -5;
 	this->m_MaxY = 5;
-	this->m_MoveMode = MOVE;
+	this->m_MoveMode = BAN;
 }
 
 CFunctionIndicatorDoc::~CFunctionIndicatorDoc()
@@ -282,6 +284,10 @@ bool CFunctionIndicatorDoc::IsShowGrid() {
 	return this->m_ShowGrid;
 }
 
+bool CFunctionIndicatorDoc::IsShowFuncInfo() {
+	return this->m_ShowFuncInfo;
+}
+
 // CFunctionIndicatorDoc 命令
 
 
@@ -498,4 +504,17 @@ void CFunctionIndicatorDoc::OnMove()
 void CFunctionIndicatorDoc::OnUpdateMove(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(this->m_MoveMode != BAN);
+}
+
+
+void CFunctionIndicatorDoc::OnFuncInfo()
+{
+	this->m_ShowFuncInfo = !this->m_ShowFuncInfo;
+	this->UpdateAllViews(NULL);
+}
+
+
+void CFunctionIndicatorDoc::OnUpdateFunctionInfo(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck(this->m_ShowFuncInfo);
 }

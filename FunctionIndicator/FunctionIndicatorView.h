@@ -70,8 +70,11 @@ private:
 	void DoubleBufferDraw();  //利用双缓冲机制进行绘画，反正频繁绘画时的图像闪烁
 	double GetDistacne(SML::FunctionPoint &a, SML::FunctionPoint &b);  //获得两个函数图像点的距离
 	SML::FunctionPoint GetClosestPoint(CPoint point);  //获得离光标点最近的函数图像点，没有则返回INF点
-	void ShowFunctionInformation(CPoint point);  //显示离光标点最近的函数的相关信息
+	bool ShowFunctionPoint(CPoint point);  //在图像中显示光标所在的函数坐标点信息,false表示光标不在函数图像上
+	void ShowFunctionNum();  //在状态栏中显示光标处的函数序号
+	void ShowFunctionInformation(CPoint point);  //显示离光标点最近的函数的相关信息,包括函数点坐标和函数序号
 	void ShowImagePoint(CPoint point);	//在状态栏显示光标所在的图像坐标
+	
 
 // 生成的消息映射函数
 protected:

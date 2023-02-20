@@ -92,13 +92,18 @@
 #define ID_GRID                         32794
 #define ID_32795                        32795
 #define ID_MOVE                         32796
+#define ID_32797                        32797
+#define ID_32798                        32798
+#define ID_FUNC_POINT                   32799
+#define ID_FUNC_LIST                    32800
+#define ID_FUNC_INFO                    32801
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        318
-#define _APS_NEXT_COMMAND_VALUE         32797
+#define _APS_NEXT_COMMAND_VALUE         32802
 #define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

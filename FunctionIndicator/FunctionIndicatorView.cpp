@@ -452,60 +452,75 @@ SML::FunctionPoint CFunctionIndicatorView::GetClosestPoint(CPoint point) {
 	return res;
 }
 
+bool CFunctionIndicatorView::ShowFunctionPoint(CPoint point) {
+
+	//获得里该点最近的函数图像点
+	SML::FunctionPoint closestPoint = this->GetClosestPoint(point);
+
+	//该点无效则不显示
+	if (closestPoint.first == INF || closestPoint.second == INF) return false;
+
+	//获得最近函数点的视图坐标
+	double outputX = this->TransformX(closestPoint.first, false);
+	double outputY = this->TransformY(closestPoint.second, false);
+
+	//必须在视图坐标系上也足够近才显示函数信息
+	if (abs(outputX - point.x) > 5 || abs(outputY - point.y) > 5) return false;
+
+	//获得DC设备和状态栏
+	CDC* pDC = GetDC();
+
+	//在函数图像上显示最近函数点坐标
+	CString msg;
+	msg.Format(_T("(%.2f,%.2f)"), closestPoint.first, closestPoint.second);
+	CRect textrect(outputX, outputY - 10, outputX + 100, outputY + 10);
+	pDC->DrawText(msg, &textrect, DT_SINGLELINE | DT_CENTER);
+
+	ReleaseDC(pDC);
+
+	return true;
+
+}
+
+void CFunctionIndicatorView::ShowFunctionNum() {
+	CStatusBar* pBar = (CStatusBar*)AfxGetApp()->m_pMainWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR);
+	//状态栏显示函数点对应的函数序号
+	if (pBar) {
+		CString message;
+		message.Format("当前函数: %d", this->m_CurFuncNum);
+		pBar->SetPaneText(2, message);
+	}
+}
+
 void CFunctionIndicatorView::ShowFunctionInformation(CPoint point) {
 	static bool marked = false;  //函数信息标记布尔值，初始为false
 
 	CFunctionIndicatorDoc* pDoc = GetDocument();
 	
-	//正在移动模式下不显示函数信息
-	if (pDoc->GetMoveMode() != MOVING) {
-
-		//获得DC设备和状态栏
-		CDC* pDC = GetDC();
-		CStatusBar* pBar = (CStatusBar*)AfxGetApp()->m_pMainWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR);
-
+	//移动模式为正在移动或不允许显示函数信息，则不显示函数信息
+	if (pDoc->GetMoveMode() != MOVING  && pDoc->IsShowFuncInfo() == true) {
+		
 		//标记布尔值为真，表示函数信息已被标记显示，需要刷新画面和状态栏
 		//避免上一个显示的函数信息与当前显示的函数信息发生重叠现象
 		if (marked == true) {
 			this->DoubleBufferDraw();  //双缓冲绘画，避免闪烁
+
+			CStatusBar* pBar = (CStatusBar*)AfxGetApp()->m_pMainWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR);
 			
 			if (pBar) {
 				//状态栏刷新
 				pBar->SetPaneText(2, "当前函数序号");
 			}
+
 		}
 
-		//获得最近函数图像点
-		SML::FunctionPoint closestPoint = this->GetClosestPoint(point);
+		//如果函数点坐标显示成功，则显示函数序号，并且函数信息标记布尔值设为真
+		if (this->ShowFunctionPoint(point)) {
+			this->ShowFunctionNum();
+			marked = true;
+		}
+
 		
-		//该点无效则不显示
-		if (closestPoint.first != INF && closestPoint.second != INF) {
-
-			//获得最近函数点的视图坐标
-			double outputX = this->TransformX(closestPoint.first, false);
-			double outputY = this->TransformY(closestPoint.second, false);
-
-			//必须足够近才显示函数信息
-			if (abs(outputX - point.x) < 5 && abs(outputY - point.y) < 5) {
-				
-				//在函数图像上显示最近函数点坐标
-				CString msg;
-				msg.Format(_T("(%.2f,%.2f)"), closestPoint.first, closestPoint.second);
-				CRect textrect(outputX, outputY - 10, outputX + 100, outputY + 10);
-				pDC->DrawText(msg, &textrect, DT_SINGLELINE | DT_CENTER);
-
-				//状态栏显示函数点对应的函数序号
-				if (pBar) {
-					CString message;
-					message.Format("当前函数: %d", this->m_CurFuncNum);
-					pBar->SetPaneText(2, message);
-				}
-				marked = true;
-			}
-
-		}
-
-		ReleaseDC(pDC);
 	}
 }
 
@@ -536,14 +551,22 @@ void CFunctionIndicatorView::OnDraw(CDC* pDC)
 
 	this->SetShowWindow(); //绘画前必须设置绘画区域
 
+	//画边框
 	if ( pDoc->IsShowEdge() == true ) this->DrawEdge(pDC);
 	
+	//标注坐标信息
 	this->MarkCoordinateValue(pDC);
 
+	//画坐标轴
 	if ( pDoc->IsShowGrid() == true ) this->DrawGrid(pDC);
 	
+	//画网格
 	if ( pDoc->IsShowAxis() == true )this->DrawAxis(pDC);
+	
+	//画函数图像
 	this->DrawFunction(pDC);
+
+	//在视图中展示函数表达式信息
 	ShowFuncExpression(pDC);
 }
 
