@@ -15,6 +15,7 @@
 #include "CAddPolarFuncDlg.h"
 #include "CAddTwoFuncDlg.h"
 #include "CDelFuncDlg.h"
+#include "CSetXYRangeDlg.h"
 
 #include <propkey.h>
 
@@ -32,6 +33,7 @@ BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_COMMAND(ID_ADD_TWO_FUNC, &CFunctionIndicatorDoc::OnAddTwoFunc)
 	ON_COMMAND(ID_DEL_FUNC, &CFunctionIndicatorDoc::OnDelFunc)
 	ON_COMMAND(ID_DEL_ALL_FUNC, &CFunctionIndicatorDoc::OnDelAllFunc)
+	ON_COMMAND(ID_SET_XY_RANGE, &CFunctionIndicatorDoc::OnSetXyRange)
 END_MESSAGE_MAP()
 
 
@@ -403,4 +405,19 @@ void CFunctionIndicatorDoc::OnDelAllFunc()
 
 	UpdateAllViews(NULL);
 
+}
+
+
+void CFunctionIndicatorDoc::OnSetXyRange()
+{
+	CSetXYRangeDlg dlg;
+	while (dlg.DoModal() == IDOK ) {
+		if (dlg.GetMinX() >= dlg.GetMaxX() || dlg.GetMinY() >= dlg.GetMaxY()) {
+			AfxMessageBox("输入不合法，请检查！");
+			continue;
+		}
+		this->SetRange(dlg.GetMinX(), dlg.GetMaxX(), dlg.GetMinY(), dlg.GetMaxY());
+		break;
+	}
+	UpdateAllViews(NULL);
 }

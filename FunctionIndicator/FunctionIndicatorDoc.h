@@ -106,4 +106,5 @@ public:
 	afx_msg void OnAddTwoFunc();
 	afx_msg void OnDelFunc();
 	afx_msg void OnDelAllFunc();
+	afx_msg void OnSetXyRange();
 };

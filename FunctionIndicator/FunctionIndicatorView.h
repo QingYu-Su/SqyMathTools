@@ -71,7 +71,7 @@ private:
 	double GetDistacne(SML::FunctionPoint &a, SML::FunctionPoint &b);  //获得两个函数图像点的距离
 	SML::FunctionPoint GetClosestPoint(CPoint point);  //获得离光标点最近的函数图像点，没有则返回INF点
 	void ShowFunctionInformation(CPoint point);  //显示离光标点最近的函数的相关信息
-	void ShowImagePoint(CPoint point);	//在状态栏显示光标点的图像坐标
+	void ShowImagePoint(CPoint point);	//在状态栏显示光标所在的图像坐标
 
 // 生成的消息映射函数
 protected:
