@@ -44,8 +44,8 @@ protected:
 private:
 	//在视图坐标系上绘制函数图像的区域坐标范围(真实坐标，非函数坐标)
 	double m_Top, m_Bottom, m_Left, m_Right;
-	MoveStatus m_MoveStart;  //移动模式的初始状态
-	int m_CurFuncNum;  //当前鼠标位置指向的函数序号
+	MoveStatus m_MoveStart;  //移动模式下，鼠标一开始点击时的初始状态
+	int m_CurFuncNum;  //当前鼠标位置指向的函数的序号
 
 private:
 	//实现x轴上的数值在不同坐标系的转换，第二参数为转换模式
@@ -67,10 +67,11 @@ private:
 	void ShowFuncExpression(CDC* pDC);  //显示函数表达式 
 	void AmplifyImage();  //放大坐标轴图像
 	void ShrinkImage();  //缩小坐标轴图像
-	void DoubleBufferDraw();
-	double GetDistacne(SML::FunctionPoint &a, SML::FunctionPoint &b);
-	SML::FunctionPoint GetClosestPoint(CPoint point);
-	void ShowFunctionPoint(CPoint point);
+	void DoubleBufferDraw();  //利用双缓冲机制进行绘画，反正频繁绘画时的图像闪烁
+	double GetDistacne(SML::FunctionPoint &a, SML::FunctionPoint &b);  //获得两个函数图像点的距离
+	SML::FunctionPoint GetClosestPoint(CPoint point);  //获得离光标点最近的函数图像点，没有则返回INF点
+	void ShowFunctionInformation(CPoint point);  //显示离光标点最近的函数的相关信息
+	void ShowImagePoint(CPoint point);	//在状态栏显示光标点的图像坐标
 
 // 生成的消息映射函数
 protected:

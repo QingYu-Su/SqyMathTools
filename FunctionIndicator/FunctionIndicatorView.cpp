@@ -373,20 +373,26 @@ void CFunctionIndicatorView::ShrinkImage() {
 
 void CFunctionIndicatorView::DoubleBufferDraw() {
 	//下面采取了双缓冲机制进行动态绘图，防止图像闪烁
+
 	CDC* pDC = GetDC();
+
 	//创建一个内存中的显示设备
 	CDC MemDC;
 	MemDC.CreateCompatibleDC(NULL);
+
 	//创建一个内存中的图像
 	CBitmap MemBitmap;
 	CRect rect;
 	GetClientRect(&rect);
 	MemBitmap.CreateCompatibleBitmap(pDC, rect.right, rect.bottom);
+
 	//指定内存显示设备在内存中的图像上画图
 	MemDC.SelectObject(&MemBitmap);
+
 	//先用一种颜色作为内存显示设备的背景色
 	MemDC.FillSolidRect(rect.left, rect.top, rect.right, rect.bottom, RGB(255, 255, 255));
 	this->OnDraw(&MemDC);
+
 	//将内存中画好的图像直接拷贝到屏幕指定区域上
 	pDC->BitBlt(rect.left, rect.top, rect.right, rect.bottom, &MemDC, 0, 0, SRCCOPY);
 
@@ -395,6 +401,7 @@ void CFunctionIndicatorView::DoubleBufferDraw() {
 }
 
 double CFunctionIndicatorView::GetDistacne(SML::FunctionPoint& a, SML::FunctionPoint& b) {
+	//平面上两点间的距离公式
 	OPERAND x = (a.first - b.first) * (a.first - b.first);
 	OPERAND y = (a.second - b.second) * (a.second - b.second);
 	return sqrt(x + y);
@@ -403,27 +410,36 @@ double CFunctionIndicatorView::GetDistacne(SML::FunctionPoint& a, SML::FunctionP
 SML::FunctionPoint CFunctionIndicatorView::GetClosestPoint(CPoint point) {
 	CFunctionIndicatorDoc* pDoc = GetDocument();
 
+	//转换光标点参数，转换为函数图像点
 	SML::FunctionPoint targetPoint = std::make_pair(this->TransformX(point.x, true), this->TransformY(point.y, true));
+	
+	//初始化结果函数图像点和最近距离
 	SML::FunctionPoint res = std::make_pair(INF, INF);
 	double minDistance = INF;
 
+	//获得函数图像链表
 	std::list<DrawFuncData*> drawDataList = pDoc->GetDrawDataList();
 
+	
 	//遍历图像绘制数据链表
 	std::list<DrawFuncData*>::iterator it;
-	int num = 1;
+	int num = 1;  //图像数据链表结点序号，以1为起始
 	for (it = drawDataList.begin(); it != drawDataList.end(); it++, num++) {
 
 		DrawFuncData* data = *it;  //获取图像数据
 
 		//遍历该函数的所有函数点
 		for (int i = 0; i < data->drawPoint->size(); i++) {
+			
 			SML::FunctionPoint curPoint = (*(data->drawPoint))[i];
 			
+			//当前点与光标点的x距离过长，忽视该点
 			if (abs(curPoint.first - targetPoint.first) > 0.1) continue;
 
+			//获得当前点与光标点的具体距离
 			double curDistance = this->GetDistacne(curPoint, targetPoint);
 			
+			//该点离光标点更近，更新相关数据
 			if ( curDistance < minDistance) {
 				minDistance = curDistance;
 				res = curPoint;
@@ -436,37 +452,49 @@ SML::FunctionPoint CFunctionIndicatorView::GetClosestPoint(CPoint point) {
 	return res;
 }
 
-void CFunctionIndicatorView::ShowFunctionPoint(CPoint point) {
-	static bool marked = false;
+void CFunctionIndicatorView::ShowFunctionInformation(CPoint point) {
+	static bool marked = false;  //函数信息标记布尔值，初始为false
+
 	CFunctionIndicatorDoc* pDoc = GetDocument();
+	
+	//正在移动模式下不显示函数信息
 	if (pDoc->GetMoveMode() != MOVING) {
+
+		//获得DC设备和状态栏
 		CDC* pDC = GetDC();
 		CStatusBar* pBar = (CStatusBar*)AfxGetApp()->m_pMainWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR);
 
+		//标记布尔值为真，表示函数信息已被标记显示，需要刷新画面和状态栏
+		//避免上一个显示的函数信息与当前显示的函数信息发生重叠现象
 		if (marked == true) {
-			this->DoubleBufferDraw();
+			this->DoubleBufferDraw();  //双缓冲绘画，避免闪烁
+			
 			if (pBar) {
-				CString message;
+				//状态栏刷新
 				pBar->SetPaneText(2, "当前函数序号");
 			}
-			marked = false;
 		}
 
+		//获得最近函数图像点
 		SML::FunctionPoint closestPoint = this->GetClosestPoint(point);
 		
+		//该点无效则不显示
 		if (closestPoint.first != INF && closestPoint.second != INF) {
 
+			//获得最近函数点的视图坐标
 			double outputX = this->TransformX(closestPoint.first, false);
 			double outputY = this->TransformY(closestPoint.second, false);
 
+			//必须足够近才显示函数信息
 			if (abs(outputX - point.x) < 5 && abs(outputY - point.y) < 5) {
+				
+				//在函数图像上显示最近函数点坐标
 				CString msg;
 				msg.Format(_T("(%.2f,%.2f)"), closestPoint.first, closestPoint.second);
 				CRect textrect(outputX, outputY - 10, outputX + 100, outputY + 10);
 				pDC->DrawText(msg, &textrect, DT_SINGLELINE | DT_CENTER);
-				ReleaseDC(pDC);
 
-				
+				//状态栏显示函数点对应的函数序号
 				if (pBar) {
 					CString message;
 					message.Format("当前函数: %d", this->m_CurFuncNum);
@@ -476,6 +504,23 @@ void CFunctionIndicatorView::ShowFunctionPoint(CPoint point) {
 			}
 
 		}
+
+		ReleaseDC(pDC);
+	}
+}
+
+void CFunctionIndicatorView::ShowImagePoint(CPoint point) {
+
+	CStatusBar* pBar = (CStatusBar*)AfxGetApp()->m_pMainWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR);
+	if (pBar) {
+		CString msg;
+		//当前光标在有效区域,将光标位置转换成函数图像位置并保存
+		if (point.x >= this->m_Left && point.x <= this->m_Right && point.y >= this->m_Top && point.y <= this->m_Bottom)
+			msg.Format(_T("(%.1f,%.1f)"), this->TransformX(point.x, true), this->TransformY(point.y, true));
+		else
+			msg = _T("当前光标位置");
+
+		pBar->SetPaneText(1, msg);  //设置状态栏第一项的文本
 	}
 }
 
@@ -543,7 +588,7 @@ BOOL CFunctionIndicatorView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 void CFunctionIndicatorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CFunctionIndicatorDoc* pDoc = GetDocument();
-	SetCapture();  //鼠标捕获,保证之后的以为即使离开当前窗口区域也能响应鼠标消息
+	SetCapture();  //鼠标捕获,保证之后的光标移动即使离开当前窗口区域也能响应鼠标消息
 
 	//当前允许移动
 	if (pDoc->GetMoveMode() == MOVE) {
@@ -597,16 +642,8 @@ void CFunctionIndicatorView::OnLButtonUp(UINT nFlags, CPoint point)
 void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 {
 
-	//显示当前鼠标位置
-	CStatusBar* pBar = (CStatusBar*)AfxGetApp()->m_pMainWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR);
-	if (pBar) {
-		CString msg;
-		if (point.x >= this->m_Left && point.x <= this->m_Right && point.y >= this->m_Top && point.y <= this->m_Bottom)
-			msg.Format(_T("(%.1f,%.1f)"), this->TransformX(point.x, true), this->TransformY(point.y, true));
-		else
-			msg = _T("(NaN,NaN)");
-		pBar->SetPaneText(1, msg);
-	}
+	//显示当前光标图像位置
+	this->ShowImagePoint(point);
 
 	CFunctionIndicatorDoc* pDoc = GetDocument();
 
@@ -625,10 +662,8 @@ void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 		//更新函数
 		pDoc->UpdateFunction();
 
+		//双缓冲绘画
 		this->DoubleBufferDraw();
-
-		CView::OnMouseMove(nFlags, point);
-		return;
 	}
 	
 	//当前为允许移动模式，仅设置光标
@@ -636,7 +671,8 @@ void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 		::SetCursor(LoadCursor(NULL, IDC_HAND));
 	}
 
-	this->ShowFunctionPoint(point);
+	//显示函数信息
+	this->ShowFunctionInformation(point);
 
 	CView::OnMouseMove(nFlags, point);
 }
