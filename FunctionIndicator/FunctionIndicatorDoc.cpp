@@ -270,11 +270,10 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 {
 	//弹出增加普通函数窗口，并将当前X范围设置为函数定义域初始值
 	CAddNormalFuncDlg dlg(this->m_MinX, this->m_MaxX);
-	if (dlg.DoModal() == IDOK) {
-
+	while (dlg.DoModal() == IDOK) {
 		//获得函数类对象
 		SML::MathFunction* pFunction = dlg.GetMathFunction();
-		
+
 		//新建绘画数据，传入必要参数
 		DrawFuncData* dfd = new DrawFuncData;
 		dfd->precision = dlg.GetPrecision();
@@ -282,18 +281,18 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 		//计算函数图像数据，范围为X-Y轴显示范围，并将结果保存至绘画数据中
 		//dfd->drawPoint = pFunction->Calculate(dlg.GetMin(), dlg.GetMax(), dfd->precision);
 		//该方式虽然更为精准，但会导致图像移动时的卡顿，故直接采用下方以定义域范围绘制图像
-		
+
 
 		//计算函数图像数据，范围为该函数定义域，并将结果保存至绘画数据中
 		//该方式与极坐标和参数方程的计算方式保持一致，图像移动会比较顺畅
 		dfd->drawPoint = pFunction->Calculate(dlg.GetMin(), dlg.GetMax(), dfd->precision);
-		
-		//计算失败，弹出提示弹窗，释放相应资源并返回
+
+		//计算失败，弹出提示弹窗，释放相应资源并重新显示对话框
 		if (pFunction->IsSuccess() == false) {
 			AfxMessageBox(pFunction->GetError().c_str());
 			delete pFunction;
 			delete dfd;
-			return;
+			continue;
 		}
 
 		//将其他数据添加至绘画数据中
@@ -305,6 +304,8 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 		//将函数类对象和绘画数据添加至链表中保存
 		this->m_FunctionList.push_back(pFunction);
 		this->m_DrawDataList.push_back(dfd);
+
+		break;
 	}
 	UpdateAllViews(NULL);
 }
@@ -314,8 +315,7 @@ void CFunctionIndicatorDoc::OnAddPolarFunc()
 {
 	//弹出增加极坐标函数窗口，并将-pi~pi设置为函数定义域初始值
 	CAddPolarFuncDlg dlg(-3.14, 3.14);
-	if (dlg.DoModal() == IDOK) {
-
+	while (dlg.DoModal() == IDOK) {
 		//获得函数类对象
 		SML::MathFunction* pFunction = dlg.GetMathFunction();
 
@@ -327,12 +327,12 @@ void CFunctionIndicatorDoc::OnAddPolarFunc()
 		//极坐标函数计算范围只局限在-pi到pi之间
 		dfd->drawPoint = pFunction->Calculate(-PI, PI, dfd->precision);
 
-		//计算失败，弹出提示弹窗，释放相应资源并返回
+		//计算失败，弹出提示弹窗，释放相应资源并重新显示对话框
 		if (pFunction->IsSuccess() == false) {
 			AfxMessageBox(pFunction->GetError().c_str());
 			delete pFunction;
 			delete dfd;
-			return;
+			continue;
 		}
 
 		//将其他数据添加至绘画数据中
@@ -344,6 +344,7 @@ void CFunctionIndicatorDoc::OnAddPolarFunc()
 		//将函数类对象和绘画数据添加至链表中保存
 		this->m_FunctionList.push_back(pFunction);
 		this->m_DrawDataList.push_back(dfd);
+		break;
 	}
 	UpdateAllViews(NULL);
 }
@@ -353,7 +354,7 @@ void CFunctionIndicatorDoc::OnAddTwoFunc()
 {
 	//弹出增加参数方程函数窗口，并设置函数定义域初始值
 	CAddTwoFuncDlg dlg(-5, 5);
-	if (dlg.DoModal() == IDOK) {
+	while (dlg.DoModal() == IDOK) {
 
 		//获得函数类对象
 		SML::MathFunction* pFunction = dlg.GetMathFunction();
@@ -365,12 +366,12 @@ void CFunctionIndicatorDoc::OnAddTwoFunc()
 		//计算函数图像数据，范围为该函数定义域，并将结果保存至绘画数据中
 		dfd->drawPoint = pFunction->Calculate(dlg.GetMin(), dlg.GetMax(), dfd->precision);
 
-		//计算失败，弹出提示弹窗，释放相应资源并返回
+		//计算失败，弹出提示弹窗，释放相应资源并重新显示对话框
 		if (pFunction->IsSuccess() == false) {
 			AfxMessageBox(pFunction->GetError().c_str());
 			delete pFunction;
 			delete dfd;
-			return;
+			continue;
 		}
 
 		//将其他数据添加至绘画数据中
@@ -383,6 +384,7 @@ void CFunctionIndicatorDoc::OnAddTwoFunc()
 		//将函数类对象和绘画数据添加至链表中保存
 		this->m_FunctionList.push_back(pFunction);
 		this->m_DrawDataList.push_back(dfd);
+		break;
 	}
 	UpdateAllViews(NULL);
 }

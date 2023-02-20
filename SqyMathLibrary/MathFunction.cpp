@@ -20,7 +20,7 @@ namespace SqyMathLibrary {
 		if (this->IsValid() == false) return NULL;  //函数无效，直接返回
 
 		if (left >= right) {
-			this->SetResult(false, FUNC_ERROR_CALC_RANGE);  //计算范围错误
+			this->SetResult(false, FUNC_ERROR_DEF_RANGE);  //计算范围错误
 			return NULL;
 		}
 

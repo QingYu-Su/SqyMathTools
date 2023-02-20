@@ -88,7 +88,7 @@ void CAddPolarFuncDlg::OnBnClickedButtonEditfunc()
 	UpdateData();
 
 	//弹出函数表达式编辑对话框
-	CFunctionDlg dlg('a');
+	CFunctionDlg dlg('a', this->m_Expression, this->m_ExpressionStr);
 	if (dlg.DoModal() == IDOK) {
 		this->m_Expression = dlg.GetExpression();  //同步函数表达式
 		this->m_ExpressionStr = dlg.GetEditStr();  //同步函数表达式字符串

@@ -16,7 +16,7 @@ class CFunctionDlg : public CDialogEx
 {
 // 构造
 public:
-	CFunctionDlg(char dv, CWnd* pParent = nullptr);	// 标准构造函数
+	CFunctionDlg(char dv, SML::MathExpression &expression, CString &editStr, CWnd* pParent = nullptr);	// 标准构造函数
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME

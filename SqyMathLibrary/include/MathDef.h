@@ -28,8 +28,7 @@ typedef double OPERAND;  //定义运算数类型
 
 #define FUNC_ERROR_DV "自变量符号错误"
 #define FUNC_ERROR_IV "因变量符号错误"
-#define FUNC_ERROR_DEF_RANGE "函数定义域错误"
-#define FUNC_ERROR_CALC_RANGE "计算范围错误"
+#define FUNC_ERROR_DEF_RANGE "函数定义域或计算范围错误"
 
 
 

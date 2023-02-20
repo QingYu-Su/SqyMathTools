@@ -17,10 +17,11 @@
 
 
 
-CFunctionDlg::CFunctionDlg(char dv, CWnd* pParent /*=nullptr*/)
+CFunctionDlg::CFunctionDlg(char dv, SML::MathExpression &expression, CString &editStr, CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_FUNCTION_DIALOG, pParent)
-	, m_Edit(_T(""))
 	, m_DV(dv)
+	, m_Expression(expression)
+	, m_Edit(editStr)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }

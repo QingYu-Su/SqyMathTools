@@ -102,7 +102,7 @@ void CAddTwoFuncDlg::OnBnClickedButtonEditfuncX()
 	UpdateData();
 
 	//弹出函数表达式编辑对话框
-	CFunctionDlg dlg('t');
+	CFunctionDlg dlg('t', this->m_ExpressionX, this->m_ExpressionStrX);
 	if (dlg.DoModal() == IDOK) {
 		this->m_ExpressionX = dlg.GetExpression();  //同步函数表达式
 		this->m_ExpressionStrX = dlg.GetEditStr();  //同步函数表达式字符串
@@ -116,7 +116,7 @@ void CAddTwoFuncDlg::OnBnClickedButtonEditfuncY()
 	UpdateData();
 
 	//弹出函数表达式编辑对话框
-	CFunctionDlg dlg('t');
+	CFunctionDlg dlg('t', this->m_ExpressionY, this->m_ExpressionStrY);
 	if (dlg.DoModal() == IDOK) {
 		this->m_ExpressionY = dlg.GetExpression();  //同步函数表达式
 		this->m_ExpressionStrY = dlg.GetEditStr();  //同步函数表达式字符串

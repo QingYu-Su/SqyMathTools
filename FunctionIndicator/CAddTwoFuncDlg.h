@@ -46,9 +46,6 @@ private:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedButtonEditfunc();
-	afx_msg void OnBnClickedButtonPenColor();
-	
 	afx_msg void OnBnClickedButtonEditfuncX();
 	afx_msg void OnBnClickedButtonEditfuncY();
 	afx_msg void OnBnClickedButtonLineColor();
