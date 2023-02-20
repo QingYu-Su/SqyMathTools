@@ -45,6 +45,7 @@ private:
 	//在视图坐标系上绘制函数图像的区域坐标范围(真实坐标，非函数坐标)
 	double m_Top, m_Bottom, m_Left, m_Right;
 	MoveStatus m_MoveStart;  //移动模式的初始状态
+	int m_CurFuncNum;  //当前鼠标位置指向的函数序号
 
 private:
 	//实现x轴上的数值在不同坐标系的转换，第二参数为转换模式
@@ -66,6 +67,7 @@ private:
 	void ShowFuncExpression(CDC* pDC);  //显示函数表达式 
 	void AmplifyImage();  //放大坐标轴图像
 	void ShrinkImage();  //缩小坐标轴图像
+	void DoubleBufferDraw();
 	double GetDistacne(SML::FunctionPoint &a, SML::FunctionPoint &b);
 	SML::FunctionPoint GetClosestPoint(CPoint point);
 	void ShowFunctionPoint(CPoint point);

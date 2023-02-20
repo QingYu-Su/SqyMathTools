@@ -371,6 +371,29 @@ void CFunctionIndicatorView::ShrinkImage() {
 	this->UpdateWindow();
 }
 
+void CFunctionIndicatorView::DoubleBufferDraw() {
+	//下面采取了双缓冲机制进行动态绘图，防止图像闪烁
+	CDC* pDC = GetDC();
+	//创建一个内存中的显示设备
+	CDC MemDC;
+	MemDC.CreateCompatibleDC(NULL);
+	//创建一个内存中的图像
+	CBitmap MemBitmap;
+	CRect rect;
+	GetClientRect(&rect);
+	MemBitmap.CreateCompatibleBitmap(pDC, rect.right, rect.bottom);
+	//指定内存显示设备在内存中的图像上画图
+	MemDC.SelectObject(&MemBitmap);
+	//先用一种颜色作为内存显示设备的背景色
+	MemDC.FillSolidRect(rect.left, rect.top, rect.right, rect.bottom, RGB(255, 255, 255));
+	this->OnDraw(&MemDC);
+	//将内存中画好的图像直接拷贝到屏幕指定区域上
+	pDC->BitBlt(rect.left, rect.top, rect.right, rect.bottom, &MemDC, 0, 0, SRCCOPY);
+
+	//释放相关资源
+	ReleaseDC(pDC);
+}
+
 double CFunctionIndicatorView::GetDistacne(SML::FunctionPoint& a, SML::FunctionPoint& b) {
 	OPERAND x = (a.first - b.first) * (a.first - b.first);
 	OPERAND y = (a.second - b.second) * (a.second - b.second);
@@ -388,7 +411,8 @@ SML::FunctionPoint CFunctionIndicatorView::GetClosestPoint(CPoint point) {
 
 	//遍历图像绘制数据链表
 	std::list<DrawFuncData*>::iterator it;
-	for (it = drawDataList.begin(); it != drawDataList.end(); it++) {
+	int num = 1;
+	for (it = drawDataList.begin(); it != drawDataList.end(); it++, num++) {
 
 		DrawFuncData* data = *it;  //获取图像数据
 
@@ -403,6 +427,7 @@ SML::FunctionPoint CFunctionIndicatorView::GetClosestPoint(CPoint point) {
 			if ( curDistance < minDistance) {
 				minDistance = curDistance;
 				res = curPoint;
+				this->m_CurFuncNum = num;
 			}
 		}
 
@@ -416,18 +441,14 @@ void CFunctionIndicatorView::ShowFunctionPoint(CPoint point) {
 	CFunctionIndicatorDoc* pDoc = GetDocument();
 	if (pDoc->GetMoveMode() != MOVING) {
 		CDC* pDC = GetDC();
+		CStatusBar* pBar = (CStatusBar*)AfxGetApp()->m_pMainWnd->GetDescendantWindow(AFX_IDW_STATUS_BAR);
 
 		if (marked == true) {
-			CDC MemDC;
-			MemDC.CreateCompatibleDC(NULL);
-			CBitmap MemBitmap;
-			CRect rect;
-			GetClientRect(&rect);
-			MemBitmap.CreateCompatibleBitmap(pDC, rect.right, rect.bottom);
-			MemDC.SelectObject(&MemBitmap);
-			MemDC.FillSolidRect(rect.left, rect.top, rect.right, rect.bottom, RGB(255, 255, 255));
-			this->OnDraw(&MemDC);
-			pDC->BitBlt(rect.left, rect.top, rect.right, rect.bottom, &MemDC, 0, 0, SRCCOPY);
+			this->DoubleBufferDraw();
+			if (pBar) {
+				CString message;
+				pBar->SetPaneText(2, "当前函数序号");
+			}
 			marked = false;
 		}
 
@@ -444,6 +465,13 @@ void CFunctionIndicatorView::ShowFunctionPoint(CPoint point) {
 				CRect textrect(outputX, outputY - 10, outputX + 100, outputY + 10);
 				pDC->DrawText(msg, &textrect, DT_SINGLELINE | DT_CENTER);
 				ReleaseDC(pDC);
+
+				
+				if (pBar) {
+					CString message;
+					message.Format("当前函数: %d", this->m_CurFuncNum);
+					pBar->SetPaneText(2, message);
+				}
 				marked = true;
 			}
 
@@ -597,26 +625,7 @@ void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 		//更新函数
 		pDoc->UpdateFunction();
 
-		//下面采取了双缓冲机制进行动态绘图，防止图像闪烁
-		CDC* pDC = GetDC();
-		//创建一个内存中的显示设备
-		CDC MemDC;
-		MemDC.CreateCompatibleDC(NULL);
-		//创建一个内存中的图像
-		CBitmap MemBitmap;
-		CRect rect;
-		GetClientRect(&rect);
-		MemBitmap.CreateCompatibleBitmap(pDC, rect.right, rect.bottom);
-		//指定内存显示设备在内存中的图像上画图
-		MemDC.SelectObject(&MemBitmap);
-		//先用一种颜色作为内存显示设备的背景色
-		MemDC.FillSolidRect(rect.left, rect.top, rect.right, rect.bottom, RGB(144, 144, 144));
-		this->OnDraw(&MemDC);
-		//将内存中画好的图像直接拷贝到屏幕指定区域上
-		pDC->BitBlt(rect.left, rect.top, rect.right, rect.bottom, &MemDC, 0, 0, SRCCOPY);
-
-		//释放相关资源
-		ReleaseDC(pDC);
+		this->DoubleBufferDraw();
 
 		CView::OnMouseMove(nFlags, point);
 		return;

@@ -5,6 +5,7 @@
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
 #define ID_INDICATOR_MOUSE_POS          101
+#define ID_INDICATOR_MOUSE_FUNC         102
 #define IDR_MAINFRAME                   128
 #define IDR_FunctionIndicatorTYPE       130
 #define IDD_ADD_NORMALFUNC_DIALOG       310
