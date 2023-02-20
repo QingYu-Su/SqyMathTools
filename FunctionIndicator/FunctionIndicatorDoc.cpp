@@ -40,6 +40,8 @@ BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(ID_EDGE, &CFunctionIndicatorDoc::OnUpdateEdge)
 	ON_UPDATE_COMMAND_UI(ID_AXIS, &CFunctionIndicatorDoc::OnUpdateAxis)
 	ON_UPDATE_COMMAND_UI(ID_GRID, &CFunctionIndicatorDoc::OnUpdateGrid)
+	ON_COMMAND(ID_MOVE, &CFunctionIndicatorDoc::OnMove)
+	ON_UPDATE_COMMAND_UI(ID_MOVE, &CFunctionIndicatorDoc::OnUpdateMove)
 END_MESSAGE_MAP()
 
 
@@ -479,3 +481,21 @@ void CFunctionIndicatorDoc::OnUpdateGrid(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck(this->m_ShowGrid);
 }
 
+
+
+void CFunctionIndicatorDoc::OnMove()
+{
+	if (this->m_MoveMode == BAN) {
+		this->m_MoveMode = MOVE;
+	}
+	else {
+		this->m_MoveMode = BAN;
+		::SetCursor(LoadCursor(NULL, IDC_HAND));
+	}
+}
+
+
+void CFunctionIndicatorDoc::OnUpdateMove(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck(this->m_MoveMode != BAN);
+}

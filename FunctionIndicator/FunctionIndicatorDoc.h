@@ -116,4 +116,6 @@ public:
 	afx_msg void OnUpdateEdge(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateAxis(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateGrid(CCmdUI* pCmdUI);
+	afx_msg void OnMove();
+	afx_msg void OnUpdateMove(CCmdUI* pCmdUI);
 };
