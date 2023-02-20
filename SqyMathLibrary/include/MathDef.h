@@ -19,6 +19,7 @@ typedef double OPERAND;  //定义运算数类型
 
 #define CALC_ERROR_TAN  "tan取值为无穷"
 #define CALC_ERROR_DIV0  "不能除以0"
+#define CALC_ERROR_EMPTY_EXPR  "空表达式"
 #define CALC_ERROR_LACK_OPT "缺少运算符"
 #define CALC_ERROR_LACK_BRA "括号数不匹配"
 #define CALC_ERROR_LACK_NUM "缺少运算数"

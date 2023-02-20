@@ -151,6 +151,12 @@ namespace SqyMathLibrary {
 
 
 	OPERAND Calculator::Calculate(const MathExpression& expression) {
+		//检查表达式是否为空
+		if (expression.empty()) {
+			this->SetResult(false, CALC_ERROR_EMPTY_EXPR);
+			return 0;
+		}
+
 		this->SetResult(true);  //初始化运算结果
 		//遍历
 		for (int i = 0; i < expression.size(); i++) {
