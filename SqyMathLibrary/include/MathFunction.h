@@ -10,6 +10,7 @@
 #define _MATHFUNCTION_H_
 
 #include "UniFunction.h"
+#include <list>
 
 namespace SqyMathLibrary {
     typedef std::pair<OPERAND, OPERAND> FunctionPoint;  //函数点
@@ -43,7 +44,8 @@ namespace SqyMathLibrary {
         bool IsSuccess();  //操作是否成功 
         std::string GetError();   //操作运算失败原因
 
-        FunctionPoint GetClosestPoint(FunctionPoint& point);  //获得离某个图像点最近的函数点
+        //获得该函数的函数表达式，由于表达式可能不止一个，故返回一个链表，由子类实现具体代码
+        virtual std::list<FunctionExpression> GetExpression() = 0; 
 
     protected://本类使用了策略模式，以下方法由子类实现，但无需由子类使用
         virtual bool IsValid() = 0;  //函数是否有效，必须由子类实现
@@ -61,7 +63,7 @@ namespace SqyMathLibrary {
         OPERAND m_MinY, m_MaxY;  //函数在Y轴上的极值，会随着CalCulate的使用而更新
         bool m_Success;  //上一次操作的结果
         std::string m_Error; //若上一次操作失败，会保存上一次操作失败的原因
-        FunctionMap m_FM;
+        FunctionMap m_FM;  //函数图像坐标点
     };
 
     //普通函数
@@ -73,6 +75,8 @@ namespace SqyMathLibrary {
         // ~NormalFunction() {};
         //MathFunction(const MathFunction&) {};
         //MathFunction& operator=(const MathFunction&) {};
+    public:
+        std::list<FunctionExpression> GetExpression();
     protected:  //基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);
@@ -91,6 +95,8 @@ namespace SqyMathLibrary {
         // ~PolarFunction() {};
         //PolarFunction(const PolarFunction&) {};
         //PolarFunction& operator=(const PolarFunction&) {};
+    public:
+        std::list<FunctionExpression> GetExpression();
     protected: //基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);
@@ -108,6 +114,8 @@ namespace SqyMathLibrary {
         // ~TwoFunction() {};
         //TwoFunction(const TwoFunction&) {};
         //TwoFunction& operator=(const TwoFunction&) {};
+    public:
+        std::list<FunctionExpression> GetExpression();
     protected://基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);

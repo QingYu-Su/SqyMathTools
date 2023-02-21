@@ -89,6 +89,12 @@ namespace SqyMathLibrary {
 		:MathFunction(Normal), m_Expression(expression)
 	{}
 
+	std::list<FunctionExpression> NormalFunction::GetExpression() {
+		std::list<FunctionExpression> res;
+		res.push_back(this->m_Expression);
+		return res;
+	}
+
 	bool NormalFunction::IsValid() {
 		if (this->m_Expression.m_DV != 'x') {  //自变量必须为'x'
 			this->SetResult(false, FUNC_ERROR_DV);
@@ -125,6 +131,12 @@ namespace SqyMathLibrary {
 	PolarFunction::PolarFunction(FunctionExpression& expression)
 		:MathFunction(Polar), m_Expression(expression)
 	{}
+
+	std::list<FunctionExpression> PolarFunction::GetExpression() {
+		std::list<FunctionExpression> res;
+		res.push_back(this->m_Expression);
+		return res;
+	}
 
 	bool PolarFunction::IsValid() {
 		if (this->m_Expression.m_DV != 'a') {  //自变量必须为'a'
@@ -172,6 +184,13 @@ namespace SqyMathLibrary {
 	TwoFunction::TwoFunction(FunctionExpression& expressionX, FunctionExpression& expressionY)
 		:MathFunction(Two), m_ExpressionX(expressionX), m_ExpressionY(expressionY)
 	{}
+
+	std::list<FunctionExpression> TwoFunction::GetExpression() {
+		std::list<FunctionExpression> res;
+		res.push_back(this->m_ExpressionX);
+		res.push_back(this->m_ExpressionY);
+		return res;
+	}
 
 	bool TwoFunction::IsValid() {
 		if (this->m_ExpressionX.m_DV != 't' || this->m_ExpressionY.m_DV != 't') {
