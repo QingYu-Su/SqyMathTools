@@ -44,6 +44,8 @@ BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(ID_MOVE, &CFunctionIndicatorDoc::OnUpdateMove)
 	ON_COMMAND(ID_FUNC_INFO, &CFunctionIndicatorDoc::OnFuncInfo)
 	ON_UPDATE_COMMAND_UI(ID_FUNC_INFO, &CFunctionIndicatorDoc::OnUpdateFunctionInfo)
+	ON_COMMAND(ID_FUNC_LIST, &CFunctionIndicatorDoc::OnFuncList)
+	ON_UPDATE_COMMAND_UI(ID_FUNC_LIST, &CFunctionIndicatorDoc::OnUpdateFuncList)
 END_MESSAGE_MAP()
 
 
@@ -56,6 +58,7 @@ CFunctionIndicatorDoc::CFunctionIndicatorDoc() noexcept
 	this->m_ShowEdge = true;
 	this->m_SingelMode = true;
 	this->m_ShowFuncInfo = true;
+	this->m_ShowFuncList = true;
 	this->m_MinX = -10;
 	this->m_MaxX = 10;
 	this->m_MinY = -5;
@@ -288,6 +291,10 @@ bool CFunctionIndicatorDoc::IsShowFuncInfo() {
 	return this->m_ShowFuncInfo;
 }
 
+bool CFunctionIndicatorDoc::IsShowFuncList() {
+	return this->m_ShowFuncList;
+}
+
 // CFunctionIndicatorDoc 命令
 
 
@@ -517,4 +524,17 @@ void CFunctionIndicatorDoc::OnFuncInfo()
 void CFunctionIndicatorDoc::OnUpdateFunctionInfo(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(this->m_ShowFuncInfo);
+}
+
+
+void CFunctionIndicatorDoc::OnFuncList()
+{
+	this->m_ShowFuncList = !this->m_ShowFuncList;
+	this->UpdateAllViews(NULL);
+}
+
+
+void CFunctionIndicatorDoc::OnUpdateFuncList(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck(this->m_ShowFuncList);
 }

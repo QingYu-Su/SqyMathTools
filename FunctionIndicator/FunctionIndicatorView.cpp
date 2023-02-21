@@ -50,14 +50,26 @@ BOOL CFunctionIndicatorView::PreCreateWindow(CREATESTRUCT& cs)
 }
 
 void CFunctionIndicatorView::SetShowWindow() {
+
+	CFunctionIndicatorDoc* pDoc = GetDocument();
 	CRect rect;
 	GetClientRect(&rect);//获得当前视图区坐标范围大小数据
 
-	//本程序绘制的函数图像不占据整个视图区，在视图中间80%的区域绘制
-	this->m_Top = rect.bottom * 0.1;  
-	this->m_Bottom = rect.bottom * 0.9;
-	this->m_Left = rect.right * 0.05;
-	this->m_Right = rect.right * 0.8;
+	//设定绘画有效区域，不会占据整个视图窗口
+	if (pDoc->IsShowFuncList() == true) {
+		//如果要显示函数列表，则需要视图右侧一块区域用于显示函数列表，相应有效区域减小
+		this->m_Top = rect.bottom * 0.1;
+		this->m_Bottom = rect.bottom * 0.9;
+		this->m_Left = rect.right * 0.05;
+		this->m_Right = rect.right * 0.8;
+	}
+	else {
+		this->m_Top = rect.bottom * 0.05;
+		this->m_Bottom = rect.bottom * 0.95;
+		this->m_Left = rect.right * 0.05;
+		this->m_Right = rect.right * 0.95;
+	}
+	
 }
 
 double CFunctionIndicatorView::TransformX(double x, bool mode) {
@@ -285,11 +297,14 @@ void CFunctionIndicatorView::DrawFunction(CDC* pDC) {
 void CFunctionIndicatorView::ShowFuncExpression(CDC* pDC) {
 	CFunctionIndicatorDoc* pDoc = GetDocument();
 
+	CRect rect;
+	GetClientRect(&rect);//获得当前视图区坐标范围大小数据
+
 	//绘制边框和提醒文字
 	pDC->TextOutA(this->m_Right + 125, this->m_Top - 30, "函数表达式");
-	pDC->MoveTo(this->m_Right + 300, this->m_Top);
+	pDC->MoveTo(rect.right, this->m_Top);
 	pDC->LineTo(this->m_Right + 50, this->m_Top);
-	pDC->LineTo(this->m_Right + 50, this->m_Bottom + 50);
+	pDC->LineTo(this->m_Right + 50, rect.bottom);
 
 	//获得绘制数据
 	std::list<DrawFuncData*> drawDataList = pDoc->GetDrawDataList();
@@ -316,7 +331,7 @@ void CFunctionIndicatorView::ShowFuncExpression(CDC* pDC) {
 		pDC->SetTextColor(RGB(0, 0, 0));  //还原文本颜色
 		
 		//标记分隔线
-		pDC->MoveTo(this->m_Right + 300, top);
+		pDC->MoveTo(rect.right, top);
 		pDC->LineTo(this->m_Right + 50, top);
 
 	}
@@ -342,8 +357,9 @@ void CFunctionIndicatorView::AmplifyImage() {
 	pDoc->UpdateFunction();
 	
 	//刷新绘画
-	this->Invalidate();
-	this->UpdateWindow();
+	/*this->Invalidate();
+	this->UpdateWindow();*/
+	this->DoubleBufferDraw();  //双缓冲绘画不会发送闪烁现象
 
 }
 
@@ -367,8 +383,9 @@ void CFunctionIndicatorView::ShrinkImage() {
 	pDoc->UpdateFunction();
 
 	//刷新绘画
-	this->Invalidate();
-	this->UpdateWindow();
+	/*this->Invalidate();
+	this->UpdateWindow();*/
+	this->DoubleBufferDraw();  //双缓冲绘画不会发送闪烁现象
 }
 
 void CFunctionIndicatorView::DoubleBufferDraw() {
@@ -549,7 +566,8 @@ void CFunctionIndicatorView::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 
-	this->SetShowWindow(); //绘画前必须设置绘画区域
+	//绘画前必须设置绘画区域
+	this->SetShowWindow(); 
 
 	//画边框
 	if ( pDoc->IsShowEdge() == true ) this->DrawEdge(pDC);
@@ -567,7 +585,8 @@ void CFunctionIndicatorView::OnDraw(CDC* pDC)
 	this->DrawFunction(pDC);
 
 	//在视图中展示函数表达式信息
-	ShowFuncExpression(pDC);
+	if ( pDoc->IsShowFuncList() == true ) ShowFuncExpression(pDC);
+	
 }
 
 
