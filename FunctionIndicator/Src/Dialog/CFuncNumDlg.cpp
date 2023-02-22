@@ -1,10 +1,10 @@
 ﻿// CFuncNumDlg.cpp: 实现文件
 //
 
-#include "pch.h"
-#include "FunctionIndicator.h"
+#include "../../pch.h"
+#include "../../Include/Main/FunctionIndicator.h"
 #include "afxdialogex.h"
-#include "CFuncNumDlg.h"
+#include "../../Include/Dialog/CFuncNumDlg.h"
 
 
 // CFuncNumDlg 对话框

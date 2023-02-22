@@ -1,12 +1,11 @@
 ﻿
 // MainFrm.cpp: CMainFrame 类的实现
 //
+#include "../../pch.h"
+#include "../../framework.h"
+#include "../../Include/Main/FunctionIndicator.h"
 
-#include "pch.h"
-#include "framework.h"
-#include "FunctionIndicator.h"
-
-#include "MainFrm.h"
+#include "../../Include/Main/MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

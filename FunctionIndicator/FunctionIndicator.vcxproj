@@ -189,32 +189,32 @@
     <ClInclude Include="..\SqyMathLibrary\include\MathOperator.h" />
     <ClInclude Include="..\SqyMathLibrary\include\MathOperatorMap.h" />
     <ClInclude Include="..\SqyMathLibrary\include\UniFunction.h" />
-    <ClInclude Include="CNormalFuncDlg.h" />
-    <ClInclude Include="CPolarFuncDlg.h" />
-    <ClInclude Include="CTwoFuncDlg.h" />
-    <ClInclude Include="CFuncNumDlg.h" />
-    <ClInclude Include="CFunctionDlg.h" />
-    <ClInclude Include="CSetXYRangeDlg.h" />
+    <ClInclude Include="Include\Dialog\CNormalFuncDlg.h" />
+    <ClInclude Include="Include\Dialog\CPolarFuncDlg.h" />
+    <ClInclude Include="Include\Dialog\CTwoFuncDlg.h" />
+    <ClInclude Include="Include\Dialog\CFuncNumDlg.h" />
+    <ClInclude Include="Include\Dialog\CFunctionDlg.h" />
+    <ClInclude Include="Include\Dialog\CSetXYRangeDlg.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="FunctionIndicator.h" />
-    <ClInclude Include="FunctionIndicatorDoc.h" />
-    <ClInclude Include="FunctionIndicatorView.h" />
-    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="Include\Main\FunctionIndicator.h" />
+    <ClInclude Include="Include\Main\FunctionIndicatorDoc.h" />
+    <ClInclude Include="Include\Main\FunctionIndicatorView.h" />
+    <ClInclude Include="Include\Main\MainFrm.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CNormalFuncDlg.cpp" />
-    <ClCompile Include="CPolarFuncDlg.cpp" />
-    <ClCompile Include="CTwoFuncDlg.cpp" />
-    <ClCompile Include="CFuncNumDlg.cpp" />
-    <ClCompile Include="CFunctionDlg.cpp" />
-    <ClCompile Include="CSetXYRangeDlg.cpp" />
-    <ClCompile Include="FunctionIndicator.cpp" />
-    <ClCompile Include="FunctionIndicatorDoc.cpp" />
-    <ClCompile Include="FunctionIndicatorView.cpp" />
-    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="Src\Dialog\CNormalFuncDlg.cpp" />
+    <ClCompile Include="Src\Dialog\CPolarFuncDlg.cpp" />
+    <ClCompile Include="Src\Dialog\CTwoFuncDlg.cpp" />
+    <ClCompile Include="Src\Dialog\CFuncNumDlg.cpp" />
+    <ClCompile Include="Src\Dialog\CFunctionDlg.cpp" />
+    <ClCompile Include="Src\Dialog\CSetXYRangeDlg.cpp" />
+    <ClCompile Include="Src\Main\FunctionIndicator.cpp" />
+    <ClCompile Include="Src\Main\FunctionIndicatorDoc.cpp" />
+    <ClCompile Include="Src\Main\FunctionIndicatorView.cpp" />
+    <ClCompile Include="Src\Main\MainFrm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

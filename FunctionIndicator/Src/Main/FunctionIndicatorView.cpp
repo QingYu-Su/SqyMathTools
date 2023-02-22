@@ -2,16 +2,16 @@
 // FunctionIndicatorView.cpp: CFunctionIndicatorView 类的实现
 //
 
-#include "pch.h"
-#include "framework.h"
+#include "../../pch.h"
+#include "../../framework.h"
 // SHARED_HANDLERS 可以在实现预览、缩略图和搜索筛选器句柄的
 // ATL 项目中进行定义，并允许与该项目共享文档代码。
 #ifndef SHARED_HANDLERS
-#include "FunctionIndicator.h"
+#include "../../Include/Main/FunctionIndicator.h"
 #endif
 
-#include "FunctionIndicatorDoc.h"
-#include "FunctionIndicatorView.h"
+#include "../../Include/Main/FunctionIndicatorDoc.h"
+#include "../../Include/Main/FunctionIndicatorView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

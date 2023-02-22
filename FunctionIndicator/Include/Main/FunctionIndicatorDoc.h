@@ -8,7 +8,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "../SqyMathLibrary/include/MathFunction.h"
+#include "afxdialogex.h"
+#include "../../../SqyMathLibrary/include/MathFunction.h"
 #pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 namespace SML = SqyMathLibrary;  //命名空间重命名
 

@@ -1,11 +1,11 @@
 ﻿// CPolarFuncDlg.cpp: 实现文件
 //
 
-#include "pch.h"
-#include "FunctionIndicator.h"
+#include "../../pch.h"
+#include "../../Include/Main/FunctionIndicator.h"
 #include "afxdialogex.h"
-#include "CPolarFuncDlg.h"
-#include "CFunctionDlg.h"
+#include "../../Include/Dialog/CPolarFuncDlg.h"
+#include "../../Include/Dialog/CFunctionDlg.h"
 
 
 // CPolarFuncDlg 对话框

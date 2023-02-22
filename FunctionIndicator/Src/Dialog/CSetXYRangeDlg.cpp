@@ -1,10 +1,10 @@
 ﻿// CSetXYRangeDlg.cpp: 实现文件
 //
 
-#include "pch.h"
-#include "FunctionIndicator.h"
+#include "../../pch.h"
+#include "../../Include/Main/FunctionIndicator.h"
 #include "afxdialogex.h"
-#include "CSetXYRangeDlg.h"
+#include "../../Include/Dialog/CSetXYRangeDlg.h"
 
 
 // CSetXYRangeDlg 对话框

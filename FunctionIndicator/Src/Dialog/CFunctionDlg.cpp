@@ -2,10 +2,10 @@
 // CFunctionDlg.cpp: 实现文件
 //
 
-#include "pch.h"
-#include "framework.h"
-#include "FunctionIndicator.h"
-#include "CFunctionDlg.h"
+#include "../../pch.h"
+#include "../../framework.h"
+#include "../../Include/Main/FunctionIndicator.h"
+#include "../../Include/Dialog/CFunctionDlg.h"
 #include "afxdialogex.h"
 
 #ifdef _DEBUG

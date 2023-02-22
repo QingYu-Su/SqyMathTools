@@ -2,21 +2,20 @@
 // FunctionIndicatorDoc.cpp: CFunctionIndicatorDoc 类的实现
 //
 
-#include "pch.h"
-#include "framework.h"
+#include "../../pch.h"
+#include "../../framework.h"
 // SHARED_HANDLERS 可以在实现预览、缩略图和搜索筛选器句柄的
 // ATL 项目中进行定义，并允许与该项目共享文档代码。
 #ifndef SHARED_HANDLERS
-#include "FunctionIndicator.h"
+#include "../../Include/Main/FunctionIndicator.h"
 #endif
 
-#include "FunctionIndicatorDoc.h"
-#include "CNormalFuncDlg.h"
-#include "CPolarFuncDlg.h"
-#include "CTwoFuncDlg.h"
-//#include "CDelFuncDlg.h"
-#include "CFuncNumDlg.h"
-#include "CSetXYRangeDlg.h"
+#include "../../Include/Main/FunctionIndicatorDoc.h"
+#include "../../Include/Dialog/CNormalFuncDlg.h"
+#include "../../Include/Dialog/CPolarFuncDlg.h"
+#include "../../Include/Dialog/CTwoFuncDlg.h"
+#include "../../Include/Dialog/CFuncNumDlg.h"
+#include "../../Include/Dialog/CSetXYRangeDlg.h"
 
 #include <propkey.h>
 

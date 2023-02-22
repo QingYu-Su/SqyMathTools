@@ -18,7 +18,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FunctionIndicator.h">
+    <ClInclude Include="Include\Main\FunctionIndicator.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
@@ -27,13 +27,13 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MainFrm.h">
+    <ClInclude Include="Include\Main\MainFrm.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionIndicatorDoc.h">
+    <ClInclude Include="Include\Main\FunctionIndicatorDoc.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionIndicatorView.h">
+    <ClInclude Include="Include\Main\FunctionIndicatorView.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -42,10 +42,10 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CFunctionDlg.h">
+    <ClInclude Include="Include\Dialog\CFunctionDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CNormalFuncDlg.h">
+    <ClInclude Include="Include\Dialog\CNormalFuncDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\SqyMathLibrary\include\Calculator.h">
@@ -66,51 +66,51 @@
     <ClInclude Include="..\SqyMathLibrary\include\UniFunction.h">
       <Filter>头文件\SqyMathLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="CPolarFuncDlg.h">
+    <ClInclude Include="Include\Dialog\CPolarFuncDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CTwoFuncDlg.h">
+    <ClInclude Include="Include\Dialog\CTwoFuncDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CSetXYRangeDlg.h">
+    <ClInclude Include="Include\Dialog\CSetXYRangeDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CFuncNumDlg.h">
+    <ClInclude Include="Include\Dialog\CFuncNumDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FunctionIndicator.cpp">
+    <ClCompile Include="Src\Main\FunctionIndicator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MainFrm.cpp">
+    <ClCompile Include="Src\Main\MainFrm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FunctionIndicatorDoc.cpp">
+    <ClCompile Include="Src\Main\FunctionIndicatorDoc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FunctionIndicatorView.cpp">
+    <ClCompile Include="Src\Main\FunctionIndicatorView.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CFunctionDlg.cpp">
+    <ClCompile Include="Src\Dialog\CFunctionDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CNormalFuncDlg.cpp">
+    <ClCompile Include="Src\Dialog\CNormalFuncDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CPolarFuncDlg.cpp">
+    <ClCompile Include="Src\Dialog\CPolarFuncDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CTwoFuncDlg.cpp">
+    <ClCompile Include="Src\Dialog\CTwoFuncDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CSetXYRangeDlg.cpp">
+    <ClCompile Include="Src\Dialog\CSetXYRangeDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CFuncNumDlg.cpp">
+    <ClCompile Include="Src\Dialog\CFuncNumDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

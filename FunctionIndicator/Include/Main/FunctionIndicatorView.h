@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include "afxdialogex.h"
+#include "FunctionIndicatorDoc.h"
+
 //画面移动时的状态数据
 struct MoveStatus {
 	CPoint point;   //当前鼠标点

@@ -3,6 +3,8 @@
 //
 
 #pragma once
+#include "afxdialogex.h"
+#include "../../pch.h"
 
 class CMainFrame : public CFrameWnd
 {

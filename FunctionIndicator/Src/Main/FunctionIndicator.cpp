@@ -2,15 +2,15 @@
 // FunctionIndicator.cpp: 定义应用程序的类行为。
 //
 
-#include "pch.h"
-#include "framework.h"
+#include "../../pch.h"
+#include "../../framework.h"
 #include "afxwinappex.h"
 #include "afxdialogex.h"
-#include "FunctionIndicator.h"
-#include "MainFrm.h"
+#include "../../Include/Main/FunctionIndicator.h"
+#include "../../Include/Main/MainFrm.h"
 
-#include "FunctionIndicatorDoc.h"
-#include "FunctionIndicatorView.h"
+#include "../../Include/Main/FunctionIndicatorDoc.h"
+#include "../../Include/Main/FunctionIndicatorView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
