@@ -16,38 +16,26 @@
     <Filter Include="头文件\SqyMathLibrary">
       <UniqueIdentifier>{8840f857-ced4-4e00-addc-cddcbc68f6e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Dialog">
+      <UniqueIdentifier>{4796f90c-ed97-487a-87d6-6c20898b828b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Main">
+      <UniqueIdentifier>{3eb30c44-263e-4a16-ba61-bfa26fa70c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\other">
+      <UniqueIdentifier>{cf3d7432-dafd-49ea-867d-2c35832775d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Dialog">
+      <UniqueIdentifier>{788e0589-821e-432d-9a8d-12df603a2cf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Main">
+      <UniqueIdentifier>{d017bd01-6375-438d-9eee-1ee9d6c1b239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\other">
+      <UniqueIdentifier>{e2ebc272-0eee-4179-81ee-459ca6b26b3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Main\FunctionIndicator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Main\MainFrm.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Main\FunctionIndicatorDoc.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Main\FunctionIndicatorView.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Dialog\CFunctionDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Dialog\CNormalFuncDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\SqyMathLibrary\include\Calculator.h">
       <Filter>头文件\SqyMathLibrary</Filter>
     </ClInclude>
@@ -66,52 +54,82 @@
     <ClInclude Include="..\SqyMathLibrary\include\UniFunction.h">
       <Filter>头文件\SqyMathLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Dialog\CPolarFuncDlg.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Include\Dialog\CFuncNumDlg.h">
+      <Filter>头文件\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Dialog\CTwoFuncDlg.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Include\Dialog\CFunctionDlg.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Dialog\CNormalFuncDlg.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Dialog\CPolarFuncDlg.h">
+      <Filter>头文件\Dialog</Filter>
     </ClInclude>
     <ClInclude Include="Include\Dialog\CSetXYRangeDlg.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Dialog\CFuncNumDlg.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Include\Dialog\CTwoFuncDlg.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Main\FunctionIndicator.h">
+      <Filter>头文件\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Main\FunctionIndicatorDoc.h">
+      <Filter>头文件\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Main\FunctionIndicatorView.h">
+      <Filter>头文件\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Main\MainFrm.h">
+      <Filter>头文件\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>头文件\other</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>头文件\other</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件\other</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件\other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Main\FunctionIndicator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Main\MainFrm.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Main\FunctionIndicatorDoc.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Main\FunctionIndicatorView.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Src\Dialog\CFuncNumDlg.cpp">
+      <Filter>源文件\Dialog</Filter>
     </ClCompile>
     <ClCompile Include="Src\Dialog\CFunctionDlg.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Dialog</Filter>
     </ClCompile>
     <ClCompile Include="Src\Dialog\CNormalFuncDlg.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Dialog</Filter>
     </ClCompile>
     <ClCompile Include="Src\Dialog\CPolarFuncDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Dialog\CTwoFuncDlg.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Dialog</Filter>
     </ClCompile>
     <ClCompile Include="Src\Dialog\CSetXYRangeDlg.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Dialog</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Dialog\CFuncNumDlg.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Src\Dialog\CTwoFuncDlg.cpp">
+      <Filter>源文件\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Main\FunctionIndicator.cpp">
+      <Filter>源文件\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Main\FunctionIndicatorDoc.cpp">
+      <Filter>源文件\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Main\FunctionIndicatorView.cpp">
+      <Filter>源文件\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Main\MainFrm.cpp">
+      <Filter>源文件\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Main\pch.cpp">
+      <Filter>源文件\other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
