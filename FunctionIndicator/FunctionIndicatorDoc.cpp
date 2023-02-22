@@ -414,7 +414,7 @@ void CFunctionIndicatorDoc::AlterTwoFunc(std::list<SML::MathFunction*>::iterator
 	SML::FunctionExpression funcExpY = *(++funcExpList.begin());
 
 	//创建对话框，并传入特殊参数
-	CTwoFuncDlg dlg("修改极坐标函数", funcExpX.m_Expression,
+	CTwoFuncDlg dlg("修改参数方程函数", funcExpX.m_Expression,
 
 		//表达式字符串前5个字符是辅助用的，需要去掉
 		(*itDraw)->expressionStr[0].Right((*itDraw)->expressionStr[0].GetLength() - 5),
@@ -587,7 +587,6 @@ void CFunctionIndicatorDoc::OnAddTwoFunc()
 {
 	//弹出增加参数方程函数窗口，并设置函数定义域初始值
 	
-	
 	CTwoFuncDlg dlg("添加参数方程函数", SML::MathExpression(), "", SML::MathExpression(), "", -5, 5);
 	while (dlg.DoModal() == IDOK) {
 
@@ -628,8 +627,13 @@ void CFunctionIndicatorDoc::OnAddTwoFunc()
 void CFunctionIndicatorDoc::OnDelFunc()
 {
 	CFuncNumDlg dlg("删除函数", "请输入要删除的函数序号");
-	if (dlg.DoModal() == IDOK) {
-		this->DelFunction(dlg.GetNum());  //删除函数
+	while (dlg.DoModal() == IDOK) {
+		int num = dlg.GetNum();
+		if (num <= 0 || num > this->m_FunctionList.size()) {
+			AfxMessageBox("请输入有效范围的函数序号");
+			continue;
+		}
+		this->DelFunction(num);  //删除函数
 	}
 
 	UpdateAllViews(NULL);
@@ -746,8 +750,13 @@ void CFunctionIndicatorDoc::OnUpdateFuncList(CCmdUI* pCmdUI)
 void CFunctionIndicatorDoc::OnAlterFunc()
 {
 	CFuncNumDlg dlg("修改函数参数", "请输入要修改的函数序号");
-	if (dlg.DoModal() == IDOK) {
-		this->AlterFunction(dlg.GetNum());  //修改函数
+	while (dlg.DoModal() == IDOK) {
+		int num = dlg.GetNum();
+		if (num <= 0 || num > this->m_FunctionList.size()) {
+			AfxMessageBox("请输入有效范围的函数序号");
+			continue;
+		}
+		this->AlterFunction(num);  //删除函数
 	}
 	UpdateAllViews(NULL);
 }
