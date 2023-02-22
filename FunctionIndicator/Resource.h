@@ -101,13 +101,15 @@
 #define ID_FUNC_POINT                   32799
 #define ID_FUNC_LIST                    32800
 #define ID_FUNC_INFO                    32801
+#define ID_32802                        32802
+#define ID_ALTER_FUNC                   32803
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        318
-#define _APS_NEXT_COMMAND_VALUE         32802
+#define _APS_NEXT_COMMAND_VALUE         32804
 #define _APS_NEXT_CONTROL_VALUE         1023
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

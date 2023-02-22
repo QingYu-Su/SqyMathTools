@@ -16,6 +16,7 @@ public:
 		CString expressionStr, double left, double right, size_t precision = 1000,
 	int lineWidth = 1, int lineType = PS_SOLID, COLORREF color = RGB(0, 0, 0),
 		CWnd* pParent = nullptr);   // 标准构造函数
+
 	virtual ~CNormalFuncDlg();
 
 // 对话框数据
@@ -25,6 +26,7 @@ public:
 
 public:
 	BOOL OnInitDialog();
+	SML::FunctionExpression GetFunctionExpression();  //获得函数表达式
 	SML::MathFunction* GetMathFunction();  //获得函数类对象
 	CString GetExpressionStr();  //返回函数表达式字符串
 	size_t GetPrecision();  //获得函数精度

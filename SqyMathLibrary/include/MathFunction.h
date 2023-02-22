@@ -47,6 +47,9 @@ namespace SqyMathLibrary {
         //获得该函数的函数表达式，由于表达式可能不止一个，故返回一个链表，由子类实现具体代码
         virtual std::list<FunctionExpression> GetExpression() = 0; 
 
+        //设置该函数的函数表达式，由于表达式可能不止一个，故参数为一个链表，由子类实现具体代码
+        virtual void SetExpression(std::list<FunctionExpression> expressionList) = 0;
+
     protected://本类使用了策略模式，以下方法由子类实现，但无需由子类使用
         virtual bool IsValid() = 0;  //函数是否有效，必须由子类实现
         virtual void PreProcess() {}  //计算之前的预处理，没有则不必实现
@@ -77,6 +80,7 @@ namespace SqyMathLibrary {
         //MathFunction& operator=(const MathFunction&) {};
     public:
         std::list<FunctionExpression> GetExpression();
+        void SetExpression(std::list<FunctionExpression> expressionList);
     protected:  //基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);
@@ -97,6 +101,7 @@ namespace SqyMathLibrary {
         //PolarFunction& operator=(const PolarFunction&) {};
     public:
         std::list<FunctionExpression> GetExpression();
+        void SetExpression(std::list<FunctionExpression> expressionList);
     protected: //基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);
@@ -116,6 +121,7 @@ namespace SqyMathLibrary {
         //TwoFunction& operator=(const TwoFunction&) {};
     public:
         std::list<FunctionExpression> GetExpression();
+        void SetExpression(std::list<FunctionExpression> expressionList);
     protected://基类方法的子类实现
         bool IsValid();
         OPERAND GetX(OPERAND parameter);

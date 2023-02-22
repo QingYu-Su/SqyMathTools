@@ -49,11 +49,14 @@ BOOL CNormalFuncDlg::OnInitDialog() {
 	return TRUE;
 }
 
+SML::FunctionExpression CNormalFuncDlg::GetFunctionExpression() {
+	//返回一个封装好了的函数表达式
+	return SML::FunctionExpression(this->m_Expression, 'y', 'x', this->m_Left, this->m_Right);
+}
+
 SML::MathFunction* CNormalFuncDlg::GetMathFunction() {
-	//创建普通X-Y函数表达式
-	SML::FunctionExpression funcExpression(this->m_Expression, 'y', 'x', this->m_Left, this->m_Right);
 	
-	return new SML::NormalFunction(funcExpression); //返回普通函数对象
+	return new SML::NormalFunction(this->GetFunctionExpression()); //返回普通函数对象
 
 }
 

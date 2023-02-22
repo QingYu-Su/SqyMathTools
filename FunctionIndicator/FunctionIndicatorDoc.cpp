@@ -47,6 +47,7 @@ BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(ID_FUNC_INFO, &CFunctionIndicatorDoc::OnUpdateFunctionInfo)
 	ON_COMMAND(ID_FUNC_LIST, &CFunctionIndicatorDoc::OnFuncList)
 	ON_UPDATE_COMMAND_UI(ID_FUNC_LIST, &CFunctionIndicatorDoc::OnUpdateFuncList)
+	ON_COMMAND(ID_ALTER_FUNC, &CFunctionIndicatorDoc::OnAlterFunc)
 END_MESSAGE_MAP()
 
 
@@ -268,6 +269,204 @@ void CFunctionIndicatorDoc::ClearFunction() {
 	this->m_DrawDataList.clear();
 }
 
+void  CFunctionIndicatorDoc::AlterFunction(int num) {
+	//序号超过范围，直接返回
+	if (num <= 0 || num > this->m_FunctionList.size()) return;
+
+	//遍历链表，搜索对应位置函数
+	std::list<SML::MathFunction*>::iterator itFunc = this->m_FunctionList.begin();
+	std::list<DrawFuncData*>::iterator itDraw = this->m_DrawDataList.begin();
+	while (num > 1) {
+		itFunc++;
+		itDraw++;
+		num--;
+	}
+
+	switch ((*itFunc)->GetType()) {
+	case SML::Normal:
+		this->AlterNormalFunc(itFunc, itDraw);
+		break;
+	case SML::Polar:
+		this->AlterPolarFunc(itFunc, itDraw);
+		break;
+	case SML::Two:
+		this->AlterTwoFunc(itFunc, itDraw);
+		break;
+	default:
+		break;
+	}
+}
+
+void CFunctionIndicatorDoc::AlterNormalFunc(std::list<SML::MathFunction*>::iterator itFunc, std::list<DrawFuncData*>::iterator itDraw) {
+	//获得普通函数表达式
+	SML::FunctionExpression funcExp = *((*itFunc)->GetExpression().begin());
+	
+	//创建对话框，并传入特殊参数
+	CNormalFuncDlg dlg("修改普通函数", funcExp.m_Expression,
+
+		//表达式字符串前5个字符是辅助用的，需要去掉
+		(*itDraw)->expressionStr[0].Right((*itDraw)->expressionStr[0].GetLength() - 5),
+
+		funcExp.m_Left, funcExp.m_Right, (*itDraw)->precision,
+		(*itDraw)->lineWidth, (*itDraw)->lineType, (*itDraw)->lineColor);
+	
+	//运行对话框
+	while (dlg.DoModal() == IDOK) {
+
+		//获得函数类对象
+		SML::MathFunction* pFunction = dlg.GetMathFunction();
+
+		//新建绘画数据，传入必要参数
+		DrawFuncData* dfd = new DrawFuncData;
+		dfd->precision = dlg.GetPrecision();
+
+		//计算函数图像数据，范围为X-Y轴显示范围，并将结果保存至绘画数据中
+		//dfd->drawPoint = pFunction->Calculate(dlg.GetMin(), dlg.GetMax(), dfd->precision);
+		//该方式虽然更为精准，但会导致图像移动时的卡顿，故直接采用下方以定义域范围绘制图像
+
+
+		//计算函数图像数据，范围为该函数定义域，并将结果保存至绘画数据中
+		//该方式与极坐标和参数方程的计算方式保持一致，图像移动会比较顺畅
+		dfd->drawPoint = pFunction->Calculate(dlg.GetMin(), dlg.GetMax(), dfd->precision);
+
+		//计算失败，弹出提示弹窗，释放相应资源并重新显示对话框
+		if (pFunction->IsSuccess() == false) {
+			AfxMessageBox(pFunction->GetError().c_str());
+			delete pFunction;
+			delete dfd;
+			continue;
+		}
+
+		//将其他数据添加至绘画数据中
+		dfd->expressionStr.push_back(CString("f(x)=") + dlg.GetExpressionStr());
+		dfd->lineWidth = dlg.GetLineWidth();
+		dfd->lineType = dlg.GetLineType();
+		dfd->lineColor = dlg.GetLineColor();
+
+		//释放旧的资源
+		delete* itFunc;
+		delete* itDraw;
+
+		//指针指向新的结点
+		(*itFunc) = pFunction;
+		(*itDraw) = dfd;
+
+		break;
+	}
+
+}
+
+void CFunctionIndicatorDoc::AlterPolarFunc(std::list<SML::MathFunction*>::iterator itFunc, std::list<DrawFuncData*>::iterator itDraw) {
+	//获得极坐标函数表达式
+	SML::FunctionExpression funcExp = *((*itFunc)->GetExpression().begin());
+
+	//创建对话框，并传入特殊参数
+	CPolarFuncDlg dlg("修改极坐标函数", funcExp.m_Expression,
+
+		//表达式字符串前5个字符是辅助用的，需要去掉
+		(*itDraw)->expressionStr[0].Right((*itDraw)->expressionStr[0].GetLength() - 5),
+
+		funcExp.m_Left, funcExp.m_Right, (*itDraw)->precision,
+		(*itDraw)->lineWidth, (*itDraw)->lineType, (*itDraw)->lineColor);
+
+	while (dlg.DoModal() == IDOK) {
+		//获得函数类对象
+		SML::MathFunction* pFunction = dlg.GetMathFunction();
+
+		//新建绘画数据，传入必要参数
+		DrawFuncData* dfd = new DrawFuncData;
+		dfd->precision = dlg.GetPrecision();
+
+		//计算函数图像数据，范围为当前视图X轴范围，并将结果保存至绘画数据中
+		//极坐标函数计算范围只局限在-pi到pi之间
+		dfd->drawPoint = pFunction->Calculate(-PI, PI, dfd->precision);
+
+		//计算失败，弹出提示弹窗，释放相应资源并重新显示对话框
+		if (pFunction->IsSuccess() == false) {
+			AfxMessageBox(pFunction->GetError().c_str());
+			delete pFunction;
+			delete dfd;
+			continue;
+		}
+
+		//将其他数据添加至绘画数据中
+		dfd->expressionStr.push_back(CString("r(a)=") + dlg.GetExpressionStr());
+		dfd->lineWidth = dlg.GetLineWidth();
+		dfd->lineType = dlg.GetLineType();
+		dfd->lineColor = dlg.GetLineColor();
+
+
+		//释放旧的资源
+		delete* itFunc;
+		delete* itDraw;
+
+		//指针指向新的结点
+		(*itFunc) = pFunction;
+		(*itDraw) = dfd;
+		
+		break;
+	}
+}
+void CFunctionIndicatorDoc::AlterTwoFunc(std::list<SML::MathFunction*>::iterator itFunc, std::list<DrawFuncData*>::iterator itDraw) {
+	//获得极坐标函数表达式
+	std::list<SML::FunctionExpression> funcExpList = (*itFunc)->GetExpression();
+	SML::FunctionExpression funcExpX = *(funcExpList.begin());
+	SML::FunctionExpression funcExpY = *(++funcExpList.begin());
+
+	//创建对话框，并传入特殊参数
+	CTwoFuncDlg dlg("修改极坐标函数", funcExpX.m_Expression,
+
+		//表达式字符串前5个字符是辅助用的，需要去掉
+		(*itDraw)->expressionStr[0].Right((*itDraw)->expressionStr[0].GetLength() - 5),
+
+		funcExpY.m_Expression,
+
+		//表达式字符串前5个字符是辅助用的，需要去掉
+		(*itDraw)->expressionStr[1].Right((*itDraw)->expressionStr[1].GetLength() - 5),
+
+		funcExpX.m_Left, funcExpX.m_Right, (*itDraw)->precision,
+		(*itDraw)->lineWidth, (*itDraw)->lineType, (*itDraw)->lineColor);
+		
+	while (dlg.DoModal() == IDOK) {
+
+		//获得函数类对象
+		SML::MathFunction* pFunction = dlg.GetMathFunction();
+
+		//新建绘画数据，传入必要参数
+		DrawFuncData* dfd = new DrawFuncData;
+		dfd->precision = dlg.GetPrecision();
+
+		//计算函数图像数据，范围为该函数定义域，并将结果保存至绘画数据中
+		dfd->drawPoint = pFunction->Calculate(dlg.GetMin(), dlg.GetMax(), dfd->precision);
+
+		//计算失败，弹出提示弹窗，释放相应资源并重新显示对话框
+		if (pFunction->IsSuccess() == false) {
+			AfxMessageBox(pFunction->GetError().c_str());
+			delete pFunction;
+			delete dfd;
+			continue;
+		}
+
+		//将其他数据添加至绘画数据中
+		dfd->expressionStr.push_back(CString("x(t)=") + dlg.GetExpressionStrX());
+		dfd->expressionStr.push_back(CString("y(t)=") + dlg.GetExpressionStrY());
+		dfd->lineWidth = dlg.GetLineWidth();
+		dfd->lineType = dlg.GetLineType();
+		dfd->lineColor = dlg.GetLineColor();
+
+		//释放旧的资源
+		delete* itFunc;
+		delete* itDraw;
+
+		//指针指向新的结点
+		(*itFunc) = pFunction;
+		(*itDraw) = dfd;
+
+		break;
+	}
+
+}
+
 MoveMode CFunctionIndicatorDoc::GetMoveMode() {
 	return this->m_MoveMode;
 }
@@ -430,7 +629,7 @@ void CFunctionIndicatorDoc::OnDelFunc()
 {
 	CFuncNumDlg dlg("删除函数", "请输入要删除的函数序号");
 	if (dlg.DoModal() == IDOK) {
-		DelFunction(dlg.GetNum());  //删除函数
+		this->DelFunction(dlg.GetNum());  //删除函数
 	}
 
 	UpdateAllViews(NULL);
@@ -541,4 +740,14 @@ void CFunctionIndicatorDoc::OnFuncList()
 void CFunctionIndicatorDoc::OnUpdateFuncList(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(this->m_ShowFuncList);
+}
+
+
+void CFunctionIndicatorDoc::OnAlterFunc()
+{
+	CFuncNumDlg dlg("修改函数参数", "请输入要修改的函数序号");
+	if (dlg.DoModal() == IDOK) {
+		this->AlterFunction(dlg.GetNum());  //修改函数
+	}
+	UpdateAllViews(NULL);
 }

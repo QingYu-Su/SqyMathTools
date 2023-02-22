@@ -80,6 +80,18 @@ public:
 	void UpdateFunction();  //更新函数，重新计算函数图像绘制点，仅对普通函数更新
 	void DelFunction(int num); //删除特定序号函数，序号由1开始
 	void ClearFunction(); //清空所有函数
+
+	void AlterFunction(int num); //修改特定序号函数的参数，序号由1开始
+
+	//修改链表中的普通函数
+	void AlterNormalFunc(std::list<SML::MathFunction*>::iterator itFunc, std::list<DrawFuncData*>::iterator itDraw); 
+	
+	//修改链表中的极坐标函数
+	void AlterPolarFunc(std::list<SML::MathFunction*>::iterator itFunc, std::list<DrawFuncData*>::iterator itDraw);  
+	
+	//修改链表中的参数方程函数
+	void AlterTwoFunc(std::list<SML::MathFunction*>::iterator itFunc, std::list<DrawFuncData*>::iterator itDraw);  
+	
 	MoveMode GetMoveMode();  //获得当前移动模式
 	void SetMoveMode(MoveMode mode);  //设置当前移动模式
 	bool IsShowEdge(); //是否显示边框
@@ -125,4 +137,5 @@ public:
 	afx_msg void OnUpdateFunctionInfo(CCmdUI* pCmdUI);
 	afx_msg void OnFuncList();
 	afx_msg void OnUpdateFuncList(CCmdUI* pCmdUI);
+	afx_msg void OnAlterFunc();
 };
