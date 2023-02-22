@@ -9,9 +9,12 @@
 #define IDR_MAINFRAME                   128
 #define IDR_FunctionIndicatorTYPE       130
 #define IDD_ADD_NORMALFUNC_DIALOG       310
+#define IDD_NORMALFUNC_DIALOG           310
 #define IDD_FUNCTION_DIALOG             311
 #define IDD_ADD_POLARFUNC_DIALOG        312
+#define IDD_POLARFUNC_DIALOG            312
 #define IDD_ADD_TWOFUNC_DIALOG          313
+#define IDD_TWOFUNC_DIALOG              313
 #define IDD_SET_RANGE_DIALOG            316
 #define IDD_FUNC_NUM_DIALOG             317
 #define IDC_BUTTON_EDITFUNC             1003

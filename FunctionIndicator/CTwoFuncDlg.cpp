@@ -1,36 +1,43 @@
-﻿// CAddTwoFuncDlg.cpp: 实现文件
+﻿// CTwoFuncDlg.cpp: 实现文件
 //
 
 #include "pch.h"
 #include "FunctionIndicator.h"
 #include "afxdialogex.h"
-#include "CAddTwoFuncDlg.h"
+#include "CTwoFuncDlg.h"
 #include "CFunctionDlg.h"
 
 
-// CAddTwoFuncDlg 对话框
+// CTwoFuncDlg 对话框
 
-IMPLEMENT_DYNAMIC(CAddTwoFuncDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CTwoFuncDlg, CDialogEx)
 
-CAddTwoFuncDlg::CAddTwoFuncDlg(double left, double right, CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_ADD_TWOFUNC_DIALOG, pParent)
-	, m_Precision(1000)
-	, m_LineWidth(1)
-	, m_LineType(PS_SOLID)
-	, m_LineColor(RGB(0, 0, 0))
+CTwoFuncDlg::CTwoFuncDlg(CString title, SML::MathExpression expressionX,
+	CString expressionStrX, SML::MathExpression expressionY,
+	CString expressionStrY, double left, double right, size_t precision,
+	int lineWidth, int lineType, COLORREF color, CWnd* pParent /*=nullptr*/)
+	: CDialogEx(IDD_TWOFUNC_DIALOG, pParent)
+	, m_Title(title)
+	, m_ExpressionX(expressionX)
+	, m_ExpressionStrX(expressionStrX)
+	, m_ExpressionY(expressionY)
+	, m_ExpressionStrY(expressionStrY)
+	, m_Precision(precision)
+	, m_LineWidth(lineWidth)
+	, m_LineType(lineType)
+	, m_LineColor(color)
 	, m_Left(left)
 	, m_Right(right)
-	, m_ExpressionStrX(_T(""))
-	, m_ExpressionStrY(_T(""))
 {
 
 }
 
-CAddTwoFuncDlg::~CAddTwoFuncDlg()
+
+CTwoFuncDlg::~CTwoFuncDlg()
 {
 }
 
-void CAddTwoFuncDlg::DoDataExchange(CDataExchange* pDX)
+void CTwoFuncDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT_MIN, m_Left);
@@ -42,7 +49,13 @@ void CAddTwoFuncDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_FUNCTION_Y, m_ExpressionStrY);
 }
 
-SML::MathFunction* CAddTwoFuncDlg::GetMathFunction() {
+BOOL CTwoFuncDlg::OnInitDialog() {
+	CDialogEx::OnInitDialog();
+	this->SetWindowTextA(m_Title);  //设置对话框标题
+	return TRUE;
+}
+
+SML::MathFunction* CTwoFuncDlg::GetMathFunction() {
 	//创建X(t)函数表达式
 	SML::FunctionExpression funcExpressionX(this->m_ExpressionX, 'x', 't', this->m_Left, this->m_Right);
 
@@ -53,51 +66,51 @@ SML::MathFunction* CAddTwoFuncDlg::GetMathFunction() {
 
 }
 
-CString CAddTwoFuncDlg::GetExpressionStrX() {
+CString CTwoFuncDlg::GetExpressionStrX() {
 	return this->m_ExpressionStrX;
 }
 
-CString CAddTwoFuncDlg::GetExpressionStrY() {
+CString CTwoFuncDlg::GetExpressionStrY() {
 	return this->m_ExpressionStrY;
 }
 
-size_t CAddTwoFuncDlg::GetPrecision() {
+size_t CTwoFuncDlg::GetPrecision() {
 	return this->m_Precision;
 }
 
-double CAddTwoFuncDlg::GetMin() {
+double CTwoFuncDlg::GetMin() {
 	return this->m_Left;
 }
 
-double CAddTwoFuncDlg::GetMax() {
+double CTwoFuncDlg::GetMax() {
 	return this->m_Right;
 }
 
-int CAddTwoFuncDlg::GetLineWidth() {
+int CTwoFuncDlg::GetLineWidth() {
 	return this->m_LineWidth;
 }
 
-int CAddTwoFuncDlg::GetLineType() {
+int CTwoFuncDlg::GetLineType() {
 	return this->m_LineType;
 }
 
-COLORREF CAddTwoFuncDlg::GetLineColor() {
+COLORREF CTwoFuncDlg::GetLineColor() {
 	return this->m_LineColor;
 }
 
 
 
-BEGIN_MESSAGE_MAP(CAddTwoFuncDlg, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON_EDITFUNC_X, &CAddTwoFuncDlg::OnBnClickedButtonEditfuncX)
-	ON_BN_CLICKED(IDC_BUTTON_EDITFUNC_Y, &CAddTwoFuncDlg::OnBnClickedButtonEditfuncY)
-	ON_BN_CLICKED(IDC_BUTTON_LINE_COLOR, &CAddTwoFuncDlg::OnBnClickedButtonLineColor)
+BEGIN_MESSAGE_MAP(CTwoFuncDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_BUTTON_EDITFUNC_X, &CTwoFuncDlg::OnBnClickedButtonEditfuncX)
+	ON_BN_CLICKED(IDC_BUTTON_EDITFUNC_Y, &CTwoFuncDlg::OnBnClickedButtonEditfuncY)
+	ON_BN_CLICKED(IDC_BUTTON_LINE_COLOR, &CTwoFuncDlg::OnBnClickedButtonLineColor)
 END_MESSAGE_MAP()
 
 
-// CAddTwoFuncDlg 消息处理程序
+// CTwoFuncDlg 消息处理程序
 
 
-void CAddTwoFuncDlg::OnBnClickedButtonEditfuncX()
+void CTwoFuncDlg::OnBnClickedButtonEditfuncX()
 {
 	UpdateData();
 
@@ -111,7 +124,7 @@ void CAddTwoFuncDlg::OnBnClickedButtonEditfuncX()
 }
 
 
-void CAddTwoFuncDlg::OnBnClickedButtonEditfuncY()
+void CTwoFuncDlg::OnBnClickedButtonEditfuncY()
 {
 	UpdateData();
 
@@ -125,7 +138,7 @@ void CAddTwoFuncDlg::OnBnClickedButtonEditfuncY()
 }
 
 
-void CAddTwoFuncDlg::OnBnClickedButtonLineColor()
+void CTwoFuncDlg::OnBnClickedButtonLineColor()
 {
 	//弹出设置颜色对话框
 	CColorDialog dlg;

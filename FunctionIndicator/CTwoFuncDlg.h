@@ -4,25 +4,30 @@
 #pragma comment(lib, "../x64/Debug/SqyMathLibrary.lib")
 namespace SML = SqyMathLibrary;  //命名空间重命名
 
-// CAddTwoFuncDlg 对话框
+// CTwoFuncDlg 对话框
 
-class CAddTwoFuncDlg : public CDialogEx
+class CTwoFuncDlg : public CDialogEx
 {
-	DECLARE_DYNAMIC(CAddTwoFuncDlg)
+	DECLARE_DYNAMIC(CTwoFuncDlg)
 
 public:
-	CAddTwoFuncDlg(double left, double right, CWnd* pParent = nullptr);   // 标准构造函数
-	virtual ~CAddTwoFuncDlg();
+	CTwoFuncDlg(CString title, SML::MathExpression expressionX,
+		CString expressionStrX, SML::MathExpression expressionY,
+		CString expressionStrY, double left, double right, size_t precision = 1000,
+		int lineWidth = 1, int lineType = PS_SOLID, COLORREF color = RGB(0, 0, 0),
+		CWnd* pParent = nullptr);   // 标准构造函数
+	virtual ~CTwoFuncDlg();
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_ADD_TWOFUNC_DIALOG };
+	enum { IDD = IDD_TWOFUNC_DIALOG};
 #endif
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 public:
+	BOOL OnInitDialog();
 	SML::MathFunction* GetMathFunction();  //获得函数类对象
 	CString GetExpressionStrX();  //返回X(t)函数表达式字符串
 	CString GetExpressionStrY();  //返回X(t)函数表达式字符串
@@ -34,6 +39,7 @@ public:
 	COLORREF GetLineColor();  //获得线颜色
 
 private:
+	CString m_Title;  //对话框标题
 	SML::MathExpression m_ExpressionX;  //X(t)函数表达式
 	SML::MathExpression m_ExpressionY;  //Y(t)函数表达式
 	CString m_ExpressionStrX;  //X(t)函数表达式字符串

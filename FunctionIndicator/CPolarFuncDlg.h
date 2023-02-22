@@ -5,22 +5,29 @@
 namespace SML = SqyMathLibrary;  //命名空间重命名
 
 
-// CAddNormalFuncDlg 对话框
+// CPolarFuncDlg 对话框
 
-class CAddNormalFuncDlg : public CDialogEx
+class CPolarFuncDlg : public CDialogEx
 {
-	DECLARE_DYNAMIC(CAddNormalFuncDlg)
+	DECLARE_DYNAMIC(CPolarFuncDlg)
 
 public:
-	CAddNormalFuncDlg(double left, double right, CWnd* pParent = nullptr);   // 标准构造函数
-	virtual ~CAddNormalFuncDlg();
+	CPolarFuncDlg(CString title, SML::MathExpression expression,
+		CString expressionStr, double left, double right, size_t precision = 1000,
+		int lineWidth = 1, int lineType = PS_SOLID, COLORREF color = RGB(0, 0, 0),
+		CWnd* pParent = nullptr);   // 标准构造函数
+	virtual ~CPolarFuncDlg();
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_ADD_NORMALFUNC_DIALOG };
+	enum { IDD = IDD_POLARFUNC_DIALOG};
 #endif
 
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+
 public:
+	BOOL OnInitDialog();
 	SML::MathFunction* GetMathFunction();  //获得函数类对象
 	CString GetExpressionStr();  //返回函数表达式字符串
 	size_t GetPrecision();  //获得函数精度
@@ -30,10 +37,8 @@ public:
 	int GetLineType();  //获得线型
 	COLORREF GetLineColor();  //获得线颜色
 
-protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
-
 private:
+	CString m_Title;  //对话框标题
 	SML::MathExpression m_Expression;  //函数表达式
 	CString m_ExpressionStr;  //函数表达式字符串
 	double m_Left, m_Right;  //函数定义域

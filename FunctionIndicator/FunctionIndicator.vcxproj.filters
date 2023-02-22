@@ -45,7 +45,7 @@
     <ClInclude Include="CFunctionDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CAddNormalFuncDlg.h">
+    <ClInclude Include="CNormalFuncDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\SqyMathLibrary\include\Calculator.h">
@@ -66,10 +66,10 @@
     <ClInclude Include="..\SqyMathLibrary\include\UniFunction.h">
       <Filter>头文件\SqyMathLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="CAddPolarFuncDlg.h">
+    <ClInclude Include="CPolarFuncDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CAddTwoFuncDlg.h">
+    <ClInclude Include="CTwoFuncDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CSetXYRangeDlg.h">
@@ -98,13 +98,13 @@
     <ClCompile Include="CFunctionDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CAddNormalFuncDlg.cpp">
+    <ClCompile Include="CNormalFuncDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CAddPolarFuncDlg.cpp">
+    <ClCompile Include="CPolarFuncDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CAddTwoFuncDlg.cpp">
+    <ClCompile Include="CTwoFuncDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CSetXYRangeDlg.cpp">

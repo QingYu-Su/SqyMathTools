@@ -11,9 +11,9 @@
 #endif
 
 #include "FunctionIndicatorDoc.h"
-#include "CAddNormalFuncDlg.h"
-#include "CAddPolarFuncDlg.h"
-#include "CAddTwoFuncDlg.h"
+#include "CNormalFuncDlg.h"
+#include "CPolarFuncDlg.h"
+#include "CTwoFuncDlg.h"
 //#include "CDelFuncDlg.h"
 #include "CFuncNumDlg.h"
 #include "CSetXYRangeDlg.h"
@@ -302,7 +302,7 @@ bool CFunctionIndicatorDoc::IsShowFuncList() {
 void CFunctionIndicatorDoc::OnAddNormalFunc()
 {
 	//弹出增加普通函数窗口，并将当前X范围设置为函数定义域初始值
-	CAddNormalFuncDlg dlg(this->m_MinX, this->m_MaxX);
+	CNormalFuncDlg dlg("添加普通函数", SML::MathExpression(), "", this->m_MinX, this->m_MaxX);
 	while (dlg.DoModal() == IDOK) {
 		//获得函数类对象
 		SML::MathFunction* pFunction = dlg.GetMathFunction();
@@ -347,7 +347,8 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 void CFunctionIndicatorDoc::OnAddPolarFunc()
 {
 	//弹出增加极坐标函数窗口，并将-pi~pi设置为函数定义域初始值
-	CAddPolarFuncDlg dlg(-3.14, 3.14);
+	
+	CPolarFuncDlg dlg("添加极坐标函数", SML::MathExpression(), "", -3.14, 3.14);
 	while (dlg.DoModal() == IDOK) {
 		//获得函数类对象
 		SML::MathFunction* pFunction = dlg.GetMathFunction();
@@ -386,7 +387,9 @@ void CFunctionIndicatorDoc::OnAddPolarFunc()
 void CFunctionIndicatorDoc::OnAddTwoFunc()
 {
 	//弹出增加参数方程函数窗口，并设置函数定义域初始值
-	CAddTwoFuncDlg dlg(-5, 5);
+	
+	
+	CTwoFuncDlg dlg("添加参数方程函数", SML::MathExpression(), "", SML::MathExpression(), "", -5, 5);
 	while (dlg.DoModal() == IDOK) {
 
 		//获得函数类对象
