@@ -633,6 +633,7 @@ void CFunctionIndicatorDoc::OnDelFunc()
 			continue;
 		}
 		this->DelFunction(num);  //删除函数
+		break;
 	}
 
 	UpdateAllViews(NULL);
@@ -756,6 +757,7 @@ void CFunctionIndicatorDoc::OnAlterFunc()
 			continue;
 		}
 		this->AlterFunction(num);  //删除函数
+		break;
 	}
 	UpdateAllViews(NULL);
 }
