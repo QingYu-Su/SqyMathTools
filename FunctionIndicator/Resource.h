@@ -12,13 +12,12 @@
 #define IDD_FUNCTION_DIALOG             311
 #define IDD_ADD_POLARFUNC_DIALOG        312
 #define IDD_ADD_TWOFUNC_DIALOG          313
-#define IDD_DEL_FUNC_DIALOG             314
 #define IDD_SET_RANGE_DIALOG            316
+#define IDD_FUNC_NUM_DIALOG             317
 #define IDC_BUTTON_EDITFUNC             1003
 #define IDC_BUTTON_EDITFUNC_Y           1004
 #define IDC_EDIT                        1005
 #define IDC_EDIT_FUNCTION               1005
-#define IDC_EDIT_DEL_NUM                1005
 #define IDC_EDIT_FUNCTION_Y             1006
 #define IDC_EDIT_MIN                    1008
 #define IDC_EDIT_PRECISION              1011
@@ -32,7 +31,9 @@
 #define IDC_EDIT_FUNCTION_X             1017
 #define IDC_BUTTON_EDITFUNC_X           1018
 #define IDC_EDIT_MIN_X                  1020
+#define IDC_TIP                         1021
 #define IDC_EDIT_MAX_X                  1022
+#define IDC_EDIT_NUM                    1022
 #define IDC_EDIT_MIN_Y                  1023
 #define IDC_EDIT_MAX_Y                  1024
 #define IDC_NUM_3                       1044
@@ -104,7 +105,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32802
-#define _APS_NEXT_CONTROL_VALUE         1021
+#define _APS_NEXT_CONTROL_VALUE         1023
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

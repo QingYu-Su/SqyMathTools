@@ -14,7 +14,8 @@
 #include "CAddNormalFuncDlg.h"
 #include "CAddPolarFuncDlg.h"
 #include "CAddTwoFuncDlg.h"
-#include "CDelFuncDlg.h"
+//#include "CDelFuncDlg.h"
+#include "CFuncNumDlg.h"
 #include "CSetXYRangeDlg.h"
 
 #include <propkey.h>
@@ -424,7 +425,7 @@ void CFunctionIndicatorDoc::OnAddTwoFunc()
 
 void CFunctionIndicatorDoc::OnDelFunc()
 {
-	CDelFuncDlg dlg;
+	CFuncNumDlg dlg("删除函数", "请输入要删除的函数序号");
 	if (dlg.DoModal() == IDOK) {
 		DelFunction(dlg.GetNum());  //删除函数
 	}

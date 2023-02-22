@@ -192,7 +192,7 @@
     <ClInclude Include="CAddNormalFuncDlg.h" />
     <ClInclude Include="CAddPolarFuncDlg.h" />
     <ClInclude Include="CAddTwoFuncDlg.h" />
-    <ClInclude Include="CDelFuncDlg.h" />
+    <ClInclude Include="CFuncNumDlg.h" />
     <ClInclude Include="CFunctionDlg.h" />
     <ClInclude Include="CSetXYRangeDlg.h" />
     <ClInclude Include="framework.h" />
@@ -208,7 +208,7 @@
     <ClCompile Include="CAddNormalFuncDlg.cpp" />
     <ClCompile Include="CAddPolarFuncDlg.cpp" />
     <ClCompile Include="CAddTwoFuncDlg.cpp" />
-    <ClCompile Include="CDelFuncDlg.cpp" />
+    <ClCompile Include="CFuncNumDlg.cpp" />
     <ClCompile Include="CFunctionDlg.cpp" />
     <ClCompile Include="CSetXYRangeDlg.cpp" />
     <ClCompile Include="FunctionIndicator.cpp" />
