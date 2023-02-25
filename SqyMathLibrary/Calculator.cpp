@@ -161,6 +161,7 @@ namespace SqyMathLibrary {
 		//遍历
 		for (int i = 0; i < expression.size(); i++) {
 
+			//不允许空括号存在，否则会导致计算bug
 			if (i > 0 && expression[i - 1] == "(" && expression[i] == ")") {
 				this->SetResult(false, CALC_ERROR_EMPTY_BRA);
 				this->Reset();

@@ -50,7 +50,7 @@ namespace SqyMathLibrary {
         //设置该函数的函数表达式，由于表达式可能不止一个，故参数为一个链表，由子类实现具体代码
         virtual void SetExpression(std::list<FunctionExpression> expressionList) = 0;
 
-    protected://本类使用了策略模式，以下方法由子类实现，但无需由子类使用
+    protected://本类使用了模板方法，以下方法由子类实现，但无需由子类使用
         virtual bool IsValid() = 0;  //函数是否有效，必须由子类实现
         virtual void PreProcess() {}  //计算之前的预处理，没有则不必实现
         virtual OPERAND GetX(OPERAND parameter) = 0;  //获取函数自变量的某个值在x轴上的对应值，必须由子类实现，返回INV表示计算失败
