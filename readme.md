@@ -73,7 +73,11 @@
 
 5. 可设置显示坐标轴，网格，刻度值，函数列表、函数信息
 
-![FunctionIndicator Demo1](Picture/FunctionIndicator-Demo9.png)
+![FunctionIndicator Demo9](Picture/FunctionIndicator-Demo9.png)
+
+6. 支持单/多函数模式，在单函数模式下仅显示一个函数
+
+![FunctionIndicator Demo10](Picture/FunctionIndicator-Demo10.png)
 
 
 ## 项目代码解析
@@ -429,7 +433,7 @@ private:
 	bool m_ShowEdge; //显示边框
 	bool m_ShowAxis; //显示坐标轴
 	bool m_ShowGrid; //显示网格
-	bool m_SingelMode;   //单函数模式
+	bool m_Single;   //显示单个函数
 	bool m_ShowFuncInfo;//鼠标接近函数线时显示其函数信息，包括函数点坐标和函数序号
 	bool m_ShowFuncList; //在函数图像右侧显示函数表达式列表
 

@@ -105,7 +105,7 @@ private:
 	bool m_ShowEdge; //显示边框
 	bool m_ShowAxis; //显示坐标轴
 	bool m_ShowGrid; //显示网格
-	bool m_SingelMode;   //单函数模式
+	bool m_Single;   //显示单个函数
 	bool m_ShowFuncInfo;//鼠标接近函数线时显示其函数信息，包括函数点坐标和函数序号
 	bool m_ShowFuncList; //在函数图像右侧显示函数表达式列表
 
@@ -139,4 +139,6 @@ public:
 	afx_msg void OnFuncList();
 	afx_msg void OnUpdateFuncList(CCmdUI* pCmdUI);
 	afx_msg void OnAlterFunc();
+	afx_msg void OnSingle();
+	afx_msg void OnUpdateSingle(CCmdUI* pCmdUI);
 };

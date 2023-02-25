@@ -47,6 +47,8 @@ BEGIN_MESSAGE_MAP(CFunctionIndicatorDoc, CDocument)
 	ON_COMMAND(ID_FUNC_LIST, &CFunctionIndicatorDoc::OnFuncList)
 	ON_UPDATE_COMMAND_UI(ID_FUNC_LIST, &CFunctionIndicatorDoc::OnUpdateFuncList)
 	ON_COMMAND(ID_ALTER_FUNC, &CFunctionIndicatorDoc::OnAlterFunc)
+	ON_COMMAND(ID_SINGLE, &CFunctionIndicatorDoc::OnSingle)
+	ON_UPDATE_COMMAND_UI(ID_SINGLE, &CFunctionIndicatorDoc::OnUpdateSingle)
 END_MESSAGE_MAP()
 
 
@@ -57,7 +59,7 @@ CFunctionIndicatorDoc::CFunctionIndicatorDoc() noexcept
 	this->m_ShowGrid = true;
 	this->m_ShowAxis = true;
 	this->m_ShowEdge = true;
-	this->m_SingelMode = true;
+	this->m_Single = false;
 	this->m_ShowFuncInfo = true;
 	this->m_ShowFuncList = true;
 	this->m_MinX = -10;
@@ -526,6 +528,11 @@ void CFunctionIndicatorDoc::OnAddNormalFunc()
 			continue;
 		}
 
+		//单函数模式下链表仅保存一个结点
+		if (this->m_Single == true) {
+			this->ClearFunction();
+		}
+
 		//将其他数据添加至绘画数据中
 		dfd->expressionStr.push_back(CString("f(x)=") + dlg.GetExpressionStr());
 		dfd->lineWidth = dlg.GetLineWidth();
@@ -567,6 +574,11 @@ void CFunctionIndicatorDoc::OnAddPolarFunc()
 			continue;
 		}
 
+		//单函数模式下链表仅保存一个结点
+		if (this->m_Single == true) {
+			this->ClearFunction();
+		}
+
 		//将其他数据添加至绘画数据中
 		dfd->expressionStr.push_back(CString("r(a)=") + dlg.GetExpressionStr());
 		dfd->lineWidth = dlg.GetLineWidth();
@@ -605,6 +617,11 @@ void CFunctionIndicatorDoc::OnAddTwoFunc()
 			delete pFunction;
 			delete dfd;
 			continue;
+		}
+
+		//单函数模式下链表仅保存一个结点
+		if (this->m_Single == true) {
+			this->ClearFunction();
 		}
 
 		//将其他数据添加至绘画数据中
@@ -761,3 +778,19 @@ void CFunctionIndicatorDoc::OnAlterFunc()
 	}
 	UpdateAllViews(NULL);
 }
+
+void CFunctionIndicatorDoc::OnSingle() {
+	this->m_Single = !this->m_Single;
+
+	//由多函数转单函数，且当前存在多个函数，需清除所有函数
+	if (this->m_Single == true && this->m_FunctionList.size() > 1) {
+		this->ClearFunction();
+		UpdateAllViews(NULL);
+	}
+}
+
+void CFunctionIndicatorDoc::OnUpdateSingle(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck(this->m_Single);
+}
+
