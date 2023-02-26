@@ -698,7 +698,7 @@ void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 }
 ```
 
-##参考资料
+## 参考资料
 
 - [Calculator_Qt](https://github.com/QiTianyu-0403/Calculator_Qt)
 
@@ -709,3 +709,7 @@ void CFunctionIndicatorView::OnMouseMove(UINT nFlags, CPoint point)
 ## 作者
 
 - [@苏青羽](https://github.com/suqingyu123456)
+
+## 证书
+
+[MIT](https://choosealicense.com/licenses/mit/)
