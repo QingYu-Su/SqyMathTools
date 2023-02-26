@@ -381,7 +381,7 @@ class MathFunction{
 
 2. 下面是项目的所有模块
 
- ![Calculator1](Picture/CalCulator-1.png)
+ ![Calculator1](Picture/Calculator-1.png)
 
 3. 下面是对每个模块的简单的介绍，按这个顺序查看源代码有助于理解
 
