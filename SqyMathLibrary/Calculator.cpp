@@ -55,6 +55,7 @@ namespace SqyMathLibrary {
 		if (s == "zero") return 0; //zero为不可见0，是方便计算类似于-3+（-5）这样的表达式设计的
 		if (s == "INF") return INF;
 		OPERAND res =  stod(s);  //调用标准库函数
+		return res;
 	}
 
 	MathOperator* Calculator::GetMathOperator(const std::string& s) const{
