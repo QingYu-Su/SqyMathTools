@@ -773,7 +773,7 @@ void CFunctionIndicatorDoc::OnAlterFunc()
 			AfxMessageBox("请输入有效范围的函数序号");
 			continue;
 		}
-		this->AlterFunction(num);  //删除函数
+		this->AlterFunction(num);  //修改函数
 		break;
 	}
 	UpdateAllViews(NULL);

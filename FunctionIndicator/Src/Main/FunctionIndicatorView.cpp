@@ -575,10 +575,10 @@ void CFunctionIndicatorView::OnDraw(CDC* pDC)
 	//标注坐标信息
 	this->MarkCoordinateValue(pDC);
 
-	//画坐标轴
+	//画网格
 	if ( pDoc->IsShowGrid() == true ) this->DrawGrid(pDC);
 	
-	//画网格
+	//画坐标轴
 	if ( pDoc->IsShowAxis() == true )this->DrawAxis(pDC);
 	
 	//画函数图像
